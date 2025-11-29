@@ -520,6 +520,24 @@
   ],
   "projects": [
     {
+      "id": 1764407188064,
+      "category": "robotics",
+      "title": "Box Sweep Robot",
+      "description": "Built an autonomous robot capable of identifying and removing cardboard boxes from a table — without ever crossing the boundary line. This challenge pushed us to combine smart sensing, precise control, and reliable decision-making into one cohesive system.\n",
+      "image": "https://drive.google.com/file/d/1DyoT9G7ji_dpgD3Q6RYWjxeAcB2pObLT/view?usp=drivesdk",
+      "tech": [
+        "Arduino",
+        "Sensors",
+        "C++",
+        "Proteus"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1wNKux4k71QZDjgmYtQNDDmn4UsppuJK2/view?usp=drivesdk",
+      "date": "November 2025",
+      "categoryLabel": "Robotics"
+    },
+    {
       "id": 1,
       "category": "mobile",
       "title": "Serandib Stay - Hotel Management System",
