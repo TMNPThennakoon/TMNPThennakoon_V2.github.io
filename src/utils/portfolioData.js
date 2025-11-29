@@ -68,7 +68,7 @@ let requestQueue = [];
 // Function to update portfolio.json on GitHub via API
 async function updatePortfolioJsonOnGitHub(data, token) {
   const owner = 'TMNPThennakoon';
-  const repo = 'TMNP.Thennakoon_V2.github.io';
+  const repo = 'TMNPThennakoon_V2.github.io';
   const path = 'src/data/portfolio.json';
   const branch = 'main';
   
