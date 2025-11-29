@@ -534,6 +534,29 @@
   ],
   "projects": [
     {
+      "id": 1764441036707,
+      "category": "iot",
+      "title": "Industrial Machine Vibration & Environment Logger DAQ System",
+      "description": "Built an IoT-based real-time monitoring and automated response system for industrial machines that tracks vibration, temperature, sound, and fire hazards to enable predictive maintenance, prevent equipment failure, and protect personnel.\n\n📊 Project Overview:\nFull-stack IoT solution: ESP32 microcontrollers, multiple sensors, automated actuators, Firebase cloud storage, and Next.js dashboard for real-time monitoring, data analytics, and automated safety responses.\n\n🔧 Hardware:\nSensors: SW-420 Vibration, DHT22 Temp/Humidity, KY-037 Sound, Flame Sensor\nActuators: Cooling Fan (L298N), Water Pump (L298N), Audio Speaker (BC547), Buzzer, 4x LEDs, LCD 16x2 Display\n\n💡 Key Features:\n✅ Real-time monitoring (100ms sampling) \n✅ Live Chart.js dashboard\n✅ Firebase cloud storage \n✅ Audio voice alerts for engineers \n✅ Auto responses (fan on high temp, pump on fire) \n✅ CSV/PDF exports \n✅ Serial & WiFi connectivity \n✅ Manual/auto control modes\n\n💡 Why Valuable:\n🛡️ Safety: Fire detection with auto water pump, multi-level alerts (LEDs, buzzer, speaker)\n📈 Predictive Maintenance: Early anomaly detection, vibration analysis, temp monitoring\n💰 Cost Savings: Reduces downtime, extends equipment life, automated cooling\n📊 Data-Driven: Historical analysis, compliance reporting, real-time insights",
+      "image": "https://drive.google.com/file/d/14zwmqNLlryX1qlNe0kIdcDaE1CNWEZoC/view?usp=drivesdk",
+      "tech": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind",
+        "Chart.js",
+        "ESP32",
+        "Sensors",
+        "ArduioIDE",
+        "C++"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1mkdurPPrI7BfvN9aRpaL9j-B6m2U7eD1/view?usp=drivesdk",
+      "date": "November 2025",
+      "categoryLabel": "IoT System"
+    },
+    {
       "id": 1764407188064,
       "category": "robotics",
       "title": "Box Sweep Robot",
