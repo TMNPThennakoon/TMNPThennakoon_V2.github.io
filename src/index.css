@@ -286,6 +286,176 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--accent-primary) !important;
 }
 
+/* Light mode Profile section - Name visibility */
+.light-mode #profile h1,
+.light-mode #profile .text-white {
+  color: var(--text-primary) !important;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.light-mode #profile .text-gray-300 {
+  color: var(--text-secondary) !important;
+}
+
+.light-mode #profile .text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+.light-mode #profile .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+/* Light mode Certifications - Dark cards with light text */
+.light-mode #certifications {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode #certifications .card-glow {
+  background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
+              linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary)) border-box !important;
+  border: 1.5px solid transparent !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), var(--shadow-lg) !important;
+}
+
+.light-mode #certifications .card-glow * {
+  color: #ffffff !important;
+}
+
+.light-mode #certifications .card-glow h3 {
+  color: #ffffff !important;
+}
+
+.light-mode #certifications .card-glow p {
+  color: #e5e7eb !important;
+}
+
+.light-mode #certifications .card-glow span {
+  color: #d1d5db !important;
+}
+
+.light-mode #certifications .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+/* Light mode Academic Journey - Better visibility */
+.light-mode #education {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode #education .edu-card-glow {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.light-mode #education .edu-card-glow * {
+  color: var(--text-primary) !important;
+}
+
+.light-mode #education .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+.light-mode #education .bg-gray-700 {
+  background-color: var(--border-color) !important;
+}
+
+.light-mode #education .border-black {
+  border-color: var(--accent-primary) !important;
+}
+
+/* Light mode Work Experience - Light cards instead of dark */
+.light-mode #experience {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode #experience .bg-gradient-to-br.from-gray-900.to-black {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.light-mode #experience .bg-gradient-to-br.from-gray-900.to-black * {
+  color: var(--text-primary) !important;
+}
+
+.light-mode #experience .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+.light-mode #experience .text-blue-300 {
+  color: var(--accent-primary) !important;
+}
+
+.light-mode #experience .border-cyan-500\/30 {
+  border-color: var(--border-color) !important;
+}
+
+.light-mode #experience .border-cyan-500\/30:hover {
+  border-color: var(--accent-primary) !important;
+  box-shadow: var(--shadow-colored) !important;
+}
+
+/* Light mode Contact section - Better colors and visibility */
+.light-mode #contact {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode #contact .bg-gradient-to-br.from-gray-900.to-black {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.light-mode #contact .bg-gradient-to-br.from-gray-900.to-black h3 {
+  color: var(--text-primary) !important;
+}
+
+.light-mode #contact .bg-gradient-to-br.from-gray-900.to-black * {
+  color: var(--text-primary) !important;
+}
+
+.light-mode #contact .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+.light-mode #contact .text-white {
+  color: var(--text-primary) !important;
+}
+
+.light-mode #contact .bg-gray-900\/50 {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.light-mode #contact .border-gray-700 {
+  border-color: var(--border-color) !important;
+}
+
+.light-mode #contact input,
+.light-mode #contact textarea {
+  color: var(--text-primary) !important;
+}
+
+.light-mode #contact input::placeholder,
+.light-mode #contact textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Light mode Footer */
+.light-mode footer {
+  background: linear-gradient(to top, var(--bg-secondary) 0%, var(--bg-primary) 100%) !important;
+  border-top-color: var(--border-color) !important;
+}
+
+.light-mode footer .text-gray-400 {
+  color: var(--text-secondary) !important;
+  font-weight: 600;
+}
+
 /* Smooth theme transition */
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
