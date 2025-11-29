@@ -349,7 +349,7 @@ function AdminDashboard() {
               >
                 ← Back
               </a>
-              <h2 className="text-base md:text-lg font-semibold text-cyan-400 truncate">
+              <h2 className="text-2xl md:text-lg font-semibold text-cyan-400 truncate">
                 {menuItems.find(item => item.id === activeTab)?.label} Editor
               </h2>
             </div>
@@ -452,95 +452,95 @@ function AdminDashboard() {
           {/* Profile Tab */}
           {activeTab === 'profile' && (
             <div className="space-y-4">
-              <h2 className="text-xl md:text-2xl font-bold mb-4">Profile Information</h2>
+              <h2 className="text-2xl md:text-2xl font-bold mb-4">Profile Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-2">Name</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Name</label>
                   <input
                     type="text"
                     value={portfolioData.profile.name}
                     onChange={(e) => handleInputChange('profile', 'name', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2">Title</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Title</label>
                   <input
                     type="text"
                     value={portfolioData.profile.title}
                     onChange={(e) => handleInputChange('profile', 'title', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div className="col-span-2">
-                  <label className="block mb-2">Description</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Description</label>
                   <textarea
                     value={portfolioData.profile.description}
                     onChange={(e) => handleInputChange('profile', 'description', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div className="col-span-2">
-                  <label className="block mb-2">Education Text</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Education Text</label>
                   <textarea
                     value={portfolioData.profile.education}
                     onChange={(e) => handleInputChange('profile', 'education', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2">Profile Image URL</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Profile Image URL</label>
                   <input
                     type="text"
                     value={portfolioData.profile.profileImage}
                     onChange={(e) => handleInputChange('profile', 'profileImage', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                     placeholder="/pro.png"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2">GitHub URL</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">GitHub URL</label>
                   <input
                     type="text"
                     value={portfolioData.profile.socialLinks.github}
                     onChange={(e) => handleInputChange('profile', 'socialLinks.github', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2">LinkedIn URL</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">LinkedIn URL</label>
                   <input
                     type="text"
                     value={portfolioData.profile.socialLinks.linkedin}
                     onChange={(e) => handleInputChange('profile', 'socialLinks.linkedin', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2">Email</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Email</label>
                   <input
                     type="email"
                     value={portfolioData.profile.socialLinks.email}
                     onChange={(e) => handleInputChange('profile', 'socialLinks.email', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2">CV URL</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">CV URL</label>
                   <input
                     type="text"
                     value={portfolioData.profile.socialLinks.cv}
                     onChange={(e) => handleInputChange('profile', 'socialLinks.cv', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div className="col-span-2">
-                  <label className="block mb-2">Typing Words (comma separated)</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Typing Words (comma separated)</label>
                   <input
                     type="text"
                     value={portfolioData.profile.typingWords.join(', ')}
                     onChange={(e) => handleInputChange('profile', 'typingWords', e.target.value.split(',').map(w => w.trim()))}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                     placeholder="Engineering Technology Student, Web Developer, ..."
                   />
                 </div>
@@ -551,41 +551,41 @@ function AdminDashboard() {
           {/* About Tab */}
           {activeTab === 'about' && (
             <div className="space-y-4">
-              <h2 className="text-xl md:text-2xl font-bold mb-4">About Section</h2>
+              <h2 className="text-2xl md:text-2xl font-bold mb-4">About Section</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-2">Title</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Title</label>
                   <input
                     type="text"
                     value={portfolioData.about.title}
                     onChange={(e) => handleInputChange('about', 'title', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2">Subtitle</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Subtitle</label>
                   <input
                     type="text"
                     value={portfolioData.about.subtitle}
                     onChange={(e) => handleInputChange('about', 'subtitle', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div className="col-span-2">
-                  <label className="block mb-2">Description</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Description</label>
                   <textarea
                     value={portfolioData.about.description}
                     onChange={(e) => handleInputChange('about', 'description', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg h-32 focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg h-32 focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div className="col-span-2">
-                  <label className="block mb-2">About Image URL</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">About Image URL</label>
                   <input
                     type="text"
                     value={portfolioData.about.image}
                     onChange={(e) => handleInputChange('about', 'image', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                     placeholder="/pro2.png"
                   />
                 </div>
@@ -597,7 +597,7 @@ function AdminDashboard() {
           {activeTab === 'skills' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                <h2 className="text-xl md:text-2xl font-bold">Skills</h2>
+                <h2 className="text-2xl md:text-2xl font-bold">Skills</h2>
                 <button
                   onClick={() => addArrayItem('skills', {
                     id: Date.now(),
@@ -614,7 +614,7 @@ function AdminDashboard() {
               {portfolioData.skills.map((skill, index) => (
                 <div key={skill.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
-                    <h3 className="text-lg md:text-xl font-semibold">Skill Category {index + 1}</h3>
+                    <h3 className="text-xl md:text-xl font-semibold">Skill Category {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('skills', index)}
                       className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
@@ -624,30 +624,30 @@ function AdminDashboard() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block mb-2">Title</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Title</label>
                       <input
                         type="text"
                         value={skill.title}
                         onChange={(e) => handleArrayItemChange('skills', index, 'title', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Icon URL</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Icon URL</label>
                       <input
                         type="text"
                         value={skill.iconUrl}
                         onChange={(e) => handleArrayItemChange('skills', index, 'iconUrl', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label className="block mb-2">Skills (comma separated)</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Skills (comma separated)</label>
                       <input
                         type="text"
                         value={skill.skills.join(', ')}
                         onChange={(e) => handleArrayItemChange('skills', index, 'skills', e.target.value.split(',').map(s => s.trim()))}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="Python, Java, C, ..."
                       />
                     </div>
@@ -661,7 +661,7 @@ function AdminDashboard() {
           {activeTab === 'certifications' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                <h2 className="text-xl md:text-2xl font-bold">Certifications</h2>
+                <h2 className="text-2xl md:text-2xl font-bold">Certifications</h2>
                 <button
                   onClick={() => addArrayItem('certifications', {
                     id: Date.now(),
@@ -682,7 +682,7 @@ function AdminDashboard() {
               {portfolioData.certifications.map((cert, index) => (
                 <div key={cert.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
-                    <h3 className="text-lg md:text-xl font-semibold">Certification {index + 1}</h3>
+                    <h3 className="text-xl md:text-xl font-semibold">Certification {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('certifications', index)}
                       className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
@@ -691,73 +691,73 @@ function AdminDashboard() {
                     </button>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block mb-2">Title</label>
+                    <div className="md:col-span-1">
+                      <label className="block mb-2 text-sm md:text-base">Title</label>
                       <input
                         type="text"
                         value={cert.title}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'title', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
-                    <div>
-                      <label className="block mb-2">Provider</label>
+                    <div className="md:col-span-1">
+                      <label className="block mb-2 text-sm md:text-base">Provider</label>
                       <input
                         type="text"
                         value={cert.provider}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'provider', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
-                    <div>
-                      <label className="block mb-2">Credential ID</label>
+                    <div className="md:col-span-1">
+                      <label className="block mb-2 text-sm md:text-base">Credential ID</label>
                       <input
                         type="text"
                         value={cert.credentialId}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'credentialId', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
-                    <div>
-                      <label className="block mb-2">Date</label>
+                    <div className="md:col-span-1">
+                      <label className="block mb-2 text-sm md:text-base">Date</label>
                       <input
                         type="text"
                         value={cert.date}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'date', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="May 2024"
                       />
                     </div>
-                    <div>
-                      <label className="block mb-2">Logo URL</label>
+                    <div className="md:col-span-1">
+                      <label className="block mb-2 text-sm md:text-base">Logo URL</label>
                       <input
                         type="text"
                         value={cert.logo}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'logo', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="/logo.png"
                       />
                     </div>
-                    <div>
-                      <label className="block mb-2">Logo Fallback URL</label>
+                    <div className="col-span-1 md:col-span-2">
+                      <label className="block mb-2 text-sm md:text-base font-medium">Logo Fallback URL</label>
                       <input
                         type="text"
                         value={cert.logoFallback}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'logoFallback', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
-                        placeholder="Direct image URL (for Wikipedia: use upload.wikimedia.org URL, not wikipedia.org page)"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        placeholder="Direct image URL"
                       />
                       <p className="text-xs text-gray-500 mt-1">
                         For Wikipedia images, use direct Commons URL (upload.wikimedia.org/...) instead of page URL. Code will attempt to auto-convert.
                       </p>
                     </div>
-                    <div className="col-span-2">
-                      <label className="block mb-2">Skills (comma separated)</label>
+                    <div className="col-span-1 md:col-span-2">
+                      <label className="block mb-2 text-sm md:text-base font-medium">Skills (comma separated)</label>
                       <input
                         type="text"
                         value={cert.skills.join(', ')}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'skills', e.target.value.split(',').map(s => s.trim()))}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="HTML, CSS, JavaScript, ..."
                       />
                     </div>
@@ -771,7 +771,7 @@ function AdminDashboard() {
           {activeTab === 'education' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                <h2 className="text-xl md:text-2xl font-bold">Education</h2>
+                <h2 className="text-2xl md:text-2xl font-bold">Education</h2>
                 <button
                   onClick={() => addArrayItem('education', {
                     id: Date.now(),
@@ -788,7 +788,7 @@ function AdminDashboard() {
               {portfolioData.education.map((edu, index) => (
                 <div key={edu.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
-                    <h3 className="text-lg md:text-xl font-semibold">Education {index + 1}</h3>
+                    <h3 className="text-xl md:text-xl font-semibold">Education {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('education', index)}
                       className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
@@ -798,38 +798,38 @@ function AdminDashboard() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block mb-2">Institution</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Institution</label>
                       <input
                         type="text"
                         value={edu.institution}
                         onChange={(e) => handleArrayItemChange('education', index, 'institution', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Period</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Period</label>
                       <input
                         type="text"
                         value={edu.period}
                         onChange={(e) => handleArrayItemChange('education', index, 'period', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label className="block mb-2">Degree/Description</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Degree/Description</label>
                       <textarea
                         value={edu.degree}
                         onChange={(e) => handleArrayItemChange('education', index, 'degree', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg h-20 focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg h-20 focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label className="block mb-2">Logo URL</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Logo URL</label>
                       <input
                         type="text"
                         value={edu.logo}
                         onChange={(e) => handleArrayItemChange('education', index, 'logo', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="/logo.png or https://example.com/logo.png"
                       />
                       <p className="text-xs text-gray-500 mt-1">
@@ -846,7 +846,7 @@ function AdminDashboard() {
           {activeTab === 'experience' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                <h2 className="text-xl md:text-2xl font-bold">Work Experience</h2>
+                <h2 className="text-2xl md:text-2xl font-bold">Work Experience</h2>
                 <button
                   onClick={() => addArrayItem('experience', {
                     id: Date.now(),
@@ -865,7 +865,7 @@ function AdminDashboard() {
               {portfolioData.experience.map((exp, index) => (
                 <div key={exp.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
-                    <h3 className="text-lg md:text-xl font-semibold">Experience {index + 1}</h3>
+                    <h3 className="text-xl md:text-xl font-semibold">Experience {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('experience', index)}
                       className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
@@ -875,49 +875,49 @@ function AdminDashboard() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block mb-2">Job Title</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Job Title</label>
                       <input
                         type="text"
                         value={exp.title}
                         onChange={(e) => handleArrayItemChange('experience', index, 'title', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Company</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Company</label>
                       <input
                         type="text"
                         value={exp.company}
                         onChange={(e) => handleArrayItemChange('experience', index, 'company', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Duration</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Duration</label>
                       <input
                         type="text"
                         value={exp.duration}
                         onChange={(e) => handleArrayItemChange('experience', index, 'duration', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="2022 - 2023 (1 Year Experience)"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Company Logo URL</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Company Logo URL</label>
                       <input
                         type="text"
                         value={exp.logo}
                         onChange={(e) => handleArrayItemChange('experience', index, 'logo', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="/logo.png"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label className="block mb-2">Description</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Description</label>
                       <textarea
                         value={exp.description}
                         onChange={(e) => handleArrayItemChange('experience', index, 'description', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                   </div>
@@ -930,7 +930,7 @@ function AdminDashboard() {
           {activeTab === 'projects' && (
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                <h2 className="text-xl md:text-2xl font-bold">Projects</h2>
+                <h2 className="text-2xl md:text-2xl font-bold">Projects</h2>
                 <button
                   onClick={() => addArrayItem('projects', {
                     id: Date.now(),
@@ -953,7 +953,7 @@ function AdminDashboard() {
               {portfolioData.projects.map((project, index) => (
                 <div key={project.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
-                    <h3 className="text-lg md:text-xl font-semibold">Project {index + 1}</h3>
+                    <h3 className="text-xl md:text-xl font-semibold">Project {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('projects', index)}
                       className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
@@ -963,20 +963,20 @@ function AdminDashboard() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block mb-2">Title</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Title</label>
                       <input
                         type="text"
                         value={project.title}
                         onChange={(e) => handleArrayItemChange('projects', index, 'title', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Category</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Category</label>
                       <select
                         value={project.category}
                         onChange={(e) => handleArrayItemChange('projects', index, 'category', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       >
                         <option value="web">Web Development</option>
                         <option value="mobile">Mobile Application</option>
@@ -989,31 +989,31 @@ function AdminDashboard() {
                       </select>
                     </div>
                     <div>
-                      <label className="block mb-2">Category Label</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Category Label</label>
                       <input
                         type="text"
                         value={project.categoryLabel}
                         onChange={(e) => handleArrayItemChange('projects', index, 'categoryLabel', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Date</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Date</label>
                       <input
                         type="text"
                         value={project.date}
                         onChange={(e) => handleArrayItemChange('projects', index, 'date', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="December 2024"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Project Image URL</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Project Image URL</label>
                       <input
                         type="text"
                         value={project.image}
                         onChange={(e) => handleArrayItemChange('projects', index, 'image', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="/project-image.png or https://example.com/image.png"
                       />
                       <p className="text-xs text-gray-500 mt-1">
@@ -1021,31 +1021,31 @@ function AdminDashboard() {
                       </p>
                     </div>
                     <div>
-                      <label className="block mb-2">GitHub URL</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">GitHub URL</label>
                       <input
                         type="text"
                         value={project.github}
                         onChange={(e) => handleArrayItemChange('projects', index, 'github', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="block mb-2">Live URL</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Live URL</label>
                       <input
                         type="text"
                         value={project.live}
                         onChange={(e) => handleArrayItemChange('projects', index, 'live', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="# or https://..."
                       />
                     </div>
                     <div className="col-span-2">
-                      <label className="block mb-2">Demo Video URL</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Demo Video URL</label>
                       <input
                         type="text"
                         value={project.video || ''}
                         onChange={(e) => handleArrayItemChange('projects', index, 'video', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="YouTube, Vimeo, or direct video URL (e.g., https://youtube.com/watch?v=...)"
                       />
                       <p className="text-xs text-gray-400 mt-1">
@@ -1053,20 +1053,20 @@ function AdminDashboard() {
                       </p>
                     </div>
                     <div className="col-span-2">
-                      <label className="block mb-2">Description</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Description</label>
                       <textarea
                         value={project.description}
                         onChange={(e) => handleArrayItemChange('projects', index, 'description', e.target.value)}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label className="block mb-2">Technologies (comma separated)</label>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Technologies (comma separated)</label>
                       <input
                         type="text"
                         value={project.tech.join(', ')}
                         onChange={(e) => handleArrayItemChange('projects', index, 'tech', e.target.value.split(',').map(t => t.trim()))}
-                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="React, Node.js, MongoDB, ..."
                       />
                     </div>
@@ -1079,33 +1079,33 @@ function AdminDashboard() {
           {/* Contact Tab */}
           {activeTab === 'contact' && (
             <div className="space-y-4">
-              <h2 className="text-xl md:text-2xl font-bold mb-4">Contact Information</h2>
+              <h2 className="text-2xl md:text-2xl font-bold mb-4">Contact Information</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-2">Email</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Email</label>
                   <input
                     type="email"
                     value={portfolioData.contact.email}
                     onChange={(e) => handleInputChange('contact', 'email', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block mb-2">Phone</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Phone</label>
                   <input
                     type="text"
                     value={portfolioData.contact.phone}
                     onChange={(e) => handleInputChange('contact', 'phone', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
                 <div className="col-span-2">
-                  <label className="block mb-2">Location</label>
+                  <label className="block mb-2 text-sm md:text-base font-medium">Location</label>
                   <input
                     type="text"
                     value={portfolioData.contact.location}
                     onChange={(e) => handleInputChange('contact', 'location', e.target.value)}
-                    className="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
+                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
               </div>
