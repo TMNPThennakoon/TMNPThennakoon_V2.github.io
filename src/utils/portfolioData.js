@@ -61,7 +61,9 @@ export const savePortfolioData = async (data) => {
 
 // Rate limiting protection - track last API call time
 let lastApiCallTime = 0;
-const API_CALL_COOLDOWN = 2000; // 2 seconds between API calls
+const API_CALL_COOLDOWN = 5000; // 5 seconds between API calls (increased to prevent 429 errors)
+let isApiCallInProgress = false; // Prevent concurrent API calls
+let apiCallQueue = []; // Queue for API calls
 
 // Function to update portfolio.json on GitHub via API
 async function updatePortfolioJsonOnGitHub(data, token) {
@@ -70,12 +72,20 @@ async function updatePortfolioJsonOnGitHub(data, token) {
   const path = 'src/data/portfolio.json';
   const branch = 'main';
   
+  // Prevent concurrent API calls
+  if (isApiCallInProgress) {
+    throw new Error('Another save operation is in progress. Please wait...');
+  }
+  
   try {
-    // Rate limiting protection
+    isApiCallInProgress = true;
+    
+    // Rate limiting protection - increased cooldown
     const now = Date.now();
     const timeSinceLastCall = now - lastApiCallTime;
     if (timeSinceLastCall < API_CALL_COOLDOWN) {
-      await new Promise(resolve => setTimeout(resolve, API_CALL_COOLDOWN - timeSinceLastCall));
+      const waitTime = API_CALL_COOLDOWN - timeSinceLastCall;
+      await new Promise(resolve => setTimeout(resolve, waitTime));
     }
     lastApiCallTime = Date.now();
     
@@ -93,10 +103,17 @@ async function updatePortfolioJsonOnGitHub(data, token) {
         }
       );
       
-      // Handle rate limiting (429)
+      // Handle rate limiting (429) - with better error message
       if (getFileResponse.status === 429) {
-        const retryAfter = getFileResponse.headers.get('Retry-After') || 60;
-        throw new Error(`Rate limit exceeded. Please wait ${retryAfter} seconds before trying again.`);
+        const retryAfter = parseInt(getFileResponse.headers.get('Retry-After') || '60');
+        const rateLimitReset = getFileResponse.headers.get('X-RateLimit-Reset');
+        let resetTime = 'a few minutes';
+        if (rateLimitReset) {
+          const resetDate = new Date(parseInt(rateLimitReset) * 1000);
+          resetTime = resetDate.toLocaleTimeString();
+        }
+        isApiCallInProgress = false;
+        throw new Error(`Rate limit exceeded. GitHub API allows 5,000 requests per hour. Please wait ${retryAfter} seconds (until ${resetTime}) before trying again. You can export JSON and upload manually instead.`);
       }
       
       if (getFileResponse.ok || getFileResponse.status === 404) {
@@ -120,8 +137,8 @@ async function updatePortfolioJsonOnGitHub(data, token) {
     const jsonString = JSON.stringify(data, null, 2);
     const content = btoa(unescape(encodeURIComponent(jsonString)));
     
-    // Wait before update call
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Wait before update call - increased delay to prevent rate limiting
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Update file with retry logic
     retries = 3;
@@ -145,10 +162,17 @@ async function updatePortfolioJsonOnGitHub(data, token) {
         }
       );
       
-      // Handle rate limiting (429)
+      // Handle rate limiting (429) - with better error message
       if (updateResponse.status === 429) {
-        const retryAfter = updateResponse.headers.get('Retry-After') || 60;
-        throw new Error(`Rate limit exceeded. Please wait ${retryAfter} seconds before trying again.`);
+        const retryAfter = parseInt(updateResponse.headers.get('Retry-After') || '60');
+        const rateLimitReset = updateResponse.headers.get('X-RateLimit-Reset');
+        let resetTime = 'a few minutes';
+        if (rateLimitReset) {
+          const resetDate = new Date(parseInt(rateLimitReset) * 1000);
+          resetTime = resetDate.toLocaleTimeString();
+        }
+        isApiCallInProgress = false;
+        throw new Error(`Rate limit exceeded. GitHub API allows 5,000 requests per hour. Please wait ${retryAfter} seconds (until ${resetTime}) before trying again. You can export JSON and upload manually instead.`);
       }
       
       if (updateResponse.ok) {
@@ -166,8 +190,10 @@ async function updatePortfolioJsonOnGitHub(data, token) {
       throw new Error(error.message || 'Failed to update file');
     }
     
+    isApiCallInProgress = false;
     return { success: true };
   } catch (error) {
+    isApiCallInProgress = false;
     throw error;
   }
 }

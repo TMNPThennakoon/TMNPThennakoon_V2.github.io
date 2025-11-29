@@ -171,6 +171,15 @@ function App() {
             {/* Desktop Menu */}
             <ul className="hidden md:flex space-x-8 items-center" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
               <li>
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 flex items-center justify-center"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? <FaSun size={18} /> : <FaMoon size={18} />}
+                </button>
+              </li>
+              <li>
                 <a
                   href="#profile"
                   className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold"
