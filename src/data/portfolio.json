@@ -295,6 +295,19 @@
   ],
   "certifications": [
     {
+      "id": 1764413756819,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "credentialId": "UC-f4ba5571-44cb-4384-9d94-da883e845917",
+      "title": "Solidworks for Beginners",
+      "provider": "Udemy",
+      "date": "Oct 2025",
+      "skills": [
+        "Solidworks"
+      ]
+    },
+    {
       "id": 1,
       "icon": "fa-solid fa-code",
       "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "session_1764413185467_1otfyxv8y",
+    "deviceInfo": {
+      "browser": "Safari",
+      "os": "macOS",
+      "deviceType": "Mobile",
+      "screenWidth": 428,
+      "screenHeight": 926,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr",
+      "timezone": "Asia/Colombo"
+    },
+    "loginTime": 1764413185468,
+    "lastActivity": 1764413714199
+  },
+  {
+    "id": "session_1764412943903_duj36m6k6",
+    "deviceInfo": {
+      "browser": "Chrome",
+      "os": "macOS",
+      "deviceType": "Desktop",
+      "screenWidth": 1470,
+      "screenHeight": 956,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.",
+      "timezone": "Asia/Colombo"
+    },
+    "loginTime": 1764412943904,
+    "lastActivity": 1764412943904
+  }
+]
