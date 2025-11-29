@@ -287,9 +287,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Light mode Profile section - Name visibility */
-.light-mode #profile h1,
-.light-mode #profile .text-white {
+.light-mode #profile h1 {
   color: var(--text-primary) !important;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.light-mode #profile .bg-gradient-to-r.from-white.to-gray-300 {
   background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
@@ -308,40 +314,125 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-secondary) !important;
 }
 
-/* Light mode Certifications - Dark cards with light text */
+/* Light mode Profile icons - dark colors */
+.light-mode #profile .bg-white\/5 {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.light-mode #profile .bg-white\/5:hover {
+  background-color: rgba(37, 99, 235, 0.1) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.light-mode #profile .filter.grayscale {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Make icons dark colored in light mode */
+.light-mode #profile svg,
+.light-mode #profile .h-6.w-6 {
+  color: var(--text-primary) !important;
+  opacity: 0.9 !important;
+}
+
+.light-mode #profile .h-6.w-6:hover {
+  opacity: 1 !important;
+}
+
+/* Light mode Certifications - Light cards (removed dark background) */
 .light-mode #certifications {
   background-color: var(--bg-primary) !important;
 }
 
 .light-mode #certifications .card-glow {
-  background: linear-gradient(#1a1a1a, #1a1a1a) padding-box,
+  background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
               linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary)) border-box !important;
   border: 1.5px solid transparent !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), var(--shadow-lg) !important;
-}
-
-.light-mode #certifications .card-glow * {
-  color: #ffffff !important;
+  box-shadow: var(--shadow-lg) !important;
+  background-color: var(--bg-card) !important;
 }
 
 .light-mode #certifications .card-glow h3 {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 .light-mode #certifications .card-glow p {
-  color: #e5e7eb !important;
+  color: var(--text-secondary) !important;
 }
 
 .light-mode #certifications .card-glow span {
-  color: #d1d5db !important;
+  color: var(--text-muted) !important;
+}
+
+.light-mode #certifications .card-glow .text-white {
+  color: var(--text-primary) !important;
+}
+
+.light-mode #certifications .card-glow .text-gray-300 {
+  color: var(--text-secondary) !important;
+}
+
+.light-mode #certifications .card-glow .text-gray-500 {
+  color: var(--text-muted) !important;
 }
 
 .light-mode #certifications .text-gray-400 {
   color: var(--text-secondary) !important;
 }
 
+.light-mode #certifications .bg-black {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode #certifications .absolute.left-0,
+.light-mode #certifications .absolute.right-0 {
+  background: linear-gradient(to right, var(--bg-primary), transparent) !important;
+}
+
+/* Light mode Projects - Category label and tech buttons */
+.light-mode #projects .bg-blue-500\/90 {
+  background-color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: white !important;
+}
+
+.light-mode #projects .bg-white\/10 {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.light-mode #projects .bg-white\/10:hover {
+  background-color: rgba(37, 99, 235, 0.1) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+/* Light mode Project Detail - Category label and tech buttons */
+.light-mode .bg-blue-500\/90 {
+  background-color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: white !important;
+}
+
+.light-mode .bg-white\/10.backdrop-blur-sm {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.light-mode .bg-white\/10.backdrop-blur-sm:hover {
+  background-color: rgba(37, 99, 235, 0.1) !important;
+  border-color: var(--accent-primary) !important;
+}
+
 /* Light mode Academic Journey - Better visibility */
 .light-mode #education {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode #education .bg-black {
   background-color: var(--bg-primary) !important;
 }
 
@@ -359,6 +450,10 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-secondary) !important;
 }
 
+.light-mode #education .text-white {
+  color: var(--text-primary) !important;
+}
+
 .light-mode #education .bg-gray-700 {
   background-color: var(--border-color) !important;
 }
@@ -367,8 +462,20 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--accent-primary) !important;
 }
 
+.light-mode #education .bg-white {
+  background-color: var(--accent-primary) !important;
+}
+
+.light-mode #education .border-4.border-black {
+  border-color: var(--accent-primary) !important;
+}
+
 /* Light mode Work Experience - Light cards instead of dark */
 .light-mode #experience {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode #experience .bg-black {
   background-color: var(--bg-primary) !important;
 }
 
@@ -378,8 +485,19 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow-lg) !important;
 }
 
-.light-mode #experience .bg-gradient-to-br.from-gray-900.to-black * {
-  color: var(--text-primary) !important;
+.light-mode #experience .bg-gradient-to-br.from-gray-900.to-black h3 {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.light-mode #experience .bg-gradient-to-br.from-gray-900.to-black h4 {
+  color: var(--accent-primary) !important;
+}
+
+.light-mode #experience .bg-gradient-to-br.from-gray-900.to-black p {
+  color: var(--text-secondary) !important;
 }
 
 .light-mode #experience .text-gray-400 {
@@ -388,6 +506,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .light-mode #experience .text-blue-300 {
   color: var(--accent-primary) !important;
+}
+
+.light-mode #experience .text-white {
+  color: var(--text-primary) !important;
 }
 
 .light-mode #experience .border-cyan-500\/30 {
@@ -399,8 +521,16 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow-colored) !important;
 }
 
+.light-mode #experience .bg-white {
+  background-color: var(--bg-card) !important;
+}
+
 /* Light mode Contact section - Better colors and visibility */
 .light-mode #contact {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode #contact .bg-black {
   background-color: var(--bg-primary) !important;
 }
 
@@ -412,10 +542,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .light-mode #contact .bg-gradient-to-br.from-gray-900.to-black h3 {
   color: var(--text-primary) !important;
+  font-weight: 700;
 }
 
-.light-mode #contact .bg-gradient-to-br.from-gray-900.to-black * {
+.light-mode #contact .bg-gradient-to-br.from-gray-900.to-black p {
   color: var(--text-primary) !important;
+}
+
+.light-mode #contact .bg-gradient-to-br.from-gray-900.to-black a {
+  color: var(--accent-primary) !important;
 }
 
 .light-mode #contact .text-gray-400 {
@@ -438,11 +573,27 @@ h1, h2, h3, h4, h5, h6 {
 .light-mode #contact input,
 .light-mode #contact textarea {
   color: var(--text-primary) !important;
+  background-color: var(--bg-secondary) !important;
+}
+
+.light-mode #contact input:focus,
+.light-mode #contact textarea:focus {
+  background-color: var(--bg-primary) !important;
+  border-color: var(--accent-primary) !important;
 }
 
 .light-mode #contact input::placeholder,
 .light-mode #contact textarea::placeholder {
   color: var(--text-muted) !important;
+}
+
+.light-mode #contact button.bg-white {
+  background-color: var(--accent-primary) !important;
+  color: white !important;
+}
+
+.light-mode #contact button.bg-white:hover {
+  background-color: var(--accent-secondary) !important;
 }
 
 /* Light mode Footer */

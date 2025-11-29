@@ -253,7 +253,7 @@ const ProjectDetail = ({ projectId, onBack }) => {
             }}
           />
           <div className="absolute top-4 right-4">
-            <span className="px-4 py-2 bg-black/80 backdrop-blur-sm text-white text-xs md:text-sm font-bold rounded-full border border-white/20">
+            <span className="px-4 py-2 bg-blue-500/90 backdrop-blur-sm text-white text-xs md:text-sm font-bold rounded-md border border-blue-400/50 shadow-md">
               {project.categoryLabel}
             </span>
           </div>
@@ -355,7 +355,7 @@ const ProjectDetail = ({ projectId, onBack }) => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: 0.3 + i * 0.05 }}
-                    className="px-4 py-2 bg-gray-800/50 text-gray-300 text-sm md:text-base rounded-lg border border-gray-700 hover:border-cyan-500/50 hover:bg-gray-800/70 transition-all duration-300"
+                    className="px-4 py-2 bg-white/10 backdrop-blur-sm text-white text-sm md:text-base font-medium rounded-md border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300"
                   >
                     {tech}
                   </motion.span>

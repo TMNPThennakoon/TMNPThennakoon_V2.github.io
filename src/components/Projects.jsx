@@ -306,7 +306,7 @@ const Projects = () => {
                   }}
                 />
                 <div className="absolute top-3 right-3">
-                  <span className="px-3 py-1 bg-black/80 backdrop-blur-sm text-white text-xs font-bold rounded-full border border-white/20">
+                  <span className="px-3 py-1 bg-blue-500/90 backdrop-blur-sm text-white text-xs font-bold rounded-md border border-blue-400/50 shadow-md">
                     {project.categoryLabel}
                   </span>
                 </div>
@@ -320,13 +320,13 @@ const Projects = () => {
                   {project.tech?.slice(0, 3).map((tech, i) => (
                     <span
                       key={i}
-                      className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded border border-gray-700"
+                      className="px-3 py-1.5 bg-white/10 backdrop-blur-sm text-white text-xs font-medium rounded-md border border-white/20 hover:bg-white/20 transition-colors"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.tech?.length > 3 && (
-                    <span className="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded border border-gray-700">
+                    <span className="px-3 py-1.5 bg-white/10 backdrop-blur-sm text-white text-xs font-medium rounded-md border border-white/20 hover:bg-white/20 transition-colors">
                       +{project.tech.length - 3}
                     </span>
                   )}
