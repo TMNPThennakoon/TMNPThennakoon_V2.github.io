@@ -269,42 +269,54 @@ export default function Certifications() {
           </div>
         </div>
 
-        {/* Scrolling badge marquee */}
-        {certifications.length > 0 && (
-          <div className="relative w-full overflow-hidden pt-6">
-            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
-            <motion.div
-              aria-hidden
-              className="flex gap-12 items-center whitespace-nowrap will-change-transform"
-              animate={{ x: [0, -600] }}
-              transition={{ repeat: Infinity, ease: "linear", duration: 18 }}
-            >
-              {certifications.concat(certifications).map((c, i) => {
-                const logoUrl = convertGoogleDriveLink(c.logo);
-                const fallbackUrl = convertGoogleDriveLink(c.logoFallback);
-                return (
-                  <div key={i} className="flex items-center gap-3 opacity-80">
-                    {logoUrl && (
-                      <img 
-                        src={logoUrl} 
-                        alt={c.provider} 
-                        className="h-8 w-8 rounded-sm object-contain" 
-                        onError={(e) => {
-                          if (fallbackUrl && e.target.src !== fallbackUrl) {
-                            e.target.src = fallbackUrl;
-                          } else {
-                            e.target.style.display = 'none';
-                          }
-                        }} 
-                      />
-                    )}
-                    <span className="text-sm text-gray-300">{c.provider}</span>
-                  </div>
-                );
-              })}
-            </motion.div>
-          </div>
-        )}
+        {/* Scrolling badge marquee - Show unique providers only */}
+        {certifications.length > 0 && (() => {
+          // Get unique providers - use first certification for each provider (for logo)
+          const uniqueProvidersMap = new Map();
+          certifications.forEach(cert => {
+            if (cert.provider && !uniqueProvidersMap.has(cert.provider)) {
+              uniqueProvidersMap.set(cert.provider, cert);
+            }
+          });
+          const uniqueProviders = Array.from(uniqueProvidersMap.values());
+          
+          return uniqueProviders.length > 0 ? (
+            <div className="relative w-full overflow-hidden pt-6">
+              <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
+              <motion.div
+                aria-hidden
+                className="flex gap-12 items-center whitespace-nowrap will-change-transform"
+                animate={{ x: [0, -600] }}
+                transition={{ repeat: Infinity, ease: "linear", duration: 18 }}
+              >
+                {/* Duplicate for seamless scrolling */}
+                {uniqueProviders.concat(uniqueProviders).map((c, i) => {
+                  const logoUrl = convertGoogleDriveLink(c.logo);
+                  const fallbackUrl = convertGoogleDriveLink(c.logoFallback);
+                  return (
+                    <div key={`${c.provider}-${i}`} className="flex items-center gap-3 opacity-80">
+                      {logoUrl && (
+                        <img 
+                          src={logoUrl} 
+                          alt={c.provider} 
+                          className="h-8 w-8 rounded-sm object-contain" 
+                          onError={(e) => {
+                            if (fallbackUrl && e.target.src !== fallbackUrl) {
+                              e.target.src = fallbackUrl;
+                            } else {
+                              e.target.style.display = 'none';
+                            }
+                          }} 
+                        />
+                      )}
+                      <span className="text-sm text-gray-300">{c.provider}</span>
+                    </div>
+                  );
+                })}
+              </motion.div>
+            </div>
+          ) : null;
+        })()}
       </div>
 
       {/* Styles (no CSS transform on hover; glow + shine kept) */}
