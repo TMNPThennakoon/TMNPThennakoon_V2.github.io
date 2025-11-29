@@ -20,6 +20,7 @@ function AdminDashboard() {
   const [loginError, setLoginError] = useState('');
   const [showGitHubSettings, setShowGitHubSettings] = useState(false);
   const [githubToken, setGithubToken] = useState(localStorage.getItem('githubToken') || '');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const storedAuth = localStorage.getItem('dashboardAuth');
@@ -248,12 +249,33 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex">
+    <div className="min-h-screen bg-gray-900 text-white flex relative">
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <div className="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
-        <div className="p-6 border-b border-gray-700">
-          <h1 className="text-xl font-bold text-cyan-400">Portfolio Admin Dashboard</h1>
-          <p className="text-sm text-gray-400 mt-1">Signed in as NPT1009</p>
+      <div className={`
+        fixed md:static inset-y-0 left-0 z-50
+        w-64 bg-gray-800 border-r border-gray-700 flex flex-col
+        transform transition-transform duration-300 ease-in-out
+        ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+      `}>
+        <div className="p-4 md:p-6 border-b border-gray-700">
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-lg md:text-xl font-bold text-cyan-400">Portfolio Admin Dashboard</h1>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="md:hidden text-gray-400 hover:text-white"
+            >
+              ✕
+            </button>
+          </div>
+          <p className="text-xs md:text-sm text-gray-400">Signed in as NPT1009</p>
           <button
             onClick={() => setShowGitHubSettings(!showGitHubSettings)}
             className="mt-3 w-full px-4 py-2 text-sm font-semibold rounded-lg bg-gray-900 text-gray-300 border border-gray-700 hover:border-cyan-400 hover:text-white transition-colors"
@@ -271,8 +293,11 @@ function AdminDashboard() {
           {menuItems.map(item => (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-all duration-200 ${
+              onClick={() => {
+                setActiveTab(item.id);
+                setMobileMenuOpen(false); // Close mobile menu when item is selected
+              }}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-2 transition-all duration-200 text-sm md:text-base ${
                 activeTab === item.id
                   ? 'bg-cyan-600 text-white'
                   : 'text-gray-300 hover:bg-gray-700'
@@ -286,45 +311,53 @@ function AdminDashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden w-full md:w-auto">
         {/* Header */}
-        <div className="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.hash = '';
-                window.location.reload();
-              }}
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm"
-            >
-              ← Back to Portfolio
-            </a>
-            <h2 className="text-lg font-semibold text-cyan-400">
-              {menuItems.find(item => item.id === activeTab)?.label} Section Editor
-            </h2>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={() => setShowPreview(true)}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold flex items-center gap-2"
-            >
-              <span>👁️</span>
-              Preview
-            </button>
-            <label className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg cursor-pointer font-semibold flex items-center gap-2">
-              <input type="file" accept=".json" onChange={handleImport} className="hidden" />
-              <span>📥</span>
-              Import JSON
-            </label>
-            <button
-              onClick={handleExport}
-              className="px-4 py-2 bg-teal-600 hover:bg-teal-700 rounded-lg font-semibold flex items-center gap-2"
-            >
-              <span>📤</span>
-              Export JSON
-            </button>
+        <div className="bg-gray-800 border-b border-gray-700 p-3 md:p-4">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+            <div className="flex items-center gap-2 md:gap-4">
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="md:hidden p-2 text-gray-400 hover:text-white"
+              >
+                ☰
+              </button>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.hash = '';
+                  window.location.reload();
+                }}
+                className="px-3 md:px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-xs md:text-sm whitespace-nowrap"
+              >
+                ← Back
+              </a>
+              <h2 className="text-base md:text-lg font-semibold text-cyan-400 truncate">
+                {menuItems.find(item => item.id === activeTab)?.label} Editor
+              </h2>
+            </div>
+            <div className="flex gap-2 md:gap-3 flex-wrap">
+              <button
+                onClick={() => setShowPreview(true)}
+                className="px-3 md:px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-xs md:text-sm font-semibold flex items-center gap-1 md:gap-2"
+              >
+                <span>👁️</span>
+                <span className="hidden sm:inline">Preview</span>
+              </button>
+              <label className="px-3 md:px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-xs md:text-sm cursor-pointer font-semibold flex items-center gap-1 md:gap-2">
+                <input type="file" accept=".json" onChange={handleImport} className="hidden" />
+                <span>📥</span>
+                <span className="hidden sm:inline">Import</span>
+              </label>
+              <button
+                onClick={handleExport}
+                className="px-3 md:px-4 py-2 bg-teal-600 hover:bg-teal-700 rounded-lg text-xs md:text-sm font-semibold flex items-center gap-1 md:gap-2"
+              >
+                <span>📤</span>
+                <span className="hidden sm:inline">Export</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -337,21 +370,21 @@ function AdminDashboard() {
 
         {/* GitHub Settings Panel */}
         {showGitHubSettings && (
-          <div className="bg-gray-800 border-b border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-cyan-400 mb-4">GitHub API Sync Configuration</h3>
-            <p className="text-sm text-gray-400 mb-4">
+          <div className="bg-gray-800 border-b border-gray-700 p-4 md:p-6">
+            <h3 className="text-base md:text-lg font-semibold text-cyan-400 mb-4">GitHub API Sync Configuration</h3>
+            <p className="text-xs md:text-sm text-gray-400 mb-4">
               Configure GitHub API token to automatically sync changes across all devices. 
               Without a token, you'll need to manually export and upload the JSON file.
             </p>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm text-gray-300 mb-2">GitHub Personal Access Token</label>
+                <label className="block text-xs md:text-sm text-gray-300 mb-2">GitHub Personal Access Token</label>
                 <input
                   type="password"
                   value={githubToken}
                   onChange={(e) => setGithubToken(e.target.value)}
                   placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                  className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-cyan-500 focus:outline-none"
+                  className="w-full p-2 md:p-3 bg-gray-700 border border-gray-600 rounded-lg text-sm md:text-base text-white focus:border-cyan-500 focus:outline-none"
                 />
                 <p className="text-xs text-gray-500 mt-2">
                   <a 
@@ -364,7 +397,7 @@ function AdminDashboard() {
                   </a> with <code className="bg-gray-900 px-1 rounded">repo</code> scope
                 </p>
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
                 <button
                   onClick={() => {
                     if (githubToken) {
@@ -399,12 +432,12 @@ function AdminDashboard() {
         )}
 
         {/* Content Area */}
-        <div className="flex-1 overflow-y-auto p-6 bg-gray-900">
+        <div className="flex-1 overflow-y-auto p-3 md:p-6 bg-gray-900">
           {/* Profile Tab */}
           {activeTab === 'profile' && (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold mb-4">Profile Information</h2>
-              <div className="grid grid-cols-2 gap-4">
+              <h2 className="text-xl md:text-2xl font-bold mb-4">Profile Information</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block mb-2">Name</label>
                   <input
@@ -502,8 +535,8 @@ function AdminDashboard() {
           {/* About Tab */}
           {activeTab === 'about' && (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold mb-4">About Section</h2>
-              <div className="grid grid-cols-2 gap-4">
+              <h2 className="text-xl md:text-2xl font-bold mb-4">About Section</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block mb-2">Title</label>
                   <input
@@ -547,8 +580,8 @@ function AdminDashboard() {
           {/* Skills Tab */}
           {activeTab === 'skills' && (
             <div className="space-y-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Skills</h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                <h2 className="text-xl md:text-2xl font-bold">Skills</h2>
                 <button
                   onClick={() => addArrayItem('skills', {
                     id: Date.now(),
@@ -557,23 +590,23 @@ function AdminDashboard() {
                     title: 'New Skill Category',
                     skills: []
                   })}
-                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg"
+                  className="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-sm md:text-base"
                 >
                   Add Skill Category
                 </button>
               </div>
               {portfolioData.skills.map((skill, index) => (
-                <div key={skill.id} className="border border-gray-700 rounded-lg p-4 bg-gray-800">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-semibold">Skill Category {index + 1}</h3>
+                <div key={skill.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                    <h3 className="text-lg md:text-xl font-semibold">Skill Category {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('skills', index)}
-                      className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
                     >
                       Remove
                     </button>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block mb-2">Title</label>
                       <input
@@ -611,8 +644,8 @@ function AdminDashboard() {
           {/* Certifications Tab */}
           {activeTab === 'certifications' && (
             <div className="space-y-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Certifications</h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                <h2 className="text-xl md:text-2xl font-bold">Certifications</h2>
                 <button
                   onClick={() => addArrayItem('certifications', {
                     id: Date.now(),
@@ -625,23 +658,23 @@ function AdminDashboard() {
                     date: '',
                     skills: []
                   })}
-                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg"
+                  className="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-sm md:text-base"
                 >
                   Add Certification
                 </button>
               </div>
               {portfolioData.certifications.map((cert, index) => (
-                <div key={cert.id} className="border border-gray-700 rounded-lg p-4 bg-gray-800">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-semibold">Certification {index + 1}</h3>
+                <div key={cert.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                    <h3 className="text-lg md:text-xl font-semibold">Certification {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('certifications', index)}
-                      className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
                     >
                       Remove
                     </button>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block mb-2">Title</label>
                       <input
@@ -721,8 +754,8 @@ function AdminDashboard() {
           {/* Education Tab */}
           {activeTab === 'education' && (
             <div className="space-y-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Education</h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                <h2 className="text-xl md:text-2xl font-bold">Education</h2>
                 <button
                   onClick={() => addArrayItem('education', {
                     id: Date.now(),
@@ -731,23 +764,23 @@ function AdminDashboard() {
                     period: '',
                     logo: ''
                   })}
-                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg"
+                  className="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-sm md:text-base"
                 >
                   Add Education
                 </button>
               </div>
               {portfolioData.education.map((edu, index) => (
-                <div key={edu.id} className="border border-gray-700 rounded-lg p-4 bg-gray-800">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-semibold">Education {index + 1}</h3>
+                <div key={edu.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                    <h3 className="text-lg md:text-xl font-semibold">Education {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('education', index)}
-                      className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
                     >
                       Remove
                     </button>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block mb-2">Institution</label>
                       <input
@@ -793,8 +826,8 @@ function AdminDashboard() {
           {/* Experience Tab */}
           {activeTab === 'experience' && (
             <div className="space-y-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Work Experience</h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                <h2 className="text-xl md:text-2xl font-bold">Work Experience</h2>
                 <button
                   onClick={() => addArrayItem('experience', {
                     id: Date.now(),
@@ -805,23 +838,23 @@ function AdminDashboard() {
                     icon: 'fa-solid fa-briefcase',
                     logo: ''
                   })}
-                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg"
+                  className="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-sm md:text-base"
                 >
                   Add Experience
                 </button>
               </div>
               {portfolioData.experience.map((exp, index) => (
-                <div key={exp.id} className="border border-gray-700 rounded-lg p-4 bg-gray-800">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-semibold">Experience {index + 1}</h3>
+                <div key={exp.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                    <h3 className="text-lg md:text-xl font-semibold">Experience {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('experience', index)}
-                      className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
                     >
                       Remove
                     </button>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block mb-2">Job Title</label>
                       <input
@@ -877,8 +910,8 @@ function AdminDashboard() {
           {/* Projects Tab */}
           {activeTab === 'projects' && (
             <div className="space-y-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Projects</h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+                <h2 className="text-xl md:text-2xl font-bold">Projects</h2>
                 <button
                   onClick={() => addArrayItem('projects', {
                     id: Date.now(),
@@ -893,23 +926,23 @@ function AdminDashboard() {
                     date: '',
                     categoryLabel: 'WEB APPLICATION'
                   })}
-                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg"
+                  className="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-sm md:text-base"
                 >
                   Add Project
                 </button>
               </div>
               {portfolioData.projects.map((project, index) => (
-                <div key={project.id} className="border border-gray-700 rounded-lg p-4 bg-gray-800">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-semibold">Project {index + 1}</h3>
+                <div key={project.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+                    <h3 className="text-lg md:text-xl font-semibold">Project {index + 1}</h3>
                     <button
                       onClick={() => removeArrayItem('projects', index)}
-                      className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
                     >
                       Remove
                     </button>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block mb-2">Title</label>
                       <input
@@ -1024,8 +1057,8 @@ function AdminDashboard() {
           {/* Contact Tab */}
           {activeTab === 'contact' && (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
-              <div className="grid grid-cols-2 gap-4">
+              <h2 className="text-xl md:text-2xl font-bold mb-4">Contact Information</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block mb-2">Email</label>
                   <input
@@ -1058,11 +1091,11 @@ function AdminDashboard() {
           )}
 
           {/* Save Button */}
-          <div className="mt-8 pt-6 border-t border-gray-700">
+          <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-gray-700">
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="w-full px-8 py-4 bg-cyan-600 hover:bg-cyan-700 disabled:bg-gray-600 rounded-lg text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-full px-6 md:px-8 py-3 md:py-4 bg-cyan-600 hover:bg-cyan-700 disabled:bg-gray-600 rounded-lg text-base md:text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
             >
               {isSaving ? (
                 <>
