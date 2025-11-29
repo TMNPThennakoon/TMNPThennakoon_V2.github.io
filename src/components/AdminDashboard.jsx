@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { getPortfolioData, exportPortfolioData, importPortfolioData, savePortfolioData } from '../utils/portfolioData';
+import {
+  createSession,
+  getActiveSessions,
+  removeSession,
+  removeAllOtherSessions,
+  isCurrentSessionValid,
+  updateSessionActivity,
+  formatSessionTime,
+  getDeviceDisplayName,
+  getCurrentSessionId
+} from '../utils/sessionManager';
 import Profile from './Profile';
 import About from './About';
 import Skills from './Skills';
@@ -21,13 +32,35 @@ function AdminDashboard() {
   const [showGitHubSettings, setShowGitHubSettings] = useState(false);
   const [githubToken, setGithubToken] = useState(localStorage.getItem('githubToken') || '');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSessions, setActiveSessions] = useState([]);
+  const [showSessions, setShowSessions] = useState(false);
 
   useEffect(() => {
-    const storedAuth = localStorage.getItem('dashboardAuth');
-    if (storedAuth === 'true') {
+    // Check if current session is valid
+    if (isCurrentSessionValid()) {
       setIsAuthorized(true);
+      // Update session activity
+      updateSessionActivity();
+      // Load active sessions
+      setActiveSessions(getActiveSessions());
+    } else {
+      // Clear invalid session
+      localStorage.removeItem('dashboardAuth');
+      localStorage.removeItem('currentSessionId');
     }
   }, []);
+
+  // Update session activity periodically and refresh sessions list
+  useEffect(() => {
+    if (isAuthorized) {
+      const interval = setInterval(() => {
+        updateSessionActivity();
+        setActiveSessions(getActiveSessions());
+      }, 60000); // Update every minute
+      
+      return () => clearInterval(interval);
+    }
+  }, [isAuthorized]);
 
   useEffect(() => {
     // Load initial data
@@ -48,19 +81,46 @@ function AdminDashboard() {
       loginForm.username.trim() === 'NPT1009' &&
       loginForm.password === 'Napi@1009'
     ) {
+      // Create new session
+      const newSession = createSession();
       setIsAuthorized(true);
-      localStorage.setItem('dashboardAuth', 'true');
+      setActiveSessions(getActiveSessions());
       setLoginError('');
+      setLoginForm({ username: '', password: '' });
     } else {
       setLoginError('Invalid username or password. Please try again.');
     }
   };
 
   const handleLogout = () => {
+    const currentSessionId = getCurrentSessionId();
+    if (currentSessionId) {
+      removeSession(currentSessionId);
+    }
     localStorage.removeItem('dashboardAuth');
+    localStorage.removeItem('currentSessionId');
     setIsAuthorized(false);
+    setActiveSessions([]);
     setLoginForm({ username: '', password: '' });
     setLoginError('');
+  };
+
+  const handleRevokeSession = (sessionId) => {
+    const wasCurrentSession = removeSession(sessionId);
+    setActiveSessions(getActiveSessions());
+    
+    if (wasCurrentSession) {
+      // If current session was revoked, log out
+      setIsAuthorized(false);
+      setLoginForm({ username: '', password: '' });
+    }
+  };
+
+  const handleRevokeAllOtherSessions = () => {
+    if (window.confirm('Are you sure you want to revoke all other active sessions? This will log out all other devices.')) {
+      removeAllOtherSessions();
+      setActiveSessions(getActiveSessions());
+    }
   };
 
   const handleInputChange = (section, field, value, index = null) => {
@@ -106,6 +166,8 @@ function AdminDashboard() {
   };
 
   const handleSave = async () => {
+    // Update session activity on save
+    updateSessionActivity();
     setIsSaving(true);
     try {
       const result = await savePortfolioData(portfolioData);
@@ -299,11 +361,90 @@ function AdminDashboard() {
             {githubToken ? '✓' : '⚙️'} GitHub Sync
           </button>
           <button
+            onClick={() => {
+              setShowSessions(!showSessions);
+              if (!showSessions) {
+                setActiveSessions(getActiveSessions());
+              }
+            }}
+            className="mt-2 w-full px-4 py-2 text-sm font-semibold rounded-lg bg-gray-900 text-gray-300 border border-gray-700 hover:border-yellow-400 hover:text-white transition-colors"
+          >
+            🔒 Active Sessions ({activeSessions.length})
+          </button>
+          <button
             onClick={handleLogout}
             className="mt-2 w-full px-4 py-2 text-sm font-semibold rounded-lg bg-gray-900 text-gray-300 border border-gray-700 hover:border-red-400 hover:text-white transition-colors"
           >
             Sign out
           </button>
+          
+          {/* Active Sessions Panel */}
+          {showSessions && (
+            <div className="mt-4 p-4 bg-gray-900/50 border border-gray-700 rounded-lg max-h-96 overflow-y-auto">
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-sm font-semibold text-cyan-400">Active Sessions</h3>
+                {activeSessions.length > 1 && (
+                  <button
+                    onClick={handleRevokeAllOtherSessions}
+                    className="text-xs px-2 py-1 bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded border border-red-600/50"
+                    title="Revoke all other sessions"
+                  >
+                    Revoke All Others
+                  </button>
+                )}
+              </div>
+              {activeSessions.length === 0 ? (
+                <p className="text-xs text-gray-500">No active sessions</p>
+              ) : (
+                <div className="space-y-3">
+                  {activeSessions.map((session) => {
+                    const isCurrent = session.id === getCurrentSessionId();
+                    return (
+                      <div
+                        key={session.id}
+                        className={`p-3 rounded-lg border ${
+                          isCurrent
+                            ? 'bg-cyan-500/10 border-cyan-500/50'
+                            : 'bg-gray-800/50 border-gray-700'
+                        }`}
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-xs font-semibold text-white">
+                                {getDeviceDisplayName(session.deviceInfo)}
+                              </span>
+                              {isCurrent && (
+                                <span className="text-xs px-1.5 py-0.5 bg-cyan-500/20 text-cyan-400 rounded border border-cyan-500/50">
+                                  Current
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-xs text-gray-400 space-y-0.5">
+                              <div>Browser: {session.deviceInfo.browser}</div>
+                              <div>OS: {session.deviceInfo.os}</div>
+                              <div>Screen: {session.deviceInfo.screenWidth}x{session.deviceInfo.screenHeight}</div>
+                              <div>Login: {formatSessionTime(session.loginTime)}</div>
+                              <div>Last Activity: {formatSessionTime(session.lastActivity)}</div>
+                            </div>
+                          </div>
+                          {!isCurrent && (
+                            <button
+                              onClick={() => handleRevokeSession(session.id)}
+                              className="ml-2 px-2 py-1 text-xs bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded border border-red-600/50"
+                              title="Revoke this session"
+                            >
+                              ✕
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <nav className="flex-1 overflow-y-auto p-4">
           {menuItems.map(item => (
