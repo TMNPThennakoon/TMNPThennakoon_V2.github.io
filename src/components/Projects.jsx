@@ -3,6 +3,65 @@ import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
 import { getPortfolioData } from '../utils/portfolioData';
 
+// Function to convert Wikipedia URLs to direct image URLs
+const convertWikipediaUrl = (url) => {
+  if (!url) return url;
+  if (!url.includes('wikipedia.org')) return url;
+  if (url.includes('upload.wikimedia.org')) return url;
+  
+  const mediaMatch = url.match(/[#\/]media\/File:([^\/?#]+)/i);
+  if (mediaMatch) {
+    const filename = decodeURIComponent(mediaMatch[1]);
+    const firstChar = filename.charAt(0).toUpperCase();
+    const firstTwoChars = filename.substring(0, 2).replace(/\s/g, '_');
+    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${filename}/500px-${filename}`;
+  }
+  return url;
+};
+
+// Function to convert Google Drive links to direct image URLs
+const convertImageUrl = (url) => {
+  if (!url) return url;
+  
+  // Check if it's a Wikipedia URL
+  if (url.includes('wikipedia.org')) {
+    return convertWikipediaUrl(url);
+  }
+  
+  // Check if it's already a direct external URL (starts with http:// or https://)
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  
+  // Check if it's a Google Drive link
+  let fileId = null;
+  const driveMatch1 = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch1) {
+    fileId = driveMatch1[1];
+  }
+  
+  const driveMatch2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (driveMatch2 && !fileId) {
+    fileId = driveMatch2[1];
+  }
+  
+  const driveMatch3 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch3 && !fileId) {
+    fileId = driveMatch3[1];
+  }
+  
+  if (fileId) {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  }
+  
+  // If it's a local path, ensure it starts with /
+  if (!url.startsWith('/') && !url.startsWith('http')) {
+    return `/${url}`;
+  }
+  
+  return url;
+};
+
 const cardAnimationVariants = [
   {
     hidden: { opacity: 1, y: 32, scale: 0.96, rotateX: -4 },
@@ -202,12 +261,48 @@ const Projects = () => {
                 onClick={() => handleProjectClick(project.id)}
               >
                 <img
-                  src={project.image.startsWith('/') ? project.image : `/${project.image}`}
+                  src={convertImageUrl(project.image)}
                   alt={project.title}
                   className="w-full h-48 object-cover rounded-lg mb-4"
+                  loading="lazy"
+                  crossOrigin={project.image && (project.image.includes('wikimedia.org') || project.image.includes('wikipedia.org')) ? 'anonymous' : undefined}
+                  referrerPolicy="no-referrer"
                   onError={(e) => {
-                    e.target.src = `./${project.image}`;
-                    e.target.onerror = null;
+                    const imgElement = e.target;
+                    let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
+                    attemptCount++;
+                    imgElement.dataset.attemptCount = attemptCount.toString();
+                    
+                    // Try alternative Google Drive formats
+                    if (project.image && project.image.includes('drive.google.com') && attemptCount <= 3) {
+                      const fileIdMatch = project.image.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+                      if (fileIdMatch) {
+                        const fileId = fileIdMatch[1];
+                        if (attemptCount === 1) {
+                          imgElement.src = `https://drive.google.com/uc?export=view&id=${fileId}`;
+                          return;
+                        } else if (attemptCount === 2) {
+                          imgElement.src = `https://drive.google.com/thumbnail?id=${fileId}&sz=w500`;
+                          return;
+                        }
+                      }
+                    }
+                    
+                    // Try local path as fallback
+                    if (attemptCount <= 4 && project.image) {
+                      const localPath = project.image.startsWith('/') ? project.image : `/${project.image}`;
+                      if (imgElement.src !== localPath) {
+                        imgElement.src = localPath;
+                        return;
+                      }
+                    }
+                    
+                    // Show placeholder if all attempts fail
+                    imgElement.style.display = 'none';
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'w-full h-48 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg mb-4 flex items-center justify-center';
+                    placeholder.innerHTML = '<span class="text-gray-500 text-sm">Image not available</span>';
+                    imgElement.parentElement.insertBefore(placeholder, imgElement);
                   }}
                 />
                 <div className="absolute top-3 right-3">

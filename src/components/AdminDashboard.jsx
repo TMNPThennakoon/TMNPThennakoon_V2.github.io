@@ -1007,8 +1007,11 @@ function AdminDashboard() {
                         value={project.image}
                         onChange={(e) => handleArrayItemChange('projects', index, 'image', e.target.value)}
                         className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
-                        placeholder="/project-image.png"
+                        placeholder="/project-image.png or https://example.com/image.png"
                       />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Supports local paths (/image.png), external URLs, Google Drive links, and Wikipedia URLs
+                      </p>
                     </div>
                     <div>
                       <label className="block mb-2">GitHub URL</label>
@@ -1039,7 +1042,7 @@ function AdminDashboard() {
                         placeholder="YouTube, Vimeo, or direct video URL (e.g., https://youtube.com/watch?v=...)"
                       />
                       <p className="text-xs text-gray-400 mt-1">
-                        Supports YouTube, Vimeo, or direct video links (mp4, webm, etc.)
+                        Supports YouTube, Vimeo, Google Drive videos, or direct video links (mp4, webm, etc.)
                       </p>
                     </div>
                     <div className="col-span-2">

@@ -3,6 +3,39 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaArrowLeft, FaExternalLinkAlt, FaPlay } from 'react-icons/fa';
 import { getPortfolioData } from '../utils/portfolioData';
 
+// Function to convert Google Drive links to direct image URLs
+const convertImageUrl = (url) => {
+  if (!url) return url;
+  
+  // Check if it's already a direct external URL
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  
+  // Check if it's a Google Drive link
+  let fileId = null;
+  const driveMatch1 = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch1) {
+    fileId = driveMatch1[1];
+  }
+  
+  const driveMatch2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (driveMatch2 && !fileId) {
+    fileId = driveMatch2[1];
+  }
+  
+  if (fileId) {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  }
+  
+  // If it's a local path, ensure it starts with /
+  if (!url.startsWith('/') && !url.startsWith('http')) {
+    return `/${url}`;
+  }
+  
+  return url;
+};
+
 // Helper function to get video embed URL
 const getVideoEmbedUrl = (url) => {
   if (!url) return null;
@@ -21,6 +54,14 @@ const getVideoEmbedUrl = (url) => {
     return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
   }
   
+  // Google Drive video - convert to direct view link
+  const driveMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch) {
+    const fileId = driveMatch[1];
+    // Google Drive videos can be embedded using the file ID
+    return `https://drive.google.com/file/d/${fileId}/preview`;
+  }
+  
   // Direct video URL (mp4, webm, etc.)
   if (url.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i)) {
     return url;
@@ -34,6 +75,7 @@ const getVideoType = (url) => {
   if (!url) return null;
   if (url.includes('youtube.com') || url.includes('youtu.be')) return 'youtube';
   if (url.includes('vimeo.com')) return 'vimeo';
+  if (url.includes('drive.google.com')) return 'googledrive';
   if (url.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i)) return 'direct';
   return null;
 };
@@ -166,12 +208,48 @@ const ProjectDetail = ({ projectId, onBack }) => {
           className="relative mb-8 rounded-xl overflow-hidden group"
         >
           <img
-            src={project.image.startsWith('/') ? project.image : `/${project.image}`}
+            src={convertImageUrl(project.image)}
             alt={project.title}
             className="w-full h-64 md:h-80 lg:h-96 object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            crossOrigin={project.image && (project.image.includes('wikimedia.org') || project.image.includes('wikipedia.org')) ? 'anonymous' : undefined}
+            referrerPolicy="no-referrer"
             onError={(e) => {
-              e.target.src = `./${project.image}`;
-              e.target.onerror = null;
+              const imgElement = e.target;
+              let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
+              attemptCount++;
+              imgElement.dataset.attemptCount = attemptCount.toString();
+              
+              // Try alternative Google Drive formats
+              if (project.image && project.image.includes('drive.google.com') && attemptCount <= 3) {
+                const fileIdMatch = project.image.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+                if (fileIdMatch) {
+                  const fileId = fileIdMatch[1];
+                  if (attemptCount === 1) {
+                    imgElement.src = `https://drive.google.com/uc?export=view&id=${fileId}`;
+                    return;
+                  } else if (attemptCount === 2) {
+                    imgElement.src = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+                    return;
+                  }
+                }
+              }
+              
+              // Try local path as fallback
+              if (attemptCount <= 4 && project.image) {
+                const localPath = project.image.startsWith('/') ? project.image : `/${project.image}`;
+                if (imgElement.src !== localPath) {
+                  imgElement.src = localPath;
+                  return;
+                }
+              }
+              
+              // Show placeholder if all attempts fail
+              imgElement.style.display = 'none';
+              const placeholder = document.createElement('div');
+              placeholder.className = 'w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center';
+              placeholder.innerHTML = '<span class="text-gray-500">Image not available</span>';
+              imgElement.parentElement.insertBefore(placeholder, imgElement);
             }}
           />
           <div className="absolute top-4 right-4">
@@ -209,6 +287,15 @@ const ProjectDetail = ({ projectId, onBack }) => {
                   <source src={project.video} type="video/webm" />
                   Your browser does not support the video tag.
                 </video>
+              ) : getVideoType(project.video) === 'googledrive' ? (
+                <iframe
+                  src={getVideoEmbedUrl(project.video)}
+                  className="absolute top-0 left-0 w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  title={`${project.title} Demo Video`}
+                />
               ) : (
                 <iframe
                   src={getVideoEmbedUrl(project.video)}
