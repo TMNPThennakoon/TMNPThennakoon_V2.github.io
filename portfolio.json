@@ -1,0 +1,866 @@
+{
+  "profile": {
+    "name": "Nayana Thennakoon",
+    "title": "Engineering Technology Student",
+    "description": "Specializing in Instrumentation & Automation Technology with expertise in web development, machine learning, and innovative engineering solutions.",
+    "education": "Currently pursuing Bachelor of Engineering Technology Honours in Instrumentation and Automation at the University of Colombo.",
+    "profileImage": "/pro.png",
+    "typingWords": [
+      "Engineering Technology Student",
+      "Web Developer",
+      "App Developer",
+      "Machine Learning Enthusiast",
+      "PLC Automation Engineer",
+      "IoT Developer",
+      "UI/UX Designer",
+      "Embedded Systems Engineer"
+    ],
+    "socialLinks": {
+      "github": "https://github.com/nayanapabasara",
+      "linkedin": "https://www.linkedin.com/in/napi-9046392b3/",
+      "email": "nayanapabasara1@gmail.com",
+      "cv": "https://www.canva.com/design/DAGkKTADWIA/MJ_Lgp30GQFZgyya-XSr6w/view?utm_content=DAGkKTADWIA&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Passionate Engineering Technology Student",
+    "description": "I am a passionate and skilled engineer pursuing a Bachelor of Engineering Technology with Honours in Instrumentation and Automation at the University of Colombo. With a strong foundation in automation and a diverse technical skill set, including web development, machine learning, database management, app development, UI/UX design, FPGA programming, PLC programming, IoT development, embedded systems, SolidWorks designing, and programming languages like Python, SQL, and Java, I bring a holistic approach to engineering solutions.",
+    "image": "/pro2.png"
+  },
+  "skillsSummary": {
+    "projectsCompleted": {
+      "value": "5+",
+      "label": "Projects Completed",
+      "percentage": 90
+    },
+    "yearsExperience": {
+      "value": "3+",
+      "label": "Years Experience",
+      "percentage": 75
+    },
+    "technologiesMastered": {
+      "value": "10+",
+      "label": "Technologies Mastered",
+      "percentage": 85
+    }
+  },
+  "technicalSkills": [
+    {
+      "id": 1,
+      "name": "Web Development",
+      "icon": "code"
+    },
+    {
+      "id": 2,
+      "name": "App Development",
+      "icon": "mobile"
+    },
+    {
+      "id": 3,
+      "name": "UI/UX Design",
+      "icon": "palette"
+    },
+    {
+      "id": 4,
+      "name": "FPGA Programming",
+      "icon": "microchip"
+    },
+    {
+      "id": 5,
+      "name": "PLC Programming",
+      "icon": "cogs"
+    },
+    {
+      "id": 6,
+      "name": "LabVIEW",
+      "icon": "labview"
+    },
+    {
+      "id": 7,
+      "name": "IoT Development",
+      "icon": "wifi"
+    },
+    {
+      "id": 8,
+      "name": "Embedded Systems",
+      "icon": "microchip"
+    },
+    {
+      "id": 9,
+      "name": "SolidWorks Design",
+      "icon": "cube"
+    }
+  ],
+  "softSkills": [
+    {
+      "id": 1,
+      "name": "Team Work",
+      "percentage": 90
+    },
+    {
+      "id": 2,
+      "name": "Time Management",
+      "percentage": 85
+    },
+    {
+      "id": 3,
+      "name": "Leadership",
+      "percentage": 80
+    },
+    {
+      "id": 4,
+      "name": "Verbal & Written",
+      "percentage": 88
+    },
+    {
+      "id": 5,
+      "name": "Active Listening",
+      "percentage": 92
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "icon": "fa-solid fa-code",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original-wordmark.svg",
+      "title": "Programming Languages",
+      "skills": [
+        "Python",
+        "Java",
+        "C",
+        "C#",
+        "SQL",
+        "PHP"
+      ]
+    },
+    {
+      "id": 2,
+      "icon": "fa-solid fa-globe",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original-wordmark.svg",
+      "title": "Web Development",
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Responsive Design"
+      ]
+    },
+    {
+      "id": 3,
+      "icon": "fa-solid fa-brain",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original-wordmark.svg",
+      "title": "Data Science & ML",
+      "skills": [
+        "Machine Learning",
+        "Data Analysis",
+        "Statistical Modeling",
+        "Deep Learning"
+      ]
+    },
+    {
+      "id": 4,
+      "icon": "fa-solid fa-tools",
+      "iconUrl": "https://www.solidworks.com/sites/default/files/2020-10/SolidWorks-Logo.png",
+      "title": "Engineering Tools",
+      "skills": [
+        "AutoCAD",
+        "SolidWorks",
+        "Adobe Photoshop",
+        "MS Office"
+      ]
+    },
+    {
+      "id": 5,
+      "icon": "fa-solid fa-database",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original-wordmark.svg",
+      "title": "Database Management",
+      "skills": [
+        "SQL",
+        "Database Design",
+        "Data Modeling",
+        "MySQL"
+      ]
+    },
+    {
+      "id": 6,
+      "icon": "fa-solid fa-project-diagram",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original-wordmark.svg",
+      "title": "Project Management",
+      "skills": [
+        "Team Leadership",
+        "Time Management",
+        "Communication",
+        "Agile"
+      ]
+    },
+    {
+      "id": 7,
+      "icon": "fa-solid fa-mobile-alt",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg",
+      "title": "App Development",
+      "skills": [
+        "Flutter",
+        "Mobile Applications",
+        "Cross-Platform",
+        "User Interface"
+      ]
+    },
+    {
+      "id": 8,
+      "icon": "fa-solid fa-cube",
+      "iconUrl": "https://www.solidworks.com/sites/default/files/2020-10/SolidWorks-Logo.png",
+      "title": "SolidWorks Design",
+      "skills": [
+        "3D Modeling",
+        "CAD Design",
+        "Technical Drawings",
+        "Assembly Design"
+      ]
+    },
+    {
+      "id": 9,
+      "icon": "fa-solid fa-palette",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg",
+      "title": "UI/UX Design",
+      "skills": [
+        "User Interface",
+        "User Experience",
+        "Prototyping",
+        "Figma"
+      ]
+    },
+    {
+      "id": 10,
+      "icon": "fa-solid fa-microchip",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/arduino/arduino-original-wordmark.svg",
+      "title": "Embedded Systems",
+      "skills": [
+        "Arduino",
+        "Microcontrollers",
+        "Hardware Design",
+        "Firmware Development"
+      ]
+    },
+    {
+      "id": 11,
+      "icon": "fa-solid fa-wifi",
+      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/raspberrypi/raspberrypi-original-wordmark.svg",
+      "title": "IoT Development",
+      "skills": [
+        "Raspberry Pi",
+        "Sensor Integration",
+        "Wireless Communication",
+        "Cloud Connectivity"
+      ]
+    },
+    {
+      "id": 12,
+      "icon": "fa-solid fa-cogs",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Siemens_logo.svg/1024px-Siemens_logo.svg.png",
+      "title": "Process Automation (PLC)",
+      "skills": [
+        "Siemens PLC",
+        "Ladder Diagrams",
+        "SCADA Systems",
+        "Industrial Protocols"
+      ]
+    },
+    {
+      "id": 13,
+      "icon": "fa-solid fa-microchip",
+      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Xilinx_logo.svg/1024px-Xilinx_logo.svg.png",
+      "title": "FPGA Programming",
+      "skills": [
+        "VHDL",
+        "Verilog",
+        "Digital Design",
+        "Hardware Implementation"
+      ]
+    },
+    {
+      "id": 14,
+      "icon": "fa-solid fa-project-diagram",
+      "iconUrl": "https://www.ni.com/content/dam/ni/images/labview-logo.png",
+      "title": "Graphical Programming",
+      "skills": [
+        "LabVIEW",
+        "Data Acquisition",
+        "Instrument Control",
+        "Test Automation"
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "id": 1,
+      "icon": "fa-solid fa-code",
+      "logo": "/university-moratuwa-logo.png",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "credentialId": "klmvmNVEbs",
+      "title": "Front-End Web Developer",
+      "provider": "University of Moratuwa",
+      "date": "May 2024",
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React"
+      ]
+    },
+    {
+      "id": 2,
+      "icon": "fa-solid fa-users",
+      "logo": "/university-moratuwa-logo.png",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "credentialId": "CEP9r8Cjtp",
+      "title": "Project Communication and Stakeholder Management",
+      "provider": "University of Moratuwa",
+      "date": "July 2024",
+      "skills": [
+        "Project Management",
+        "Communication",
+        "Leadership"
+      ]
+    },
+    {
+      "id": 3,
+      "icon": "fa-solid fa-server",
+      "logo": "/university-moratuwa-logo.png",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "credentialId": "BZydlar9Hf",
+      "title": "Server-Side Web Programming",
+      "provider": "University of Moratuwa",
+      "date": "July 2024",
+      "skills": [
+        "Node.js",
+        "Express",
+        "Backend",
+        "API"
+      ]
+    },
+    {
+      "id": 4,
+      "icon": "fa-solid fa-chart-line",
+      "logo": "/google-logo.png",
+      "logoFallback": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+      "credentialId": "301531856",
+      "title": "Fundamentals of Digital Marketing",
+      "provider": "Google",
+      "date": "June 2024",
+      "skills": [
+        "Digital Marketing",
+        "SEO",
+        "Analytics"
+      ]
+    },
+    {
+      "id": 5,
+      "icon": "fa-solid fa-brain",
+      "logo": "/coursera-logo.png",
+      "logoFallback": "https://logos-world.net/wp-content/uploads/2021/02/Coursera-Logo.png",
+      "credentialId": "BZyhjkk8Hf",
+      "title": "Generative AI",
+      "provider": "Coursera",
+      "date": "June 2024",
+      "skills": [
+        "AI",
+        "Machine Learning",
+        "Deep Learning"
+      ]
+    },
+    {
+      "id": 6,
+      "icon": "fa-brands fa-python",
+      "logo": "/university-moratuwa-logo.png",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "credentialId": "R3yZhacfTe",
+      "title": "Python Programming",
+      "provider": "University of Moratuwa",
+      "date": "June 2024",
+      "skills": [
+        "Python",
+        "Programming",
+        "Data Structures"
+      ]
+    },
+    {
+      "id": 7,
+      "icon": "fa-solid fa-project-diagram",
+      "logo": "/university-moratuwa-logo.png",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "credentialId": "CodezAGaV6JVe4",
+      "title": "Foundations of Project Management",
+      "provider": "University of Moratuwa",
+      "date": "June 2024",
+      "skills": [
+        "Project Management",
+        "Planning",
+        "Leadership"
+      ]
+    },
+    {
+      "id": 8,
+      "icon": "fa-solid fa-rocket",
+      "logo": "/university-moratuwa-logo.png",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "credentialId": "rhsRICXBHs",
+      "title": "Agile Project Management in ICT Projects",
+      "provider": "University of Moratuwa",
+      "date": "June 2024",
+      "skills": [
+        "Agile",
+        "Scrum",
+        "ICT"
+      ]
+    },
+    {
+      "id": 9,
+      "icon": "fa-solid fa-microchip",
+      "logo": "/sliit-logo.png",
+      "logoFallback": "https://www.sliit.lk/wp-content/uploads/2021/06/sliit-logo.png",
+      "credentialId": "5dxqvoubbc",
+      "title": "AI/ML Engineer - Stage 1",
+      "provider": "SLIIT",
+      "date": "July 2024",
+      "skills": [
+        "AI",
+        "Machine Learning",
+        "Data Science"
+      ]
+    },
+    {
+      "id": 10,
+      "icon": "fa-solid fa-network-wired",
+      "logo": "/sliit-logo.png",
+      "logoFallback": "https://www.sliit.lk/wp-content/uploads/2021/06/sliit-logo.png",
+      "credentialId": "yk75lue7cs",
+      "title": "AI/ML Engineer - Stage 2",
+      "provider": "SLIIT",
+      "date": "July 2024",
+      "skills": [
+        "Deep Learning",
+        "Neural Networks",
+        "TensorFlow"
+      ]
+    },
+    {
+      "id": 11,
+      "icon": "fa-solid fa-laptop-code",
+      "logo": "/hackerrank-logo.png",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
+      "credentialId": "971CD1C2AEC",
+      "title": "Software Engineer Intern",
+      "provider": "HackerRank",
+      "date": "March 2024",
+      "skills": [
+        "Software Engineering",
+        "Problem Solving",
+        "Algorithms"
+      ]
+    },
+    {
+      "id": 12,
+      "icon": "fa-solid fa-calendar-check",
+      "logo": "/university-moratuwa-logo.png",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "credentialId": "V2S4tZpk3v",
+      "title": "Project Scope and Schedule Management",
+      "provider": "University of Moratuwa",
+      "date": "June 2024",
+      "skills": [
+        "Project Management",
+        "Scheduling",
+        "Scope"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": 1,
+      "institution": "University of Colombo",
+      "degree": "Bachelor of Engineering Technology Honours in Instrumentation and Automation (Reading)",
+      "period": "Present",
+      "logo": "/uoc.png"
+    },
+    {
+      "id": 2,
+      "institution": "ICBT Kurunegala Campus",
+      "degree": "Diploma in ICT & Diploma in English",
+      "period": "2022",
+      "logo": "/icbt_logo.png"
+    },
+    {
+      "id": 3,
+      "institution": "Mayurapada C.C. Narammala",
+      "degree": "Advance Level - Engineering Technology (A), Science for Technology (B), Information & Communication Technology (B)",
+      "period": "2021",
+      "logo": "/mayu.jpg"
+    },
+    {
+      "id": 4,
+      "institution": "Sri Sumangala Central College, Wariyapola",
+      "degree": "Ordinary Level",
+      "period": "2018",
+      "logo": ""
+    }
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "title": "Training Assistant Manager",
+      "company": "Ebony Holdings (Pvt) Ltd",
+      "duration": "2022 - 2023 (1 Year Experience)",
+      "description": "Managed training programs and assisted in organizational development initiatives.",
+      "icon": "fa-solid fa-briefcase",
+      "logo": "/ebony.png"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "category": "mobile",
+      "title": "Serandib Stay - Hotel Management System",
+      "description": "Comprehensive hotel booking app with transport booking, food ordering, and Sri Lanka's most beautiful places tracking features.",
+      "image": "/hotel.png",
+      "tech": [
+        "Flutter",
+        "Firebase",
+        "Google Maps",
+        "Payment Gateway"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "December 2024",
+      "categoryLabel": "MOBILE APPLICATION"
+    },
+    {
+      "id": 2,
+      "category": "mobile",
+      "title": "GPA Calculator App",
+      "description": "University GPA calculator for Sri Lankan students with subject management, credit calculation, and semester-wise GPA tracking.",
+      "image": "/gpa.jpg",
+      "tech": [
+        "Flutter",
+        "Dart",
+        "SQLite",
+        "Material Design"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "October 2025",
+      "categoryLabel": "MOBILE APPLICATION"
+    },
+    {
+      "id": 3,
+      "category": "web",
+      "title": "E-Commerce Web Application",
+      "description": "Full-stack e-commerce platform with user authentication, product management, shopping cart, and secure payment integration.",
+      "image": "/e-mart.png",
+      "tech": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "Stripe"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "August 2024",
+      "categoryLabel": "WEB APPLICATION"
+    },
+    {
+      "id": 4,
+      "category": "automation",
+      "title": "Pneumatic Product Sorting System",
+      "description": "Automated sorting system using Siemens PLC with 3 conveyor belts, 7 sensors, and pneumatic actuators for product detection and sorting.",
+      "image": "/pneumatic-sorting.jpg",
+      "tech": [
+        "Siemens PLC",
+        "TIA Portal",
+        "Ladder Logic",
+        "HMI"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "June 2025",
+      "categoryLabel": "QA AUTOMATION"
+    },
+    {
+      "id": 5,
+      "category": "automation",
+      "title": "Smart 3-Level Elevator Prototype",
+      "description": "Elevator control system using S7-200 PLC with three floors, door interlocks, call prioritization, and queue-based scheduling for optimal performance.",
+      "image": "/elevator-system.jpg",
+      "tech": [
+        "S7-200 PLC",
+        "Ladder Logic",
+        "Safety Systems",
+        "SCADA"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "April 2025",
+      "categoryLabel": "QA AUTOMATION"
+    },
+    {
+      "id": 6,
+      "category": "iot",
+      "title": "Smart Greenhouse Monitoring System",
+      "description": "IoT-based greenhouse monitoring with real-time environmental data collection, automated control systems, and sensor integration.",
+      "image": "/SG.jpg",
+      "tech": [
+        "Arduino",
+        "Python",
+        "MQTT",
+        "Raspberry Pi"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "February 2024",
+      "categoryLabel": "MOBILE APPLICATION"
+    },
+    {
+      "id": 7,
+      "category": "ml",
+      "title": "Sign Language Detection System",
+      "description": "Real-time sign language recognition system with 90%+ accuracy supporting all 26 English letters and 10 numbers. Features advanced computer vision, modern GUI interface, and smart machine learning using Random Forest classifier.",
+      "image": "/m1.png",
+      "tech": [
+        "Python",
+        "OpenCV",
+        "MediaPipe",
+        "Scikit-learn",
+        "Tkinter"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "January 2024",
+      "categoryLabel": "MACHINE LEARNING"
+    },
+    {
+      "id": 8,
+      "category": "ml",
+      "title": "Face and Eye Recognizer",
+      "description": "Advanced computer vision system for real-time face and eye detection using MediaPipe. Features precise facial landmark detection and eye tracking capabilities for various applications.",
+      "image": "/m2.png",
+      "tech": [
+        "Python",
+        "MediaPipe",
+        "OpenCV",
+        "NumPy",
+        "Computer Vision"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "December 2025",
+      "categoryLabel": "MACHINE LEARNING"
+    },
+    {
+      "id": 9,
+      "category": "ml",
+      "title": "Real-Time Sign Language Recognition",
+      "description": "Deep learning-based ASL recognition system for 10 common gestures using MediaPipe hand landmarks and CNN. Achieves 99.37% accuracy on balanced, augmented dataset for inclusive HCI and accessibility.",
+      "image": "/m3.png",
+      "tech": [
+        "Python",
+        "MediaPipe",
+        "Deep Learning",
+        "CNN",
+        "TensorFlow"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "November 2025",
+      "categoryLabel": "MACHINE LEARNING"
+    },
+    {
+      "id": 10,
+      "category": "desktop",
+      "title": "Scientific Calculator",
+      "description": "Advanced Scientific Calculator built using C# and RAD principles with MDI architecture. Features basic and scientific calculations, unit conversions, and temperature conversions. The main form acts as parent window with child forms for calculator and converters. Includes comprehensive input validation, error handling for division by zero, and user-friendly interface design. Demonstrates practical application of Rapid Application Development concepts in desktop application development.",
+      "image": "/calculator.jpg",
+      "tech": [
+        "C#",
+        "Visual Studio",
+        "Windows Forms",
+        ".NET Framework",
+        "GUI Design",
+        "Mathematical Libraries",
+        "Error Handling",
+        "Memory Management",
+        "Event Handling",
+        "OOP Principles"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "October 2025",
+      "categoryLabel": "DESKTOP APPLICATION"
+    },
+    {
+      "id": 11,
+      "category": "robotics",
+      "title": "Line Following & Obstacle Detection Robot",
+      "description": "A sophisticated line-following robot with obstacle detection capabilities and an integrated robotic arm for autonomous obstacle removal. Built using ATmega328P microcontroller and tested via Proteus simulation. Features dual operating modes, PWM-based motor control, intelligent obstacle detection with 10cm range, autonomous obstacle removal via 4-servo robotic arm, adaptive speed control for curves and straight paths, visual & audio alerts with LED indicators and buzzer notifications, and mode switching with push-button control.",
+      "image": "/line-following-robot.jpg",
+      "tech": [
+        "ATmega328P",
+        "Arduino IDE",
+        "IR Sensors",
+        "Ultrasonic Sensor",
+        "Servo Motors",
+        "PWM Control",
+        "Proteus Simulation",
+        "C++"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "September 2025",
+      "categoryLabel": "ROBOTICS"
+    },
+    {
+      "id": 12,
+      "category": "web",
+      "title": "Hotel Booking Website",
+      "description": "A full-featured hotel booking and management platform designed for both customers and hotel administrators. The system includes comprehensive room availability management, dynamic pricing algorithms, secure payment gateway integration, customer review and rating system, and advanced search filters. Features include responsive web design, real-time booking updates, email notifications, admin dashboard with analytics, inventory management, customer relationship management (CRM), multi-language support, and mobile-optimized interface for seamless user experience across all devices.",
+      "image": "/hotel.png",
+      "tech": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "PHP",
+        "MySQL",
+        "Bootstrap",
+        "jQuery",
+        "AJAX",
+        "Payment Gateway",
+        "Email Integration",
+        "Responsive Design",
+        "Admin Dashboard",
+        "Database Design",
+        "Security Implementation"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "August 2023",
+      "categoryLabel": "WEB APPLICATION"
+    },
+    {
+      "id": 13,
+      "category": "web",
+      "title": "Classroom Attendance & Gradebook System",
+      "description": "Digital classroom management solution with automated attendance tracking, grade calculation, student progress monitoring, and report generation. Features teacher dashboard, parent portal, and analytics integration.",
+      "image": "/class.jpg",
+      "tech": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Express.js",
+        "JWT Authentication"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "July 2023",
+      "categoryLabel": "WEB APPLICATION"
+    },
+    {
+      "id": 14,
+      "category": "iot",
+      "title": "Automated Sweep Robot Using ESP-32",
+      "description": "Smart cleaning robot powered by ESP-32 microcontroller with WiFi connectivity, obstacle avoidance, and automated cleaning patterns. Features mobile app control, scheduling capabilities, and battery monitoring.",
+      "image": "/cleanrobo.jpg",
+      "tech": [
+        "ESP-32",
+        "Arduino IDE",
+        "WiFi",
+        "Mobile App",
+        "C++",
+        "IoT"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "June 2023",
+      "categoryLabel": "IOT SYSTEMS"
+    },
+    {
+      "id": 15,
+      "category": "mechanical",
+      "title": "Hand Operated Forklift Machine",
+      "description": "Innovative mechanical forklift design with manual operation system, hydraulic lifting mechanism, and ergonomic controls. Features load balancing, safety mechanisms, and precision movement control for warehouse operations.",
+      "image": "/hand-forklift.jpg",
+      "tech": [
+        "SolidWorks",
+        "Mechanical Design",
+        "Hydraulics",
+        "CAD Modeling",
+        "Prototyping"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "May 2023",
+      "categoryLabel": "MECHANICAL DESIGN"
+    },
+    {
+      "id": 16,
+      "category": "iot",
+      "title": "Smart Home Control System",
+      "description": "Comprehensive IoT-based home automation system with voice control, mobile app integration, and sensor-based automation. Features lighting control, temperature regulation, security monitoring, and energy management.",
+      "image": "/smart-home.png",
+      "tech": [
+        "Arduino",
+        "Raspberry Pi",
+        "MQTT",
+        "Mobile App",
+        "Voice Control",
+        "IoT"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "April 2024",
+      "categoryLabel": "IOT SYSTEMS"
+    },
+    {
+      "id": 17,
+      "category": "mobile",
+      "title": "Food Ordering Application",
+      "description": "Complete food delivery platform with restaurant listings, menu management, real-time order tracking, and payment integration. Features user reviews, delivery scheduling, and restaurant analytics dashboard.",
+      "image": "/food.png",
+      "tech": [
+        "Flutter",
+        "Firebase",
+        "Google Maps",
+        "Payment Gateway",
+        "Push Notifications"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "March 2025",
+      "categoryLabel": "MOBILE APPLICATION"
+    },
+    {
+      "id": 18,
+      "category": "mechanical",
+      "title": "SolidWorks Conveyor Belt Design",
+      "description": "Professional conveyor belt system designed using SolidWorks with detailed 3D modeling and assembly. Features modular components, belt tensioning mechanisms, and motor mounting systems. Includes engineering drawings and manufacturing documentation. Demonstrates advanced CAD modeling skills and mechanical engineering concepts.",
+      "image": "/conveyor.png",
+      "tech": [
+        "SolidWorks",
+        "CAD Modeling",
+        "3D Design",
+        "Assembly Design",
+        "Mechanical Design",
+        "Engineering Drawings"
+      ],
+      "github": "https://github.com/nayanapabasara",
+      "live": "#",
+      "date": "February 2024",
+      "categoryLabel": "MECHANICAL DESIGN"
+    }
+  ],
+  "contact": {
+    "email": "nayanapabasara1@gmail.com",
+    "phone": "Available on request",
+    "location": "Colombo, Sri Lanka"
+  }
+}
