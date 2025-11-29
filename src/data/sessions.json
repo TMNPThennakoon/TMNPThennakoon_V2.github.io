@@ -1,5 +1,19 @@
 [
   {
+    "id": "session_1764413185467_1otfyxv8y",
+    "deviceInfo": {
+      "browser": "Safari",
+      "os": "macOS",
+      "deviceType": "Mobile",
+      "screenWidth": 428,
+      "screenHeight": 926,
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Cr",
+      "timezone": "Asia/Colombo"
+    },
+    "loginTime": 1764413185468,
+    "lastActivity": 1764413185468
+  },
+  {
     "id": "session_1764412943903_duj36m6k6",
     "deviceInfo": {
       "browser": "Chrome",
