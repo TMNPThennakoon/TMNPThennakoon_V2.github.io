@@ -673,6 +673,8 @@ function AdminDashboard() {
                     title: 'New Certification',
                     provider: '',
                     date: '',
+                    link: '',
+                    credentialUrl: '',
                     skills: []
                   })}
                   className="w-full sm:w-auto px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-sm md:text-base"
@@ -714,7 +716,7 @@ function AdminDashboard() {
                       <label className="block mb-2 text-sm md:text-base">Credential ID</label>
                       <input
                         type="text"
-                        value={cert.credentialId}
+                        value={cert.credentialId || ''}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'credentialId', e.target.value)}
                         className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                       />
@@ -728,6 +730,22 @@ function AdminDashboard() {
                         className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
                         placeholder="May 2024"
                       />
+                    </div>
+                    <div className="col-span-1 md:col-span-2">
+                      <label className="block mb-2 text-sm md:text-base font-medium">View Credential URL</label>
+                      <input
+                        type="url"
+                        value={cert.link || cert.credentialUrl || ''}
+                        onChange={(e) => {
+                          // Store in 'link' field (component checks link first, then credentialUrl)
+                          handleArrayItemChange('certifications', index, 'link', e.target.value);
+                        }}
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        placeholder="https://www.coursera.org/verify/... or https://www.udemy.com/certificate/..."
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Enter the full URL where users can view/verify the certificate. This will be used for the "View credential" button. Leave empty if no verification link is available.
+                      </p>
                     </div>
                     <div className="md:col-span-1">
                       <label className="block mb-2 text-sm md:text-base">Logo URL</label>
