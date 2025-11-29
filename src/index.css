@@ -4,6 +4,10 @@
   font-family: 'Inter', 'Poppins', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -13,4 +17,9 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Space Grotesk', 'Poppins', sans-serif;
   font-weight: 700;
+}
+
+/* Smooth scrolling for section anchors */
+#profile, #about, #skills, #certifications, #education, #experience, #projects, #contact {
+  scroll-margin-top: 80px;
 }

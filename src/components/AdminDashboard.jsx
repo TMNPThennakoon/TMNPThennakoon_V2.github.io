@@ -224,17 +224,26 @@ function AdminDashboard() {
   // Render preview
   if (showPreview) {
     return (
-      <div className="min-h-screen bg-black">
-        <div className="fixed top-0 left-0 right-0 bg-gray-900 p-4 z-50 flex justify-between items-center border-b border-gray-700">
+      <div className="min-h-screen bg-black overflow-x-hidden">
+        <div className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-md p-4 z-50 flex justify-between items-center border-b border-gray-700 shadow-lg">
           <h2 className="text-xl font-bold text-white">Portfolio Preview</h2>
           <button
             onClick={() => setShowPreview(false)}
-            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold"
+            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
           >
             Back to Dashboard
           </button>
         </div>
         <div className="pt-20">
+          {/* Smooth scroll behavior */}
+          <style>{`
+            html {
+              scroll-behavior: smooth;
+            }
+            #profile, #about, #skills, #certifications, #education, #experience, #projects, #contact {
+              scroll-margin-top: 80px;
+            }
+          `}</style>
           <Profile />
           <About />
           <Skills />
