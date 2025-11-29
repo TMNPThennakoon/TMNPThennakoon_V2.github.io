@@ -534,6 +534,42 @@
   ],
   "projects": [
     {
+      "id": 1764441788457,
+      "category": "web",
+      "title": "QR & Barcode Generator Platfor",
+      "description": "Built a web application to generate QR codes and barcodes with extensive customization. Supports multiple QR code types, batch processing, and includes a built-in scanner.\n\n✨ Key Features Implemented:\n🎨 Design & Customization: Color customization, size control, logo overlay, border & padding, error correction levels\n🔲 Advanced QR Types: WiFi, vCard/Contact, Email, SMS, Geolocation, Event, Text/URL\n📥 Export Options: PNG, JPG, SVG, PDF downloads + Copy to Clipboard\n🔧 Functionality: QR code scanner, validation, generation history, batch generation, code templates\n🎯 UX: Dark mode, real-time preview, responsive design, animated UI\n\n🛠️ Technology Stack:\nFrontend: Next.js 14 (App Router), React 18, TypeScript\nStyling: Tailwind CSS with custom animations\nAnimations: Framer Motion\nLibraries: QRCode.js, JsBarcode, jsPDF, html5-qrcode\nIcons: Lucide React\nDeployment: GitHub Pages with static export\n\n📊 Project Stats:\n30+ features implemented\nFully responsive design\nTypeScript for type safety\nLocal storage for persistence\nProduction-ready deployment\n\n🌟 Why This Application is Special:\n✨ 100% FREE — No hidden costs, no subscriptions, no ads. All features are available without payment.\n✨ 30+ advanced features in one place\n✨ Professional UI with smooth animations\n✨ Multiple export formats (PNG, JPG, SVG, PDF)\n✨ Built-in QR code scanner\n✨ Batch processing for multiple codes\n✨ Dark mode support\n✨ Open source and freely accessible\n",
+      "image": "https://drive.google.com/file/d/1kJY_YyO0DOjB_KsLD-8V5CRLZxIpSvys/view?usp=drivesdk",
+      "tech": [
+        "Next.js",
+        "Typescript",
+        "React.js"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "November 2025",
+      "categoryLabel": "WEB APPLICATION"
+    },
+    {
+      "id": 1764441445453,
+      "category": "web",
+      "title": "Text to Voice Generator with Unlimited Translator",
+      "description": "A free, open-source text-to-speech platform built with React, TypeScript, and the Web Speech API.\n\n✨ Features:\n🎯Text-to-Speech — Convert text to natural speech with customizable voices\n🌍 Translation — Translate text between 100+ languages\n🎤 Speech-to-Text — Real-time voice transcription\n🎨 Voice Styles — Multiple presets (Professional, Friendly, Energetic, Calm)\n⚡ Custom Controls — Adjust speed, pitch, and volume\n🎵 Audio Editor — PCM audio generation with waveform visualization\n📊 Audio Visualization — Real-time visual feedback\n📝 History — Save and manage your generated speech\n💾 Multiple Formats — Export as WAV, MP3, OGG, or WebM\n📱 Responsive Design — Works on desktop and mobile\n🎨 Modern UI — Glassmorphism design with smooth animations\n\n🔗 Live Demo: https://nayanapabasara.com/Text-to-Voice-Generator\n\n\n⚛️ React + TypeScript\n🎨 Tailwind CSS\n✨ Framer Motion\n🎵 Web Speech API\n\n100% free and open source. No API keys or subscriptions required.\n",
+      "image": "https://drive.google.com/file/d/13sDTkHpBfOyaJEbc09-hb6UsIxI7t0I1/view?usp=drivesdk",
+      "tech": [
+        "React.js",
+        "Javascript",
+        "Typescript",
+        "TailwindCSS",
+        "Framer_Motion"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "November 2025",
+      "categoryLabel": "WEB APPLICATION"
+    },
+    {
       "id": 1764441036707,
       "category": "iot",
       "title": "Industrial Machine Vibration & Environment Logger DAQ System",
