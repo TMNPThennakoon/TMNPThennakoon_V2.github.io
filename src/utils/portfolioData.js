@@ -3,36 +3,12 @@ import portfolioData from '../data/portfolio.json';
 // Global state for portfolio data (for real-time updates)
 let currentPortfolioData = portfolioData;
 
-// Load from localStorage if available
-const loadFromStorage = () => {
-  try {
-    const stored = localStorage.getItem('portfolioData');
-    if (stored) {
-      return JSON.parse(stored);
-    }
-  } catch (e) {
-    console.warn('Failed to load from localStorage:', e);
-  }
-  return portfolioData;
-};
-
-// Initialize from localStorage or default
-currentPortfolioData = loadFromStorage();
-
 // Function to get portfolio data
+// ALWAYS use JSON file as source of truth - localStorage is device-specific and causes sync issues
 export const getPortfolioData = () => {
-  // Always check localStorage first for latest data
-  const stored = loadFromStorage();
-  if (stored) {
-    currentPortfolioData = stored;
-    // Always use education data from JSON file as source of truth
-    // This ensures direct JSON edits are reflected even if localStorage has old data
-    if (portfolioData.education && Array.isArray(portfolioData.education)) {
-      currentPortfolioData.education = portfolioData.education;
-    }
-  } else {
-    currentPortfolioData = portfolioData;
-  }
+  // Always use the JSON file data as the source of truth
+  // This ensures all users see the same data regardless of device
+  currentPortfolioData = portfolioData;
   return currentPortfolioData;
 };
 
@@ -44,31 +20,104 @@ export const updatePortfolioData = (newData) => {
   return newData;
 };
 
-// Function to save portfolio data to JSON file (client-side only - would need backend for actual file write)
+// Function to save portfolio data
+// This will update the portfolio.json file via GitHub API to sync across all devices
 export const savePortfolioData = async (data) => {
   try {
-    // Update the global state
+    // Update the global state for immediate UI updates
     currentPortfolioData = data;
     
-    // Save to localStorage for persistence
-    localStorage.setItem('portfolioData', JSON.stringify(data));
-    
-    // Trigger update event (this will update all listening components)
+    // Trigger update event (this will update all listening components in current session)
     window.dispatchEvent(new CustomEvent('portfolioDataUpdated', { detail: data }));
     
-    // Trigger a custom storage-like event for same-tab updates
-    // (native storage events only fire in other tabs/windows)
-    window.dispatchEvent(new CustomEvent('portfolioStorageUpdate', { 
-      detail: { key: 'portfolioData', newValue: JSON.stringify(data) }
-    }));
+    // Try to save via GitHub API if credentials are available
+    const githubToken = localStorage.getItem('githubToken');
+    if (githubToken) {
+      try {
+        const result = await updatePortfolioJsonOnGitHub(data, githubToken);
+        if (result.success) {
+          return { 
+            success: true, 
+            message: '✅ Portfolio data saved to GitHub! Changes will be live in 1-2 minutes after deployment.' 
+          };
+        }
+      } catch (error) {
+        console.error('GitHub API error:', error);
+        // Fall through to export/download option
+      }
+    }
     
-    // In a real app, you'd send this to a backend API
-    // For now, we'll just update the in-memory data and localStorage
-    return { success: true, message: 'Portfolio data updated successfully! Main page will update automatically.' };
+    // If no GitHub token, provide download option
+    return { 
+      success: true, 
+      message: '⚠️ Changes saved locally. Please export JSON and manually update portfolio.json in GitHub, or set up GitHub API token for automatic sync.',
+      requiresManualUpdate: true,
+      data: data
+    };
   } catch (error) {
     return { success: false, message: 'Error saving portfolio data: ' + error.message };
   }
 };
+
+// Function to update portfolio.json on GitHub via API
+async function updatePortfolioJsonOnGitHub(data, token) {
+  const owner = 'TMNPThennakoon';
+  const repo = 'TMNP.Thennakoon_V2.github.io';
+  const path = 'src/data/portfolio.json';
+  const branch = 'main';
+  
+  try {
+    // Get current file SHA
+    const getFileResponse = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
+      {
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      }
+    );
+    
+    if (!getFileResponse.ok && getFileResponse.status !== 404) {
+      throw new Error('Failed to fetch current file');
+    }
+    
+    const currentFile = await getFileResponse.json();
+    const sha = currentFile?.sha;
+    
+    // Prepare file content
+    const jsonString = JSON.stringify(data, null, 2);
+    const content = btoa(unescape(encodeURIComponent(jsonString)));
+    
+    // Update file
+    const updateResponse = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Update portfolio data - ${new Date().toISOString()}`,
+          content: content,
+          branch: branch,
+          ...(sha && { sha: sha })
+        })
+      }
+    );
+    
+    if (!updateResponse.ok) {
+      const error = await updateResponse.json();
+      throw new Error(error.message || 'Failed to update file');
+    }
+    
+    return { success: true };
+  } catch (error) {
+    throw error;
+  }
+}
 
 // Export function to download JSON
 export const exportPortfolioData = (data) => {

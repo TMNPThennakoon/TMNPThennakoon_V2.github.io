@@ -67,52 +67,24 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Listen for portfolio data updates to refresh initials
+    // Always load from JSON file on mount (source of truth)
+    const loadData = () => {
+      const latest = getPortfolioData();
+      setPortfolioData(latest);
+      setInitials(generateInitials(latest.profile.name));
+    };
+    loadData();
+    
+    // Listen for portfolio data updates (only for real-time preview in current session)
     const handleUpdate = (event) => {
       setPortfolioData(event.detail);
       setInitials(generateInitials(event.detail.profile.name));
     };
     
-    const handleStorage = (e) => {
-      if (e.key === 'portfolioData' && e.newValue) {
-        try {
-          const data = JSON.parse(e.newValue);
-          setPortfolioData(data);
-          setInitials(generateInitials(data.profile.name));
-        } catch (err) {
-          console.error('Error parsing stored data:', err);
-        }
-      }
-    };
-    
-    const handleCustomStorage = (e) => {
-      if (e.detail && e.detail.key === 'portfolioData' && e.detail.newValue) {
-        try {
-          const data = JSON.parse(e.detail.newValue);
-          setPortfolioData(data);
-          setInitials(generateInitials(data.profile.name));
-        } catch (err) {
-          console.error('Error parsing stored data:', err);
-        }
-      }
-    };
-    
     window.addEventListener('portfolioDataUpdated', handleUpdate);
-    window.addEventListener('storage', handleStorage);
-    window.addEventListener('portfolioStorageUpdate', handleCustomStorage);
-    
-    // Check for updates on mount
-    const checkForUpdates = () => {
-      const latest = getPortfolioData();
-      setPortfolioData(latest);
-      setInitials(generateInitials(latest.profile.name));
-    };
-    checkForUpdates();
     
     return () => {
       window.removeEventListener('portfolioDataUpdated', handleUpdate);
-      window.removeEventListener('storage', handleStorage);
-      window.removeEventListener('portfolioStorageUpdate', handleCustomStorage);
     };
   }, []);
 

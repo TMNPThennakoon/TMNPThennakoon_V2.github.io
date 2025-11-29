@@ -18,6 +18,8 @@ function AdminDashboard() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [loginError, setLoginError] = useState('');
+  const [showGitHubSettings, setShowGitHubSettings] = useState(false);
+  const [githubToken, setGithubToken] = useState(localStorage.getItem('githubToken') || '');
 
   useEffect(() => {
     const storedAuth = localStorage.getItem('dashboardAuth');
@@ -107,10 +109,17 @@ function AdminDashboard() {
     try {
       const result = await savePortfolioData(portfolioData);
       setSaveStatus(result.message);
+      if (result.requiresManualUpdate) {
+        // Auto-export JSON file if manual update is required
+        setTimeout(() => {
+          exportPortfolioData(result.data);
+          setSaveStatus(result.message + ' JSON file downloaded automatically. Upload it to GitHub.');
+        }, 500);
+      }
       setTimeout(() => {
         setSaveStatus('');
         setIsSaving(false);
-      }, 2000);
+      }, result.requiresManualUpdate ? 5000 : 2000);
     } catch (error) {
       setSaveStatus('Error: ' + error.message);
       setIsSaving(false);
@@ -246,8 +255,14 @@ function AdminDashboard() {
           <h1 className="text-xl font-bold text-cyan-400">Portfolio Admin Dashboard</h1>
           <p className="text-sm text-gray-400 mt-1">Signed in as NPT1009</p>
           <button
+            onClick={() => setShowGitHubSettings(!showGitHubSettings)}
+            className="mt-3 w-full px-4 py-2 text-sm font-semibold rounded-lg bg-gray-900 text-gray-300 border border-gray-700 hover:border-cyan-400 hover:text-white transition-colors"
+          >
+            {githubToken ? '✓' : '⚙️'} GitHub Sync
+          </button>
+          <button
             onClick={handleLogout}
-            className="mt-4 w-full px-4 py-2 text-sm font-semibold rounded-lg bg-gray-900 text-gray-300 border border-gray-700 hover:border-red-400 hover:text-white transition-colors"
+            className="mt-2 w-full px-4 py-2 text-sm font-semibold rounded-lg bg-gray-900 text-gray-300 border border-gray-700 hover:border-red-400 hover:text-white transition-colors"
           >
             Sign out
           </button>
@@ -315,8 +330,71 @@ function AdminDashboard() {
 
         {/* Status Message */}
         {saveStatus && (
-          <div className={`p-4 ${saveStatus.includes('Error') ? 'bg-red-600' : 'bg-green-600'}`}>
+          <div className={`p-4 ${saveStatus.includes('Error') || saveStatus.includes('⚠️') ? 'bg-yellow-600' : saveStatus.includes('Error') ? 'bg-red-600' : 'bg-green-600'}`}>
             {saveStatus}
+          </div>
+        )}
+
+        {/* GitHub Settings Panel */}
+        {showGitHubSettings && (
+          <div className="bg-gray-800 border-b border-gray-700 p-6">
+            <h3 className="text-lg font-semibold text-cyan-400 mb-4">GitHub API Sync Configuration</h3>
+            <p className="text-sm text-gray-400 mb-4">
+              Configure GitHub API token to automatically sync changes across all devices. 
+              Without a token, you'll need to manually export and upload the JSON file.
+            </p>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm text-gray-300 mb-2">GitHub Personal Access Token</label>
+                <input
+                  type="password"
+                  value={githubToken}
+                  onChange={(e) => setGithubToken(e.target.value)}
+                  placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                  className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-cyan-500 focus:outline-none"
+                />
+                <p className="text-xs text-gray-500 mt-2">
+                  <a 
+                    href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio%20Admin%20Dashboard" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 hover:underline"
+                  >
+                    Create a token here
+                  </a> with <code className="bg-gray-900 px-1 rounded">repo</code> scope
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    if (githubToken) {
+                      localStorage.setItem('githubToken', githubToken);
+                      setSaveStatus('✅ GitHub token saved! Changes will now sync automatically.');
+                    } else {
+                      localStorage.removeItem('githubToken');
+                      setSaveStatus('GitHub token removed.');
+                    }
+                    setShowGitHubSettings(false);
+                    setTimeout(() => setSaveStatus(''), 3000);
+                  }}
+                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg font-semibold"
+                >
+                  Save Token
+                </button>
+                <button
+                  onClick={() => {
+                    setGithubToken('');
+                    localStorage.removeItem('githubToken');
+                    setShowGitHubSettings(false);
+                    setSaveStatus('GitHub token cleared.');
+                    setTimeout(() => setSaveStatus(''), 3000);
+                  }}
+                  className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg font-semibold"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
