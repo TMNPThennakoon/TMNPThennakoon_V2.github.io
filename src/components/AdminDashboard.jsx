@@ -37,26 +37,32 @@ function AdminDashboard() {
 
   useEffect(() => {
     // Check if current session is valid
-    if (isCurrentSessionValid()) {
-      setIsAuthorized(true);
-      // Update session activity
-      updateSessionActivity();
-      // Load active sessions
-      setActiveSessions(getActiveSessions());
-    } else {
-      // Clear invalid session
-      localStorage.removeItem('dashboardAuth');
-      localStorage.removeItem('currentSessionId');
-    }
+    const checkSession = async () => {
+      const isValid = await isCurrentSessionValid();
+      if (isValid) {
+        setIsAuthorized(true);
+        // Update session activity
+        await updateSessionActivity();
+        // Load active sessions
+        const sessions = await getActiveSessions();
+        setActiveSessions(sessions);
+      } else {
+        // Clear invalid session
+        localStorage.removeItem('dashboardAuth');
+        localStorage.removeItem('currentSessionId');
+      }
+    };
+    checkSession();
   }, []);
 
   // Update session activity periodically and refresh sessions list
   useEffect(() => {
     if (isAuthorized) {
-      const interval = setInterval(() => {
-        updateSessionActivity();
-        setActiveSessions(getActiveSessions());
-      }, 60000); // Update every minute
+      const interval = setInterval(async () => {
+        await updateSessionActivity();
+        const sessions = await getActiveSessions();
+        setActiveSessions(sessions);
+      }, 30000); // Update every 30 seconds
       
       return () => clearInterval(interval);
     }
@@ -75,27 +81,33 @@ function AdminDashboard() {
     return () => window.removeEventListener('portfolioDataUpdated', handleUpdate);
   }, []);
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     if (
       loginForm.username.trim() === 'NPT1009' &&
       loginForm.password === 'Napi@1009'
     ) {
-      // Create new session
-      const newSession = createSession();
-      setIsAuthorized(true);
-      setActiveSessions(getActiveSessions());
-      setLoginError('');
-      setLoginForm({ username: '', password: '' });
+      try {
+        // Create new session
+        await createSession();
+        setIsAuthorized(true);
+        const sessions = await getActiveSessions();
+        setActiveSessions(sessions);
+        setLoginError('');
+        setLoginForm({ username: '', password: '' });
+      } catch (error) {
+        console.error('Error creating session:', error);
+        setLoginError('Login successful but failed to sync session. Please try again.');
+      }
     } else {
       setLoginError('Invalid username or password. Please try again.');
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     const currentSessionId = getCurrentSessionId();
     if (currentSessionId) {
-      removeSession(currentSessionId);
+      await removeSession(currentSessionId);
     }
     localStorage.removeItem('dashboardAuth');
     localStorage.removeItem('currentSessionId');
@@ -105,9 +117,10 @@ function AdminDashboard() {
     setLoginError('');
   };
 
-  const handleRevokeSession = (sessionId) => {
-    const wasCurrentSession = removeSession(sessionId);
-    setActiveSessions(getActiveSessions());
+  const handleRevokeSession = async (sessionId) => {
+    const wasCurrentSession = await removeSession(sessionId);
+    const sessions = await getActiveSessions();
+    setActiveSessions(sessions);
     
     if (wasCurrentSession) {
       // If current session was revoked, log out
@@ -116,10 +129,11 @@ function AdminDashboard() {
     }
   };
 
-  const handleRevokeAllOtherSessions = () => {
+  const handleRevokeAllOtherSessions = async () => {
     if (window.confirm('Are you sure you want to revoke all other active sessions? This will log out all other devices.')) {
-      removeAllOtherSessions();
-      setActiveSessions(getActiveSessions());
+      await removeAllOtherSessions();
+      const sessions = await getActiveSessions();
+      setActiveSessions(sessions);
     }
   };
 
@@ -167,7 +181,7 @@ function AdminDashboard() {
 
   const handleSave = async () => {
     // Update session activity on save
-    updateSessionActivity();
+    await updateSessionActivity();
     setIsSaving(true);
     try {
       const result = await savePortfolioData(portfolioData);
@@ -361,10 +375,11 @@ function AdminDashboard() {
             {githubToken ? '✓' : '⚙️'} GitHub Sync
           </button>
           <button
-            onClick={() => {
+            onClick={async () => {
               setShowSessions(!showSessions);
               if (!showSessions) {
-                setActiveSessions(getActiveSessions());
+                const sessions = await getActiveSessions();
+                setActiveSessions(sessions);
               }
             }}
             className="mt-2 w-full px-4 py-2 text-sm font-semibold rounded-lg bg-gray-900 text-gray-300 border border-gray-700 hover:border-yellow-400 hover:text-white transition-colors"
