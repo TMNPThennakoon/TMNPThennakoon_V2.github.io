@@ -297,8 +297,8 @@
     {
       "id": 1,
       "icon": "fa-solid fa-code",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://en.wikipedia.org/wiki/University_of_Moratuwa#/media/File:University_of_Moratuwa_logo.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "klmvmNVEbs",
       "title": "Front-End Web Developer",
       "provider": "University of Moratuwa",
@@ -313,8 +313,8 @@
     {
       "id": 2,
       "icon": "fa-solid fa-users",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://en.wikipedia.org/wiki/University_of_Moratuwa#/media/File:University_of_Moratuwa_logo.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "CEP9r8Cjtp",
       "title": "Project Communication and Stakeholder Management",
       "provider": "University of Moratuwa",
@@ -328,8 +328,8 @@
     {
       "id": 3,
       "icon": "fa-solid fa-server",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://en.wikipedia.org/wiki/University_of_Moratuwa#/media/File:University_of_Moratuwa_logo.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "BZydlar9Hf",
       "title": "Server-Side Web Programming",
       "provider": "University of Moratuwa",
@@ -374,7 +374,7 @@
     {
       "id": 6,
       "icon": "fa-brands fa-python",
-      "logo": "/university-moratuwa-logo.png",
+      "logo": "https://en.wikipedia.org/wiki/University_of_Moratuwa#/media/File:University_of_Moratuwa_logo.png",
       "logoFallback": "https://en.wikipedia.org/wiki/University_of_Moratuwa#/media/File:University_of_Moratuwa_logo.png",
       "credentialId": "R3yZhacfTe",
       "title": "Python Programming",
