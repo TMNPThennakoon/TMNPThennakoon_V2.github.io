@@ -24,31 +24,29 @@ h1, h2, h3, h4, h5, h6 {
   scroll-margin-top: 80px;
 }
 
-/* Light Mode Styles - Colorful UI with Vibrant Backgrounds */
+/* Light Mode Styles - Professional Color Scheme */
 .light-mode {
-  --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-  --bg-secondary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  --bg-card: rgba(255, 255, 255, 0.95);
-  --bg-section-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --bg-section-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --bg-section-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --bg-section-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  --bg-section-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  --bg-section-6: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --text-on-color: #ffffff;
-  --border-color: rgba(255, 255, 255, 0.3);
-  --accent-1: #3b82f6;
-  --accent-2: #10b981;
-  --accent-3: #f59e0b;
-  --accent-4: #ef4444;
-  --accent-5: #8b5cf6;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+  --bg-primary: #ffffff;
+  --bg-secondary: #fafafa;
+  --bg-tertiary: #f5f5f5;
+  --bg-card: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --text-light: #a0aec0;
+  --border-color: #e2e8f0;
+  --border-light: #f1f5f9;
+  --accent-primary: #2563eb;
+  --accent-secondary: #0891b2;
+  --accent-tertiary: #059669;
+  --accent-gradient-start: #3b82f6;
+  --accent-gradient-mid: #06b6d4;
+  --accent-gradient-end: #10b981;
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-colored: 0 10px 30px -5px rgba(37, 99, 235, 0.15);
 }
 
 /* Dark Mode Styles (Default) */
@@ -73,17 +71,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Apply theme variables globally */
 .light-mode body {
-  background: var(--bg-primary);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  background-color: var(--bg-primary);
   color: var(--text-primary);
-  min-height: 100vh;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 .dark-mode body {
@@ -93,111 +82,62 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Light mode header */
 .light-mode header {
-  background: rgba(255, 255, 255, 0.15) !important;
-  backdrop-filter: blur(20px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-bottom-color: var(--border-light) !important;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
 }
 
 .light-mode header nav a,
 .light-mode header nav button {
-  color: var(--text-on-color) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: var(--text-primary) !important;
+  font-weight: 600;
 }
 
 .light-mode header nav a:hover,
 .light-mode header nav button:hover {
-  color: #fff !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--accent-primary) !important;
 }
 
-/* Light mode sections - Colorful backgrounds */
+.light-mode header h1 {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Light mode sections */
 .light-mode section {
-  position: relative;
-  color: var(--text-on-color) !important;
-}
-
-/* Profile section - Purple gradient */
-.light-mode section#profile {
-  background: var(--bg-section-1) !important;
-  background-size: 200% 200%;
-  animation: gradientShift 20s ease infinite;
-}
-
-/* About section - Pink gradient */
-.light-mode section#about {
-  background: var(--bg-section-2) !important;
-  background-size: 200% 200%;
-  animation: gradientShift 20s ease infinite;
-}
-
-/* Skills section - Blue gradient */
-.light-mode section#skills {
-  background: var(--bg-section-3) !important;
-  background-size: 200% 200%;
-  animation: gradientShift 20s ease infinite;
-}
-
-/* Certifications section - Green gradient */
-.light-mode section#certifications {
-  background: var(--bg-section-4) !important;
-  background-size: 200% 200%;
-  animation: gradientShift 20s ease infinite;
-}
-
-/* Education section - Yellow/Pink gradient */
-.light-mode section#education {
-  background: var(--bg-section-5) !important;
-  background-size: 200% 200%;
-  animation: gradientShift 20s ease infinite;
-}
-
-/* Experience section - Teal/Purple gradient */
-.light-mode section#experience {
-  background: var(--bg-section-6) !important;
-  background-size: 200% 200%;
-  animation: gradientShift 20s ease infinite;
-}
-
-/* Projects section - Blue gradient */
-.light-mode section#projects {
-  background: var(--bg-section-3) !important;
-  background-size: 200% 200%;
-  animation: gradientShift 20s ease infinite;
-}
-
-/* Contact section - Purple gradient */
-.light-mode section#contact {
-  background: var(--bg-section-1) !important;
-  background-size: 200% 200%;
-  animation: gradientShift 20s ease infinite;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
 }
 
 .light-mode .bg-black {
-  background: transparent !important;
+  background-color: var(--bg-primary) !important;
 }
 
 .light-mode .bg-gray-900 {
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(10px);
+  background-color: var(--bg-secondary) !important;
 }
 
 .light-mode .text-white {
-  color: var(--text-on-color) !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.light-mode .text-gray-400 {
-  color: rgba(255, 255, 255, 0.9) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.light-mode .text-gray-500 {
-  color: rgba(255, 255, 255, 0.8) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  color: var(--text-primary) !important;
 }
 
 .light-mode .text-gray-300 {
-  color: rgba(255, 255, 255, 0.95) !important;
+  color: var(--text-secondary) !important;
+}
+
+.light-mode .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+.light-mode .text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+.light-mode .text-gray-600 {
+  color: var(--text-muted) !important;
 }
 
 .light-mode .border-gray-700,
@@ -205,51 +145,84 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--border-color) !important;
 }
 
-/* Light mode cards with colorful accents */
+.light-mode .border-white\/10 {
+  border-color: var(--border-light) !important;
+}
+
+/* Light mode background gradients - subtle and professional */
+.light-mode section::before,
+.light-mode .absolute.inset-0 {
+  background: radial-gradient(ellipse at top, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom, rgba(8, 145, 178, 0.02) 0%, transparent 50%) !important;
+}
+
+/* Light mode cards with professional styling */
 .light-mode .card-glow {
-  background: rgba(255, 255, 255, 0.25) !important;
-  backdrop-filter: blur(20px) !important;
-  border: 2px solid rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3) inset !important;
+  background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+              linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary)) border-box !important;
+  border: 1.5px solid transparent !important;
+  box-shadow: var(--shadow-lg) !important;
+  background-color: var(--bg-card) !important;
 }
 
 .light-mode .card-glow:hover {
-  background: rgba(255, 255, 255, 0.35) !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.5) inset !important;
+  box-shadow: var(--shadow-colored), var(--shadow-lg) !important;
+  transform: translateY(-2px);
 }
 
 .light-mode .skill-card {
-  background: rgba(255, 255, 255, 0.2) !important;
-  backdrop-filter: blur(15px) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  background: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+  border-width: 1px !important;
+  box-shadow: var(--shadow-md) !important;
+  transition: all 0.3s ease;
 }
 
 .light-mode .skill-card:hover {
-  background: rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: var(--shadow-xl) !important;
+  border-color: var(--accent-primary) !important;
   transform: translateY(-4px);
+  background: linear-gradient(135deg, var(--bg-card) 0%, #f0f7ff 100%) !important;
+}
+
+.light-mode .project-card {
+  background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+              linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) border-box !important;
+  border: 1.5px solid transparent !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.light-mode .project-card:hover {
+  box-shadow: var(--shadow-colored), var(--shadow-lg) !important;
 }
 
 /* Light mode buttons */
 .light-mode .btn-outline-gradient {
-  background: rgba(255, 255, 255, 0.2) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 2px solid rgba(255, 255, 255, 0.6) !important;
-  color: var(--text-on-color) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+              linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) border-box !important;
+  color: var(--text-primary) !important;
+  border-width: 2px !important;
+  font-weight: 600;
 }
 
 .light-mode .btn-outline-gradient:hover {
-  background: rgba(255, 255, 255, 0.4) !important;
-  border-color: rgba(255, 255, 255, 0.9) !important;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) !important;
   color: white !important;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-colored);
+  transform: translateY(-1px);
 }
 
-/* Light mode gradients - more vibrant */
-.light-mode .bg-gradient-to-r.from-sky-400.via-cyan-400.to-emerald-400 {
-  background: linear-gradient(to right, var(--accent-1), #06b6d4, var(--accent-2)) !important;
+/* Light mode gradients - professional and cohesive */
+.light-mode .bg-gradient-to-r.from-sky-400.via-cyan-400.to-emerald-400,
+.light-mode h2.bg-gradient-to-r {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.light-mode .h-1.bg-gradient-to-r {
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary)) !important;
 }
 
 /* Light mode input fields */
@@ -262,8 +235,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .light-mode input:focus,
 .light-mode textarea:focus {
-  border-color: var(--accent-1) !important;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+  background-color: var(--bg-primary) !important;
 }
 
 /* Light mode admin dashboard */
@@ -273,6 +247,43 @@ h1, h2, h3, h4, h5, h6 {
 
 .light-mode .bg-gray-700 {
   background-color: var(--bg-secondary) !important;
+}
+
+.light-mode .bg-white\/5 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.light-mode .bg-white\/10 {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+}
+
+/* Light mode links and interactive elements */
+.light-mode a.text-cyan-400,
+.light-mode .text-cyan-400 {
+  color: var(--accent-primary) !important;
+}
+
+.light-mode a.text-cyan-400:hover,
+.light-mode .text-cyan-400:hover {
+  color: var(--accent-secondary) !important;
+}
+
+/* Light mode filter buttons */
+.light-mode button.bg-gradient-to-r.from-sky-400.to-emerald-400 {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary)) !important;
+  color: white !important;
+}
+
+.light-mode button.bg-white\/5 {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.light-mode button.bg-white\/5:hover {
+  background-color: rgba(37, 99, 235, 0.1) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
 }
 
 /* Smooth theme transition */
