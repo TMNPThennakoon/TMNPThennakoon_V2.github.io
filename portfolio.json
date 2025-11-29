@@ -163,7 +163,7 @@
     {
       "id": 4,
       "icon": "fa-solid fa-tools",
-      "iconUrl": "https://www.solidworks.com/sites/default/files/2020-10/SolidWorks-Logo.png",
+      "iconUrl": "https://drive.google.com/file/d/1r-TyOcaF-mfz61UcwxpbG1rkG_3BBQ2p/view?usp=drivesdk",
       "title": "Engineering Tools",
       "skills": [
         "AutoCAD",
@@ -295,10 +295,24 @@
   ],
   "certifications": [
     {
+      "id": 1764413756819,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "credentialId": "UC-f4ba5571-44cb-4384-9d94-da883e845917",
+      "title": "Solidworks for Beginners",
+      "provider": "Udemy",
+      "date": "Oct 2025",
+      "skills": [
+        "Solidworks"
+      ],
+      "link": "http://ude.my/UC-f4ba5571-44cb-4384-9d94-da883e845917"
+    },
+    {
       "id": 1,
       "icon": "fa-solid fa-code",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "klmvmNVEbs",
       "title": "Front-End Web Developer",
       "provider": "University of Moratuwa",
@@ -313,8 +327,8 @@
     {
       "id": 2,
       "icon": "fa-solid fa-users",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "CEP9r8Cjtp",
       "title": "Project Communication and Stakeholder Management",
       "provider": "University of Moratuwa",
@@ -328,8 +342,8 @@
     {
       "id": 3,
       "icon": "fa-solid fa-server",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "BZydlar9Hf",
       "title": "Server-Side Web Programming",
       "provider": "University of Moratuwa",
@@ -359,8 +373,8 @@
     {
       "id": 5,
       "icon": "fa-solid fa-brain",
-      "logo": "/coursera-logo.png",
-      "logoFallback": "https://logos-world.net/wp-content/uploads/2021/02/Coursera-Logo.png",
+      "logo": "https://drive.google.com/file/d/1GPhcLKpQcKTG8AC-nO4NJHs6uD2u3TEW/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1GPhcLKpQcKTG8AC-nO4NJHs6uD2u3TEW/view?usp=sharing",
       "credentialId": "BZyhjkk8Hf",
       "title": "Generative AI",
       "provider": "Coursera",
@@ -374,8 +388,8 @@
     {
       "id": 6,
       "icon": "fa-brands fa-python",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "R3yZhacfTe",
       "title": "Python Programming",
       "provider": "University of Moratuwa",
@@ -389,8 +403,8 @@
     {
       "id": 7,
       "icon": "fa-solid fa-project-diagram",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "CodezAGaV6JVe4",
       "title": "Foundations of Project Management",
       "provider": "University of Moratuwa",
@@ -404,8 +418,8 @@
     {
       "id": 8,
       "icon": "fa-solid fa-rocket",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "rhsRICXBHs",
       "title": "Agile Project Management in ICT Projects",
       "provider": "University of Moratuwa",
@@ -419,8 +433,8 @@
     {
       "id": 9,
       "icon": "fa-solid fa-microchip",
-      "logo": "/sliit-logo.png",
-      "logoFallback": "https://www.sliit.lk/wp-content/uploads/2021/06/sliit-logo.png",
+      "logo": "https://drive.google.com/file/d/1VwqucoWHJ-enu2j2FkyRyhHMZSw283cw/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1VwqucoWHJ-enu2j2FkyRyhHMZSw283cw/view?usp=sharing",
       "credentialId": "5dxqvoubbc",
       "title": "AI/ML Engineer - Stage 1",
       "provider": "SLIIT",
@@ -434,8 +448,8 @@
     {
       "id": 10,
       "icon": "fa-solid fa-network-wired",
-      "logo": "/sliit-logo.png",
-      "logoFallback": "https://www.sliit.lk/wp-content/uploads/2021/06/sliit-logo.png",
+      "logo": "https://drive.google.com/file/d/1VwqucoWHJ-enu2j2FkyRyhHMZSw283cw/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1VwqucoWHJ-enu2j2FkyRyhHMZSw283cw/view?usp=sharing",
       "credentialId": "yk75lue7cs",
       "title": "AI/ML Engineer - Stage 2",
       "provider": "SLIIT",
@@ -464,8 +478,8 @@
     {
       "id": 12,
       "icon": "fa-solid fa-calendar-check",
-      "logo": "/university-moratuwa-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/University_of_Moratuwa_logo.svg/200px-University_of_Moratuwa_logo.svg.png",
+      "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
       "credentialId": "V2S4tZpk3v",
       "title": "Project Scope and Schedule Management",
       "provider": "University of Moratuwa",
@@ -504,7 +518,7 @@
       "institution": "Sri Sumangala Central College, Wariyapola",
       "degree": "Ordinary Level",
       "period": "2018",
-      "logo": ""
+      "logo": "https://drive.google.com/file/d/18ZQJaBkgsl6tp6fQkMY2WeXDib3TeCQr/view?usp=drive_link"
     }
   ],
   "experience": [
@@ -519,6 +533,24 @@
     }
   ],
   "projects": [
+    {
+      "id": 1764407188064,
+      "category": "robotics",
+      "title": "Box Sweep Robot",
+      "description": "Built an autonomous robot capable of identifying and removing cardboard boxes from a table — without ever crossing the boundary line. This challenge pushed us to combine smart sensing, precise control, and reliable decision-making into one cohesive system.\n",
+      "image": "https://drive.google.com/file/d/1DyoT9G7ji_dpgD3Q6RYWjxeAcB2pObLT/view?usp=drivesdk",
+      "tech": [
+        "Arduino",
+        "Sensors",
+        "C++",
+        "Proteus"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1wNKux4k71QZDjgmYtQNDDmn4UsppuJK2/view?usp=drivesdk",
+      "date": "November 2025",
+      "categoryLabel": "Robotics"
+    },
     {
       "id": 1,
       "category": "mobile",
