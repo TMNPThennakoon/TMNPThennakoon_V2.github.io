@@ -1,6 +1,70 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getPortfolioData } from '../utils/portfolioData';
 
+// Function to convert Wikipedia URLs to direct image URLs
+const convertWikipediaUrl = (url) => {
+  if (!url) return url;
+  
+  // Check if it's a Wikipedia URL
+  if (!url.includes('wikipedia.org')) {
+    return url;
+  }
+  
+  // If it's already a Wikimedia Commons direct URL, return as is
+  if (url.includes('upload.wikimedia.org')) {
+    return url;
+  }
+  
+  // Extract filename from Wikipedia URL
+  const mediaMatch = url.match(/[#\/]media\/File:([^\/?#]+)/i);
+  if (mediaMatch) {
+    const filename = decodeURIComponent(mediaMatch[1]);
+    const firstChar = filename.charAt(0).toUpperCase();
+    const firstTwoChars = filename.substring(0, 2).replace(/\s/g, '_');
+    const thumbnailUrl = `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${filename}/500px-${filename}`;
+    return thumbnailUrl;
+  }
+  
+  return url;
+};
+
+// Function to convert Google Drive links to direct image URLs
+const convertGoogleDriveLink = (url) => {
+  if (!url) return url;
+  
+  // First check if it's a Wikipedia URL
+  if (url.includes('wikipedia.org')) {
+    return convertWikipediaUrl(url);
+  }
+  
+  // Check if it's a Google Drive link
+  let fileId = null;
+  const driveMatch1 = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch1) {
+    fileId = driveMatch1[1];
+  }
+  
+  const driveMatch2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (driveMatch2 && !fileId) {
+    fileId = driveMatch2[1];
+  }
+  
+  const driveMatch3 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch3 && !fileId) {
+    fileId = driveMatch3[1];
+  }
+  
+  if (fileId) {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  }
+  
+  if (url.includes('uc?export=view') || url.includes('thumbnail?id=')) {
+    return url;
+  }
+  
+  return url;
+};
+
 function Education() {
   const sectionRef = useRef(null);
   const [isTitleVisible, setIsTitleVisible] = useState(false);
@@ -162,14 +226,49 @@ function Education() {
                       <div className="img-wrap w-16 h-16 shrink-0">
                         {edu.logo ? (
                           <>
-                      <img
-                        src={edu.logo}
-                        alt={`${edu.institution} logo`}
+                            <img
+                              src={convertGoogleDriveLink(edu.logo)}
+                              alt={`${edu.institution} logo`}
                               className="img-zoom w-full h-full object-contain"
                               loading="lazy"
-                        onError={(e) => {
-                                e.target.style.display = 'none';
-                                const fallback = e.target.parentElement.querySelector('.logo-fallback');
+                              crossOrigin={edu.logo && (edu.logo.includes('wikimedia.org') || edu.logo.includes('wikipedia.org')) ? 'anonymous' : undefined}
+                              referrerPolicy="no-referrer"
+                              onError={(e) => {
+                                const imgElement = e.target;
+                                let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
+                                attemptCount++;
+                                imgElement.dataset.attemptCount = attemptCount.toString();
+                                
+                                // Try direct Commons URL if Wikipedia URL (attempt 1)
+                                if (attemptCount === 1 && edu.logo && edu.logo.includes('wikipedia.org')) {
+                                  const originalUrl = edu.logo;
+                                  const mediaMatch = originalUrl.match(/[#\/]media\/File:([^\/?#]+)/i);
+                                  if (mediaMatch) {
+                                    const filename = decodeURIComponent(mediaMatch[1]);
+                                    imgElement.src = `https://upload.wikimedia.org/wikipedia/commons/${filename}`;
+                                    imgElement.crossOrigin = 'anonymous';
+                                    return;
+                                  }
+                                }
+                                
+                                // Try alternative Google Drive formats (attempt 2+)
+                                if (edu.logo && edu.logo.includes('drive.google.com') && attemptCount <= 3) {
+                                  const fileIdMatch = edu.logo.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+                                  if (fileIdMatch) {
+                                    const fileId = fileIdMatch[1];
+                                    if (attemptCount === 2) {
+                                      imgElement.src = `https://drive.google.com/uc?export=view&id=${fileId}`;
+                                      return;
+                                    } else if (attemptCount === 3) {
+                                      imgElement.src = `https://drive.google.com/thumbnail?id=${fileId}&sz=w500`;
+                                      return;
+                                    }
+                                  }
+                                }
+                                
+                                // If all attempts fail, show fallback icon
+                                imgElement.style.display = 'none';
+                                const fallback = imgElement.parentElement.querySelector('.logo-fallback');
                                 if (fallback) fallback.style.display = 'flex';
                               }}
                             />

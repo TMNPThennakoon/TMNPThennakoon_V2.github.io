@@ -814,8 +814,11 @@ function AdminDashboard() {
                         value={edu.logo}
                         onChange={(e) => handleArrayItemChange('education', index, 'logo', e.target.value)}
                         className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
-                        placeholder="/logo.png"
+                        placeholder="/logo.png or https://example.com/logo.png"
                       />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Supports local paths (/logo.png), external URLs, Google Drive links, and Wikipedia URLs (auto-converted)
+                      </p>
                     </div>
                   </div>
                 </div>
