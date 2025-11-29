@@ -3,6 +3,64 @@ import { motion, useInView } from 'framer-motion';
 import { getPortfolioData } from '../utils/portfolioData';
 import { useState, useEffect } from 'react';
 
+// Function to convert Google Drive links to direct image URLs
+const convertGoogleDriveLink = (url) => {
+  if (!url) return url;
+  
+  // Check if it's already a direct image URL
+  if (url.includes('uc?export=view') || url.includes('thumbnail?id=') || url.includes('cdn.jsdelivr.net') || url.includes('upload.wikimedia.org')) {
+    return url;
+  }
+  
+  // Check if it's a Google Drive link in various formats
+  let fileId = null;
+  
+  // Format 1: https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
+  const driveMatch1 = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch1) {
+    fileId = driveMatch1[1];
+  }
+  
+  // Format 2: https://drive.google.com/open?id=FILE_ID
+  const driveMatch2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (driveMatch2 && !fileId) {
+    fileId = driveMatch2[1];
+  }
+  
+  // Format 3: Already has file ID in different format
+  const driveMatch3 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch3 && !fileId) {
+    fileId = driveMatch3[1];
+  }
+  
+  if (fileId) {
+    // Try thumbnail format first (more reliable for images)
+    // Note: File must be shared publicly with "Anyone with the link can view"
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  }
+  
+  // Return original URL if not a Google Drive link
+  return url;
+};
+
+// Function to get Google Drive file ID from any format
+const getGoogleDriveFileId = (url) => {
+  if (!url) return null;
+  
+  const patterns = [
+    /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/,
+    /[?&]id=([a-zA-Z0-9_-]+)/,
+    /\/d\/([a-zA-Z0-9_-]+)/
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  
+  return null;
+};
+
 export default function Skills() {
   const containerRef = useRef(null);
   const titleRef = useRef(null);
@@ -122,18 +180,50 @@ export default function Skills() {
             <div className="absolute -inset-[1px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-sky-400/30 to-emerald-400/30 blur-xl"></div>
 
             <div className="text-5xl mb-4 z-10 transition-transform duration-700 group-hover:scale-125 group-hover:rotate-6">
-              {category.iconUrl ? (
-                    <img
-                      src={category.iconUrl}
-                      alt={category.title}
-                  className="w-12 h-12 object-contain mx-auto"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        const fallback = e.target.parentElement.querySelector('.icon-fallback');
-                    if (fallback) fallback.style.display = 'flex';
-                      }}
-                    />
-              ) : null}
+              {category.iconUrl ? (() => {
+                const logoUrl = convertGoogleDriveLink(category.iconUrl);
+                const originalDriveLink = category.iconUrl;
+                const driveFileId = getGoogleDriveFileId(originalDriveLink);
+                
+                return (
+                  <img
+                    src={logoUrl}
+                    alt={category.title}
+                    className="w-12 h-12 object-contain mx-auto"
+                    crossOrigin={logoUrl && logoUrl.includes('wikimedia.org') ? 'anonymous' : undefined}
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const currentSrc = e.target.src;
+                      const imgElement = e.target;
+                      let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
+                      attemptCount++;
+                      imgElement.dataset.attemptCount = attemptCount.toString();
+                      
+                      // Try alternative Google Drive formats
+                      if (driveFileId && attemptCount <= 3) {
+                        if (attemptCount === 1) {
+                          // Try uc?export=view format
+                          imgElement.src = `https://drive.google.com/uc?export=view&id=${driveFileId}`;
+                          return;
+                        } else if (attemptCount === 2) {
+                          // Try uc?export=download format
+                          imgElement.src = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
+                          return;
+                        } else if (attemptCount === 3) {
+                          // Try smaller thumbnail as last resort
+                          imgElement.src = `https://drive.google.com/thumbnail?id=${driveFileId}&sz=w500`;
+                          return;
+                        }
+                      }
+                      
+                      // If all formats fail, show fallback icon
+                      imgElement.style.display = 'none';
+                      const fallback = imgElement.parentElement.querySelector('.icon-fallback');
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
+                  />
+                );
+              })() : null}
               <div className={`icon-fallback ${category.iconUrl ? 'hidden' : 'flex'} items-center justify-center text-sky-400`}>
                 <i className={`${category.icon || 'fa-solid fa-code'} text-4xl`}></i>
               </div>

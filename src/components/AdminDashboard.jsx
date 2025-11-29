@@ -637,10 +637,14 @@ function AdminDashboard() {
                       <label className="block mb-2 text-sm md:text-base font-medium">Icon URL</label>
                       <input
                         type="text"
-                        value={skill.iconUrl}
+                        value={skill.iconUrl || ''}
                         onChange={(e) => handleArrayItemChange('skills', index, 'iconUrl', e.target.value)}
                         className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        placeholder="https://cdn.jsdelivr.net/... or Google Drive link"
                       />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Supports: Direct image URLs, Google Drive links, CDN links (jsdelivr, etc.), and Wikipedia/Wikimedia Commons URLs.
+                      </p>
                     </div>
                     <div className="col-span-2">
                       <label className="block mb-2 text-sm md:text-base font-medium">Skills (comma separated)</label>

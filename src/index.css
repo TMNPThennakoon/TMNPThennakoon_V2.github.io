@@ -23,3 +23,166 @@ h1, h2, h3, h4, h5, h6 {
 #profile, #about, #skills, #certifications, #education, #experience, #projects, #contact {
   scroll-margin-top: 80px;
 }
+
+/* Light Mode Styles - Colorful UI with White Backgrounds */
+.light-mode {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --accent-1: #3b82f6;
+  --accent-2: #10b981;
+  --accent-3: #f59e0b;
+  --accent-4: #ef4444;
+  --accent-5: #8b5cf6;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Styles (Default) */
+.dark-mode {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-card: #111111;
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --border-color: #374151;
+  --accent-1: #38bdf8;
+  --accent-2: #10b981;
+  --accent-3: #f59e0b;
+  --accent-4: #ef4444;
+  --accent-5: #8b5cf6;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+}
+
+/* Apply theme variables globally */
+.light-mode body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dark-mode body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Light mode header */
+.light-mode header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom-color: var(--border-color) !important;
+  backdrop-filter: blur(12px);
+}
+
+.light-mode header nav a,
+.light-mode header nav button {
+  color: var(--text-primary) !important;
+}
+
+.light-mode header nav a:hover,
+.light-mode header nav button:hover {
+  color: var(--accent-1) !important;
+}
+
+/* Light mode sections */
+.light-mode section {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.light-mode .bg-black {
+  background-color: var(--bg-primary) !important;
+}
+
+.light-mode .bg-gray-900 {
+  background-color: var(--bg-secondary) !important;
+}
+
+.light-mode .text-white {
+  color: var(--text-primary) !important;
+}
+
+.light-mode .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+.light-mode .text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+.light-mode .border-gray-700,
+.light-mode .border-gray-800 {
+  border-color: var(--border-color) !important;
+}
+
+/* Light mode cards with colorful accents */
+.light-mode .card-glow {
+  background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+              linear-gradient(90deg, var(--accent-1), var(--accent-2)) border-box !important;
+  border: 1.5px solid transparent !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.light-mode .skill-card {
+  background: linear-gradient(135deg, var(--bg-card) 0%, #f0f9ff 100%) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.light-mode .skill-card:hover {
+  box-shadow: var(--shadow-xl) !important;
+  transform: translateY(-4px);
+}
+
+/* Light mode buttons */
+.light-mode .btn-outline-gradient {
+  background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+              linear-gradient(90deg, var(--accent-1), var(--accent-2)) border-box !important;
+  color: var(--text-primary) !important;
+}
+
+.light-mode .btn-outline-gradient:hover {
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2)) !important;
+  color: white !important;
+}
+
+/* Light mode gradients - more vibrant */
+.light-mode .bg-gradient-to-r.from-sky-400.via-cyan-400.to-emerald-400 {
+  background: linear-gradient(to right, var(--accent-1), #06b6d4, var(--accent-2)) !important;
+}
+
+/* Light mode input fields */
+.light-mode input,
+.light-mode textarea {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.light-mode input:focus,
+.light-mode textarea:focus {
+  border-color: var(--accent-1) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Light mode admin dashboard */
+.light-mode .bg-gray-800 {
+  background-color: var(--bg-card) !important;
+}
+
+.light-mode .bg-gray-700 {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Smooth theme transition */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

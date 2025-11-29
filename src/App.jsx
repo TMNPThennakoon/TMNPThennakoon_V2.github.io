@@ -9,8 +9,9 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import AdminDashboard from './components/AdminDashboard';
 import ProjectDetail from './components/ProjectDetail';
-import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaSun, FaMoon } from 'react-icons/fa';
 import { getPortfolioData } from './utils/portfolioData';
+import { useTheme } from './contexts/ThemeContext';
 
 // Function to generate initials from name
 const generateInitials = (name) => {
@@ -28,6 +29,7 @@ const generateInitials = (name) => {
 };
 
 function App() {
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
@@ -363,6 +365,15 @@ function App() {
           {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-8 items-center" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             <li>
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 flex items-center justify-center"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <FaSun size={18} /> : <FaMoon size={18} />}
+              </button>
+            </li>
+            <li>
               <a
                 href="#profile"
                 className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold"
@@ -442,6 +453,18 @@ function App() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <ul className="md:hidden flex flex-col items-center space-y-4 mt-4 pb-4 border-t border-gray-800 bg-black/80 backdrop-blur-md" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+            <li>
+              <button
+                onClick={() => {
+                  toggleTheme();
+                  setMobileMenuOpen(false);
+                }}
+                className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 flex items-center justify-center"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <FaSun size={20} /> : <FaMoon size={20} />}
+              </button>
+            </li>
             <li>
               <a
                 href="#profile"
