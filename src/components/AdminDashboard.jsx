@@ -106,34 +106,48 @@ function AdminDashboard() {
     });
   };
 
+  // Debounce save function to prevent rapid saves
+  const [saveTimeout, setSaveTimeout] = useState(null);
+  
   const handleSave = async () => {
-    setIsSaving(true);
-    try {
-      const result = await savePortfolioData(portfolioData);
-      setSaveStatus(result.message);
-      if (result.requiresManualUpdate) {
-        // Auto-export JSON file if manual update is required
-        setTimeout(() => {
-          exportPortfolioData(result.data);
-          setSaveStatus(result.message + ' JSON file downloaded automatically. Upload it to GitHub.');
-        }, 500);
-      }
-      setTimeout(() => {
-        setSaveStatus('');
-        setIsSaving(false);
-      }, result.requiresManualUpdate ? 5000 : 2000);
-    } catch (error) {
-      let errorMessage = 'Error: ' + error.message;
-      
-      // Handle rate limiting errors specifically
-      if (error.message && error.message.includes('429') || error.message.includes('Rate limit')) {
-        errorMessage = '⚠️ Rate limit exceeded. Please wait a few minutes before saving again, or export JSON and upload manually.';
-      }
-      
-      setSaveStatus(errorMessage);
-      setIsSaving(false);
-      setTimeout(() => setSaveStatus(''), 5000);
+    // Clear any pending save
+    if (saveTimeout) {
+      clearTimeout(saveTimeout);
     }
+    
+    // Debounce: wait 1 second before actually saving
+    const timeout = setTimeout(async () => {
+      setIsSaving(true);
+      try {
+        const result = await savePortfolioData(portfolioData);
+        setSaveStatus(result.message);
+        if (result.requiresManualUpdate) {
+          // Auto-export JSON file if manual update is required
+          setTimeout(() => {
+            exportPortfolioData(result.data);
+            setSaveStatus(result.message + ' JSON file downloaded automatically. Upload it to GitHub.');
+          }, 500);
+        }
+        setTimeout(() => {
+          setSaveStatus('');
+          setIsSaving(false);
+        }, result.requiresManualUpdate ? 5000 : 2000);
+      } catch (error) {
+        let errorMessage = 'Error: ' + error.message;
+        
+        // Handle rate limiting errors specifically
+        if (error.message && (error.message.includes('429') || error.message.includes('Rate limit'))) {
+          errorMessage = '⚠️ Rate limit exceeded. The system will automatically retry. Please wait a few minutes, or export JSON and upload manually.';
+        }
+        
+        setSaveStatus(errorMessage);
+        setIsSaving(false);
+        setTimeout(() => setSaveStatus(''), 8000);
+      }
+    }, 1000);
+    
+    setSaveTimeout(timeout);
+    setSaveStatus('⏳ Preparing to save...');
   };
 
   const handleExport = () => {
