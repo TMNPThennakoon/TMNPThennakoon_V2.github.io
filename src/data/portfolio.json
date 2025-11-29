@@ -359,8 +359,8 @@
     {
       "id": 5,
       "icon": "fa-solid fa-brain",
-      "logo": "/coursera-logo.png",
-      "logoFallback": "https://logos-world.net/wp-content/uploads/2021/02/Coursera-Logo.png",
+      "logo": "https://drive.google.com/file/d/1GPhcLKpQcKTG8AC-nO4NJHs6uD2u3TEW/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1GPhcLKpQcKTG8AC-nO4NJHs6uD2u3TEW/view?usp=sharing",
       "credentialId": "BZyhjkk8Hf",
       "title": "Generative AI",
       "provider": "Coursera",
@@ -419,8 +419,8 @@
     {
       "id": 9,
       "icon": "fa-solid fa-microchip",
-      "logo": "/sliit-logo.png",
-      "logoFallback": "https://www.sliit.lk/wp-content/uploads/2021/06/sliit-logo.png",
+      "logo": "https://drive.google.com/file/d/1VwqucoWHJ-enu2j2FkyRyhHMZSw283cw/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1VwqucoWHJ-enu2j2FkyRyhHMZSw283cw/view?usp=sharing",
       "credentialId": "5dxqvoubbc",
       "title": "AI/ML Engineer - Stage 1",
       "provider": "SLIIT",
@@ -434,8 +434,8 @@
     {
       "id": 10,
       "icon": "fa-solid fa-network-wired",
-      "logo": "/sliit-logo.png",
-      "logoFallback": "https://www.sliit.lk/wp-content/uploads/2021/06/sliit-logo.png",
+      "logo": "https://drive.google.com/file/d/1VwqucoWHJ-enu2j2FkyRyhHMZSw283cw/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1VwqucoWHJ-enu2j2FkyRyhHMZSw283cw/view?usp=sharing",
       "credentialId": "yk75lue7cs",
       "title": "AI/ML Engineer - Stage 2",
       "provider": "SLIIT",
