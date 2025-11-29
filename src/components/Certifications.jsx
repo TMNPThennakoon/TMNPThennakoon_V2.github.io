@@ -3,9 +3,51 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { getPortfolioData } from '../utils/portfolioData';
 
+// Function to convert Wikipedia URLs to direct image URLs
+const convertWikipediaUrl = (url) => {
+  if (!url) return url;
+  
+  // Check if it's a Wikipedia URL
+  if (!url.includes('wikipedia.org')) {
+    return url;
+  }
+  
+  // If it's already a Wikimedia Commons direct URL, return as is
+  if (url.includes('upload.wikimedia.org')) {
+    return url;
+  }
+  
+  // Extract filename from Wikipedia URL
+  // Format: https://en.wikipedia.org/wiki/...#/media/File:Filename.png
+  // Or: https://en.wikipedia.org/wiki/.../media/File:Filename.png
+  const mediaMatch = url.match(/[#\/]media\/File:([^\/?#]+)/i);
+  if (mediaMatch) {
+    const filename = decodeURIComponent(mediaMatch[1]);
+    
+    // Try to get the actual Commons path by using the filename structure
+    // Wikimedia Commons uses a hash-based directory structure
+    // First character, then first two characters for subdirectories
+    const firstChar = filename.charAt(0).toUpperCase();
+    const firstTwoChars = filename.substring(0, 2).replace(/\s/g, '_');
+    
+    // Try thumbnail format first (most reliable for images)
+    // If this doesn't work, error handler will try direct Commons URL
+    const thumbnailUrl = `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${filename}/500px-${filename}`;
+    return thumbnailUrl;
+  }
+  
+  // If no media match, return original URL (may be a direct link)
+  return url;
+};
+
 // Function to convert Google Drive links to direct image URLs
 const convertGoogleDriveLink = (url) => {
   if (!url) return url;
+  
+  // First check if it's a Wikipedia URL
+  if (url.includes('wikipedia.org')) {
+    return convertWikipediaUrl(url);
+  }
   
   // Check if it's a Google Drive link in various formats
   let fileId = null;
@@ -468,7 +510,7 @@ function CertCard({ cert, idx }) {
                   alt={`${cert.provider} badge`}
                   className="img-zoom h-full w-full object-contain"
                   loading="lazy"
-                  crossOrigin="anonymous"
+                  crossOrigin={logoUrl && logoUrl.includes('wikimedia.org') ? 'anonymous' : undefined}
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     const currentSrc = e.target.src;
@@ -480,20 +522,52 @@ function CertCard({ cert, idx }) {
                     // Try fallback URL first (attempt 1)
                     if (attemptCount === 1 && fallbackUrl && currentSrc !== fallbackUrl) {
                       imgElement.src = fallbackUrl;
+                      // Reset crossOrigin for fallback if it's a Wikipedia URL
+                      if (fallbackUrl.includes('wikimedia.org')) {
+                        imgElement.crossOrigin = 'anonymous';
+                      }
                       return;
                     }
                     
+                    // For Wikipedia URLs, try alternative formats
+                    if (cert.logoFallback && cert.logoFallback.includes('wikipedia.org') && attemptCount === 2) {
+                      const originalUrl = cert.logoFallback;
+                      const mediaMatch = originalUrl.match(/[#\/]media\/File:([^\/?#]+)/i);
+                      if (mediaMatch) {
+                        const filename = decodeURIComponent(mediaMatch[1]);
+                        // Try direct Commons URL (no thumb path)
+                        imgElement.src = `https://upload.wikimedia.org/wikipedia/commons/${filename}`;
+                        imgElement.crossOrigin = 'anonymous';
+                        return;
+                      }
+                    }
+                    
+                    // For Wikipedia URLs, try alternative thumbnail format (attempt 3)
+                    if (cert.logoFallback && cert.logoFallback.includes('wikipedia.org') && attemptCount === 3) {
+                      const originalUrl = cert.logoFallback;
+                      const mediaMatch = originalUrl.match(/[#\/]media\/File:([^\/?#]+)/i);
+                      if (mediaMatch) {
+                        const filename = decodeURIComponent(mediaMatch[1]);
+                        // Try with lowercase first char and underscore handling
+                        const firstChar = filename.charAt(0).toLowerCase();
+                        const safeFilename = filename.replace(/\s/g, '_');
+                        imgElement.src = `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${safeFilename.substring(0, 2)}/${safeFilename}/300px-${safeFilename}`;
+                        imgElement.crossOrigin = 'anonymous';
+                        return;
+                      }
+                    }
+                    
                     // Try alternative Google Drive formats (attempt 2+)
-                    if (driveFileId && attemptCount <= 4) {
-                      if (attemptCount === 2) {
+                    if (driveFileId && attemptCount <= 5) {
+                      if (attemptCount === (cert.logoFallback?.includes('wikipedia.org') ? 3 : 2)) {
                         // Try uc?export=view format
                         imgElement.src = `https://drive.google.com/uc?export=view&id=${driveFileId}`;
                         return;
-                      } else if (attemptCount === 3) {
+                      } else if (attemptCount === (cert.logoFallback?.includes('wikipedia.org') ? 4 : 3)) {
                         // Try uc?export=download format
                         imgElement.src = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
                         return;
-                      } else if (attemptCount === 4) {
+                      } else if (attemptCount === (cert.logoFallback?.includes('wikipedia.org') ? 5 : 4)) {
                         // Try smaller thumbnail as last resort
                         imgElement.src = `https://drive.google.com/thumbnail?id=${driveFileId}&sz=w500`;
                         return;
@@ -505,12 +579,13 @@ function CertCard({ cert, idx }) {
                     const fallback = imgElement.parentElement.querySelector('.logo-fallback');
                     if (fallback) {
                       fallback.style.display = 'flex';
-                      // Make it clickable to open Google Drive link
-                      if (originalDriveLink && originalDriveLink.includes('drive.google.com')) {
+                      // Make it clickable to open original link
+                      const originalLink = cert.logo || cert.logoFallback;
+                      if (originalLink && (originalLink.includes('drive.google.com') || originalLink.includes('wikipedia.org'))) {
                         fallback.style.cursor = 'pointer';
                         fallback.onclick = (evt) => {
                           evt.preventDefault();
-                          window.open(originalDriveLink, '_blank', 'noopener,noreferrer');
+                          window.open(originalLink, '_blank', 'noopener,noreferrer');
                         };
                         fallback.title = 'Click to view certificate image';
                         fallback.className += ' hover:opacity-80 transition-opacity';

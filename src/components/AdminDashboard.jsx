@@ -696,7 +696,11 @@ function AdminDashboard() {
                         value={cert.logoFallback}
                         onChange={(e) => handleArrayItemChange('certifications', index, 'logoFallback', e.target.value)}
                         className="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        placeholder="Direct image URL (for Wikipedia: use upload.wikimedia.org URL, not wikipedia.org page)"
                       />
+                      <p className="text-xs text-gray-500 mt-1">
+                        For Wikipedia images, use direct Commons URL (upload.wikimedia.org/...) instead of page URL. Code will attempt to auto-convert.
+                      </p>
                     </div>
                     <div className="col-span-2">
                       <label className="block mb-2">Skills (comma separated)</label>
