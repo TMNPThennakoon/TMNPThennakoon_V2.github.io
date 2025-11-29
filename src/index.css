@@ -24,24 +24,31 @@ h1, h2, h3, h4, h5, h6 {
   scroll-margin-top: 80px;
 }
 
-/* Light Mode Styles - Colorful UI with White Backgrounds */
+/* Light Mode Styles - Colorful UI with Vibrant Backgrounds */
 .light-mode {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-card: #ffffff;
+  --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  --bg-secondary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-section-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bg-section-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --bg-section-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --bg-section-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --bg-section-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --bg-section-6: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
   --text-primary: #1e293b;
   --text-secondary: #475569;
   --text-muted: #64748b;
-  --border-color: #e2e8f0;
+  --text-on-color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.3);
   --accent-1: #3b82f6;
   --accent-2: #10b981;
   --accent-3: #f59e0b;
   --accent-4: #ef4444;
   --accent-5: #8b5cf6;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
 }
 
 /* Dark Mode Styles (Default) */
@@ -66,8 +73,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Apply theme variables globally */
 .light-mode body {
-  background-color: var(--bg-primary);
+  background: var(--bg-primary);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
   color: var(--text-primary);
+  min-height: 100vh;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .dark-mode body {
@@ -77,45 +93,111 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Light mode header */
 .light-mode header {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  border-bottom-color: var(--border-color) !important;
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
 .light-mode header nav a,
 .light-mode header nav button {
-  color: var(--text-primary) !important;
+  color: var(--text-on-color) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .light-mode header nav a:hover,
 .light-mode header nav button:hover {
-  color: var(--accent-1) !important;
+  color: #fff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Light mode sections */
+/* Light mode sections - Colorful backgrounds */
 .light-mode section {
-  background-color: var(--bg-primary) !important;
-  color: var(--text-primary) !important;
+  position: relative;
+  color: var(--text-on-color) !important;
+}
+
+/* Profile section - Purple gradient */
+.light-mode section#profile {
+  background: var(--bg-section-1) !important;
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* About section - Pink gradient */
+.light-mode section#about {
+  background: var(--bg-section-2) !important;
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Skills section - Blue gradient */
+.light-mode section#skills {
+  background: var(--bg-section-3) !important;
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Certifications section - Green gradient */
+.light-mode section#certifications {
+  background: var(--bg-section-4) !important;
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Education section - Yellow/Pink gradient */
+.light-mode section#education {
+  background: var(--bg-section-5) !important;
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Experience section - Teal/Purple gradient */
+.light-mode section#experience {
+  background: var(--bg-section-6) !important;
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Projects section - Blue gradient */
+.light-mode section#projects {
+  background: var(--bg-section-3) !important;
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
+}
+
+/* Contact section - Purple gradient */
+.light-mode section#contact {
+  background: var(--bg-section-1) !important;
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite;
 }
 
 .light-mode .bg-black {
-  background-color: var(--bg-primary) !important;
+  background: transparent !important;
 }
 
 .light-mode .bg-gray-900 {
-  background-color: var(--bg-secondary) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
 }
 
 .light-mode .text-white {
-  color: var(--text-primary) !important;
+  color: var(--text-on-color) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .light-mode .text-gray-400 {
-  color: var(--text-secondary) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .light-mode .text-gray-500 {
-  color: var(--text-muted) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .text-gray-300 {
+  color: rgba(255, 255, 255, 0.95) !important;
 }
 
 .light-mode .border-gray-700,
@@ -125,33 +207,44 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Light mode cards with colorful accents */
 .light-mode .card-glow {
-  background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
-              linear-gradient(90deg, var(--accent-1), var(--accent-2)) border-box !important;
-  border: 1.5px solid transparent !important;
-  box-shadow: var(--shadow-lg) !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.3) inset !important;
+}
+
+.light-mode .card-glow:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.5) inset !important;
 }
 
 .light-mode .skill-card {
-  background: linear-gradient(135deg, var(--bg-card) 0%, #f0f9ff 100%) !important;
-  border-color: var(--border-color) !important;
-  box-shadow: var(--shadow-md) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(15px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
 .light-mode .skill-card:hover {
-  box-shadow: var(--shadow-xl) !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25) !important;
   transform: translateY(-4px);
 }
 
 /* Light mode buttons */
 .light-mode .btn-outline-gradient {
-  background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
-              linear-gradient(90deg, var(--accent-1), var(--accent-2)) border-box !important;
-  color: var(--text-primary) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 2px solid rgba(255, 255, 255, 0.6) !important;
+  color: var(--text-on-color) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .light-mode .btn-outline-gradient:hover {
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-2)) !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.9) !important;
   color: white !important;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
 }
 
 /* Light mode gradients - more vibrant */
