@@ -88,6 +88,33 @@ function App() {
     };
   }, []);
 
+  // Global error handler for 429 rate limiting errors
+  useEffect(() => {
+    const handleError = (event) => {
+      // Check if it's a 429 error
+      if (event.error && event.error.message && event.error.message.includes('429')) {
+        console.warn('Rate limit detected. Please wait before making more requests.');
+      }
+    };
+    
+    const handleRejection = (event) => {
+      if (event.reason && (
+        (event.reason.message && event.reason.message.includes('429')) ||
+        (event.reason.status === 429)
+      )) {
+        console.warn('Rate limit detected. Please wait before making more requests.');
+      }
+    };
+    
+    window.addEventListener('error', handleError);
+    window.addEventListener('unhandledrejection', handleRejection);
+    
+    return () => {
+      window.removeEventListener('error', handleError);
+      window.removeEventListener('unhandledrejection', handleRejection);
+    };
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);

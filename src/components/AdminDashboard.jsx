@@ -122,9 +122,16 @@ function AdminDashboard() {
         setIsSaving(false);
       }, result.requiresManualUpdate ? 5000 : 2000);
     } catch (error) {
-      setSaveStatus('Error: ' + error.message);
+      let errorMessage = 'Error: ' + error.message;
+      
+      // Handle rate limiting errors specifically
+      if (error.message && error.message.includes('429') || error.message.includes('Rate limit')) {
+        errorMessage = '⚠️ Rate limit exceeded. Please wait a few minutes before saving again, or export JSON and upload manually.';
+      }
+      
+      setSaveStatus(errorMessage);
       setIsSaving(false);
-      setTimeout(() => setSaveStatus(''), 3000);
+      setTimeout(() => setSaveStatus(''), 5000);
     }
   };
 

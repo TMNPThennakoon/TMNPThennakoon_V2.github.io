@@ -59,6 +59,10 @@ export const savePortfolioData = async (data) => {
   }
 };
 
+// Rate limiting protection - track last API call time
+let lastApiCallTime = 0;
+const API_CALL_COOLDOWN = 2000; // 2 seconds between API calls
+
 // Function to update portfolio.json on GitHub via API
 async function updatePortfolioJsonOnGitHub(data, token) {
   const owner = 'TMNPThennakoon';
@@ -67,46 +71,95 @@ async function updatePortfolioJsonOnGitHub(data, token) {
   const branch = 'main';
   
   try {
-    // Get current file SHA
-    const getFileResponse = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
-      {
-        headers: {
-          'Authorization': `token ${token}`,
-          'Accept': 'application/vnd.github.v3+json'
+    // Rate limiting protection
+    const now = Date.now();
+    const timeSinceLastCall = now - lastApiCallTime;
+    if (timeSinceLastCall < API_CALL_COOLDOWN) {
+      await new Promise(resolve => setTimeout(resolve, API_CALL_COOLDOWN - timeSinceLastCall));
+    }
+    lastApiCallTime = Date.now();
+    
+    // Get current file SHA with retry logic
+    let getFileResponse;
+    let retries = 3;
+    while (retries > 0) {
+      getFileResponse = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`,
+        {
+          headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
         }
+      );
+      
+      // Handle rate limiting (429)
+      if (getFileResponse.status === 429) {
+        const retryAfter = getFileResponse.headers.get('Retry-After') || 60;
+        throw new Error(`Rate limit exceeded. Please wait ${retryAfter} seconds before trying again.`);
       }
-    );
+      
+      if (getFileResponse.ok || getFileResponse.status === 404) {
+        break;
+      }
+      
+      retries--;
+      if (retries > 0) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * (4 - retries))); // Exponential backoff
+      }
+    }
     
     if (!getFileResponse.ok && getFileResponse.status !== 404) {
       throw new Error('Failed to fetch current file');
     }
     
-    const currentFile = await getFileResponse.json();
+    const currentFile = getFileResponse.status === 404 ? null : await getFileResponse.json();
     const sha = currentFile?.sha;
     
     // Prepare file content
     const jsonString = JSON.stringify(data, null, 2);
     const content = btoa(unescape(encodeURIComponent(jsonString)));
     
-    // Update file
-    const updateResponse = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Authorization': `token ${token}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: `Update portfolio data - ${new Date().toISOString()}`,
-          content: content,
-          branch: branch,
-          ...(sha && { sha: sha })
-        })
+    // Wait before update call
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Update file with retry logic
+    retries = 3;
+    let updateResponse;
+    while (retries > 0) {
+      updateResponse = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `Update portfolio data - ${new Date().toISOString()}`,
+            content: content,
+            branch: branch,
+            ...(sha && { sha: sha })
+          })
+        }
+      );
+      
+      // Handle rate limiting (429)
+      if (updateResponse.status === 429) {
+        const retryAfter = updateResponse.headers.get('Retry-After') || 60;
+        throw new Error(`Rate limit exceeded. Please wait ${retryAfter} seconds before trying again.`);
       }
-    );
+      
+      if (updateResponse.ok) {
+        break;
+      }
+      
+      retries--;
+      if (retries > 0) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * (4 - retries))); // Exponential backoff
+      }
+    }
     
     if (!updateResponse.ok) {
       const error = await updateResponse.json();
