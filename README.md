@@ -22,4 +22,4 @@ Portfolio website with dark UI and beautiful animations.
 
 ## Live Site
 
-Visit: https://TMNPThennakoon.github.io/TMNP.Thennakoon_V2
+Visit: https://nayanapabasara.com
