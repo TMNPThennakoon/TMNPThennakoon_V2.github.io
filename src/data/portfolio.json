@@ -295,6 +295,17 @@
   ],
   "certifications": [
     {
+      "id": 1764413756819,
+      "icon": "fa-solid fa-certificate",
+      "logo": "",
+      "logoFallback": "",
+      "credentialId": "",
+      "title": "Solidworks for Beginners",
+      "provider": "",
+      "date": "",
+      "skills": []
+    },
+    {
       "id": 1,
       "icon": "fa-solid fa-code",
       "logo": "https://drive.google.com/file/d/1FlBjSK2fbaMNb7Z5QhqpmxQFh_NCzCZv/view?usp=sharing",
