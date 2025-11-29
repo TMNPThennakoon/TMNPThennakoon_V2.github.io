@@ -1,2 +1,16 @@
-[]
-
+[
+  {
+    "id": "session_1764412882521_vj9q8t1pv",
+    "deviceInfo": {
+      "browser": "Chrome",
+      "os": "macOS",
+      "deviceType": "Desktop",
+      "screenWidth": 1470,
+      "screenHeight": 956,
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.",
+      "timezone": "Asia/Colombo"
+    },
+    "loginTime": 1764412882522,
+    "lastActivity": 1764412882522
+  }
+]
