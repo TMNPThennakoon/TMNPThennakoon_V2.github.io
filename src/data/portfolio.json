@@ -163,7 +163,7 @@
     {
       "id": 4,
       "icon": "fa-solid fa-tools",
-      "iconUrl": "https://drive.google.com/file/d/1r-TyOcaF-mfz61UcwxpbG1rkG_3BBQ2p/view?usp=drivesdk",
+      "iconUrl": "https://drive.google.com/file/d/1ugGHXvW9MW8Utoyko6mZEBwLQ24OQ8b0/view?usp=sharing",
       "title": "Engineering Tools",
       "skills": [
         "AutoCAD",
@@ -211,7 +211,7 @@
     {
       "id": 8,
       "icon": "fa-solid fa-cube",
-      "iconUrl": "https://www.solidworks.com/sites/default/files/2020-10/SolidWorks-Logo.png",
+      "iconUrl": "https://drive.google.com/file/d/1XrJ3Nh-h8dOgX8qXOzTxMJb4zkCa_Ogv/view?usp=sharing",
       "title": "SolidWorks Design",
       "skills": [
         "3D Modeling",
@@ -247,7 +247,7 @@
     {
       "id": 11,
       "icon": "fa-solid fa-wifi",
-      "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/raspberrypi/raspberrypi-original-wordmark.svg",
+      "iconUrl": "https://drive.google.com/file/d/1lXIpKRy0GtfrhA2o2dFF_dNrBgV22J62/view?usp=drive_link",
       "title": "IoT Development",
       "skills": [
         "Raspberry Pi",
@@ -259,7 +259,7 @@
     {
       "id": 12,
       "icon": "fa-solid fa-cogs",
-      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Siemens_logo.svg/1024px-Siemens_logo.svg.png",
+      "iconUrl": "https://drive.google.com/file/d/1AqSJST5QPnET0pETqJxo6zuld_5gFF9x/view?usp=sharing",
       "title": "Process Automation (PLC)",
       "skills": [
         "Siemens PLC",
@@ -271,7 +271,7 @@
     {
       "id": 13,
       "icon": "fa-solid fa-microchip",
-      "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Xilinx_logo.svg/1024px-Xilinx_logo.svg.png",
+      "iconUrl": "https://drive.google.com/file/d/1TOqi67rUTC5FoHDpjDXPGZHEqtxbQud0/view?usp=drive_link",
       "title": "FPGA Programming",
       "skills": [
         "VHDL",
@@ -283,7 +283,7 @@
     {
       "id": 14,
       "icon": "fa-solid fa-project-diagram",
-      "iconUrl": "https://www.ni.com/content/dam/ni/images/labview-logo.png",
+      "iconUrl": "https://drive.google.com/file/d/1xu8WmEgJuu3fxvv4FZQBhjfgNtvKlg6o/view?usp=drive_link",
       "title": "Graphical Programming",
       "skills": [
         "LabVIEW",
