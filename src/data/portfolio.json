@@ -295,6 +295,70 @@
   ],
   "certifications": [
     {
+      "id": 1764460995819,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "credentialId": "UC-9721456b-9963-4f1e-b836-13bac89d827a",
+      "title": "LabVIEW Essentials - Code & Acquire Data Now",
+      "provider": "Udemy",
+      "date": "October 2025",
+      "link": "http://ude.my/UC-9721456b-9963-4f1e-b836-13bac89d827a",
+      "credentialUrl": "",
+      "skills": [
+        "Labview",
+        "GUI"
+      ]
+    },
+    {
+      "id": 1764460737665,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "credentialId": "UC-a4fefeOa-9abb-4f4f-88c6-d156916457ed",
+      "title": "Mitsubishi PLC Programming Basics",
+      "provider": "Udemy",
+      "date": "October 2025",
+      "link": "https://www.udemy.com/certificate/UC-a4fefe0a-9abb-4f4f-88c6-d156916457ed/",
+      "credentialUrl": "",
+      "skills": [
+        "Mitsubishi_PLC"
+      ]
+    },
+    {
+      "id": 1764460736519,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "credentialId": "UC-7f737d77-7797-4f85-a739-e57b4ef1151b",
+      "title": "Microcontroller Embedded C Programming",
+      "provider": "Udemy",
+      "date": "October 2025",
+      "link": "http://ude.my/UC-7f737d77-7797-4f85-a739-e57b4ef1151b",
+      "credentialUrl": "",
+      "skills": [
+        "Microcontroller",
+        "C"
+      ]
+    },
+    {
+      "id": 1764460613018,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
+      "credentialId": "UC-75059364-30f0-4af5-95c8-195cdcb4153b",
+      "title": "Siemens PLC & HMI 2025: TIA Portal V20 Complete Course",
+      "provider": "Udemy",
+      "date": "October 2025",
+      "link": "http://ude.my/UC-75059364-30f0-4af5-95c8-195cdcb4153b",
+      "credentialUrl": "",
+      "skills": [
+        "Siemens_PLC",
+        "HMI",
+        "TIA_Portal"
+      ]
+    },
+    {
       "id": 1764413756819,
       "icon": "fa-solid fa-certificate",
       "logo": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
@@ -511,14 +575,14 @@
       "institution": "Mayurapada C.C. Narammala",
       "degree": "Advance Level - Engineering Technology (A), Science for Technology (B), Information & Communication Technology (B)",
       "period": "2021",
-      "logo": "https://drive.google.com/file/d/12QEbVj16CKi9UNvj8_Fw3sNpdAx86NX4/view?usp=drivesdk"
+      "logo": "https://drive.google.com/file/d/1e-bdpso5UBlAbnBIVOL7ngXXmucKw_2G/view?usp=drive_link"
     },
     {
       "id": 4,
       "institution": "Sri Sumangala Central College, Wariyapola",
       "degree": "Ordinary Level",
       "period": "2018",
-      "logo": "https://drive.google.com/file/d/15UZGBjfWG134_u-zTt9JsnvkXZt4zjse/view?usp=drivesdk"
+      "logo": "https://drive.google.com/file/d/1Xu8_J-adk4uFGMajO2GLtY7oSYIqgzx0/view?usp=drive_link"
     }
   ],
   "experience": [
@@ -533,65 +597,6 @@
     }
   ],
   "projects": [
-    {
-      "id": 1764441788457,
-      "category": "web",
-      "title": "QR & Barcode Generator Platfor",
-      "description": "Built a web application to generate QR codes and barcodes with extensive customization. Supports multiple QR code types, batch processing, and includes a built-in scanner.\n\n✨ Key Features Implemented:\n🎨 Design & Customization: Color customization, size control, logo overlay, border & padding, error correction levels\n🔲 Advanced QR Types: WiFi, vCard/Contact, Email, SMS, Geolocation, Event, Text/URL\n📥 Export Options: PNG, JPG, SVG, PDF downloads + Copy to Clipboard\n🔧 Functionality: QR code scanner, validation, generation history, batch generation, code templates\n🎯 UX: Dark mode, real-time preview, responsive design, animated UI\n\n🛠️ Technology Stack:\nFrontend: Next.js 14 (App Router), React 18, TypeScript\nStyling: Tailwind CSS with custom animations\nAnimations: Framer Motion\nLibraries: QRCode.js, JsBarcode, jsPDF, html5-qrcode\nIcons: Lucide React\nDeployment: GitHub Pages with static export\n\n📊 Project Stats:\n30+ features implemented\nFully responsive design\nTypeScript for type safety\nLocal storage for persistence\nProduction-ready deployment\n\n🌟 Why This Application is Special:\n✨ 100% FREE — No hidden costs, no subscriptions, no ads. All features are available without payment.\n✨ 30+ advanced features in one place\n✨ Professional UI with smooth animations\n✨ Multiple export formats (PNG, JPG, SVG, PDF)\n✨ Built-in QR code scanner\n✨ Batch processing for multiple codes\n✨ Dark mode support\n✨ Open source and freely accessible\n",
-      "image": "https://drive.google.com/file/d/1kJY_YyO0DOjB_KsLD-8V5CRLZxIpSvys/view?usp=drivesdk",
-      "tech": [
-        "Next.js",
-        "Typescript",
-        "React.js"
-      ],
-      "github": "",
-      "live": "#",
-      "video": "",
-      "date": "November 2025",
-      "categoryLabel": "WEB APPLICATION"
-    },
-    {
-      "id": 1764441445453,
-      "category": "web",
-      "title": "Text to Voice Generator with Unlimited Translator",
-      "description": "A free, open-source text-to-speech platform built with React, TypeScript, and the Web Speech API.\n\n✨ Features:\n🎯Text-to-Speech — Convert text to natural speech with customizable voices\n🌍 Translation — Translate text between 100+ languages\n🎤 Speech-to-Text — Real-time voice transcription\n🎨 Voice Styles — Multiple presets (Professional, Friendly, Energetic, Calm)\n⚡ Custom Controls — Adjust speed, pitch, and volume\n🎵 Audio Editor — PCM audio generation with waveform visualization\n📊 Audio Visualization — Real-time visual feedback\n📝 History — Save and manage your generated speech\n💾 Multiple Formats — Export as WAV, MP3, OGG, or WebM\n📱 Responsive Design — Works on desktop and mobile\n🎨 Modern UI — Glassmorphism design with smooth animations\n\n🔗 Live Demo: https://nayanapabasara.com/Text-to-Voice-Generator\n\n\n⚛️ React + TypeScript\n🎨 Tailwind CSS\n✨ Framer Motion\n🎵 Web Speech API\n\n100% free and open source. No API keys or subscriptions required.\n",
-      "image": "https://drive.google.com/file/d/13sDTkHpBfOyaJEbc09-hb6UsIxI7t0I1/view?usp=drivesdk",
-      "tech": [
-        "React.js",
-        "Javascript",
-        "Typescript",
-        "TailwindCSS",
-        "Framer_Motion"
-      ],
-      "github": "",
-      "live": "#",
-      "video": "",
-      "date": "November 2025",
-      "categoryLabel": "WEB APPLICATION"
-    },
-    {
-      "id": 1764441036707,
-      "category": "iot",
-      "title": "Industrial Machine Vibration & Environment Logger DAQ System",
-      "description": "Built an IoT-based real-time monitoring and automated response system for industrial machines that tracks vibration, temperature, sound, and fire hazards to enable predictive maintenance, prevent equipment failure, and protect personnel.\n\n📊 Project Overview:\nFull-stack IoT solution: ESP32 microcontrollers, multiple sensors, automated actuators, Firebase cloud storage, and Next.js dashboard for real-time monitoring, data analytics, and automated safety responses.\n\n🔧 Hardware:\nSensors: SW-420 Vibration, DHT22 Temp/Humidity, KY-037 Sound, Flame Sensor\nActuators: Cooling Fan (L298N), Water Pump (L298N), Audio Speaker (BC547), Buzzer, 4x LEDs, LCD 16x2 Display\n\n💡 Key Features:\n✅ Real-time monitoring (100ms sampling) \n✅ Live Chart.js dashboard\n✅ Firebase cloud storage \n✅ Audio voice alerts for engineers \n✅ Auto responses (fan on high temp, pump on fire) \n✅ CSV/PDF exports \n✅ Serial & WiFi connectivity \n✅ Manual/auto control modes\n\n💡 Why Valuable:\n🛡️ Safety: Fire detection with auto water pump, multi-level alerts (LEDs, buzzer, speaker)\n📈 Predictive Maintenance: Early anomaly detection, vibration analysis, temp monitoring\n💰 Cost Savings: Reduces downtime, extends equipment life, automated cooling\n📊 Data-Driven: Historical analysis, compliance reporting, real-time insights",
-      "image": "https://drive.google.com/file/d/1H4cFWBqKpwVpGgSPP3UKVi4h7QIU-zah/view?usp=drivesdk",
-      "tech": [
-        "Next.js",
-        "React",
-        "TypeScript",
-        "Tailwind",
-        "Chart.js",
-        "ESP32",
-        "Sensors",
-        "ArduioIDE",
-        "C++"
-      ],
-      "github": "",
-      "live": "#",
-      "video": "https://drive.google.com/file/d/1mkdurPPrI7BfvN9aRpaL9j-B6m2U7eD1/view?usp=drivesdk",
-      "date": "November 2025",
-      "categoryLabel": "IoT System"
-    },
     {
       "id": 1764407188064,
       "category": "robotics",
