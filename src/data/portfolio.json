@@ -598,6 +598,65 @@
   ],
   "projects": [
     {
+      "id": 1764476456565,
+      "category": "web",
+      "title": "QR & Barcode Generator Platform - Full-Stack Next.js Application",
+      "description": "Built a web application to generate QR codes and barcodes with extensive customization. Supports multiple QR code types, batch processing, and includes a built-in scanner.\n\n✨ Key Features Implemented:\n🎨 Design & Customization: Color customization, size control, logo overlay, border & padding, error correction levels\n🔲 Advanced QR Types: WiFi, vCard/Contact, Email, SMS, Geolocation, Event, Text/URL\n📥 Export Options: PNG, JPG, SVG, PDF downloads + Copy to Clipboard\n🔧 Functionality: QR code scanner, validation, generation history, batch generation, code templates\n🎯 UX: Dark mode, real-time preview, responsive design, animated UI\n\n🛠️ Technology Stack:\nFrontend: Next.js 14 (App Router), React 18, TypeScript\nStyling: Tailwind CSS with custom animations\nAnimations: Framer Motion\nLibraries: QRCode.js, JsBarcode, jsPDF, html5-qrcode\nIcons: Lucide React\nDeployment: GitHub Pages with static export\n\n📊 Project Stats:\n30+ features implemented\nFully responsive design\nTypeScript for type safety\nLocal storage for persistence\nProduction-ready deployment\n\n🌟 Why This Application is Special:\n✨ 100% FREE — No hidden costs, no subscriptions, no ads. All features are available without payment.\n✨ 30+ advanced features in one place\n✨ Professional UI with smooth animations\n✨ Multiple export formats (PNG, JPG, SVG, PDF)\n✨ Built-in QR code scanner\n✨ Batch processing for multiple codes\n✨ Dark mode support\n✨ Open source and freely accessible",
+      "image": "https://drive.google.com/file/d/1kJY_YyO0DOjB_KsLD-8V5CRLZxIpSvys/view?usp=sharing",
+      "tech": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "TailwindCSS",
+        "Framer_Motion"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1GzoIqsUIV4D8t4jf26w9WRSgwtA3LLt9/view?usp=sharing",
+      "date": "November 2025",
+      "categoryLabel": "WEB APPLICATION"
+    },
+    {
+      "id": 1764476292505,
+      "category": "web",
+      "title": " Text to Voice Generator with Unlimited Translator",
+      "description": "A free, open-source text-to-speech platform built with React, TypeScript, and the Web Speech API.\n\n✨ Features:\n🎯Text-to-Speech — Convert text to natural speech with customizable voices\n🌍 Translation — Translate text between 100+ languages\n🎤 Speech-to-Text — Real-time voice transcription\n🎨 Voice Styles — Multiple presets (Professional, Friendly, Energetic, Calm)\n⚡ Custom Controls — Adjust speed, pitch, and volume\n🎵 Audio Editor — PCM audio generation with waveform visualization\n📊 Audio Visualization — Real-time visual feedback\n📝 History — Save and manage your generated speech\n💾 Multiple Formats — Export as WAV, MP3, OGG, or WebM\n📱 Responsive Design — Works on desktop and mobile\n🎨 Modern UI — Glassmorphism design with smooth animations\n\n🔗 Live Demo: https://nayanapabasara.com/Text-to-Voice-Generator\n\n\n⚛️ React + TypeScript\n🎨 Tailwind CSS\n✨ Framer Motion\n🎵 Web Speech API\n\n100% free and open source. No API keys or subscriptions required.\n",
+      "image": "https://drive.google.com/file/d/13sDTkHpBfOyaJEbc09-hb6UsIxI7t0I1/view?usp=drive_link",
+      "tech": [
+        "React",
+        "TypeScript",
+        "FramerMotion",
+        "Python",
+        "API"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "October 2025",
+      "categoryLabel": "WEB APPLICATION"
+    },
+    {
+      "id": 1764476143857,
+      "category": "iot",
+      "title": " Industrial Machine Vibration & Environment Logger DAQ System  Industrial Machine Vibration & Environment Logger DAQ System ",
+      "description": "\nIndustrial Machine Vibration & Environment Logger DAQ System \nIndustrial Machine Vibration & Environment Logger DAQ System \nBuilt an IoT-based real-time monitoring and automated response system for industrial machines that tracks vibration, temperature, sound, and fire hazards to enable predictive maintenance, prevent equipment failure, and protect personnel.\n\n📊 Project Overview:\nFull-stack IoT solution: ESP32 microcontrollers, multiple sensors, automated actuators, Firebase cloud storage, and Next.js dashboard for real-time monitoring, data analytics, and automated safety responses.\n\n🔧 Hardware:\nSensors: SW-420 Vibration, DHT22 Temp/Humidity, KY-037 Sound, Flame Sensor\nActuators: Cooling Fan (L298N), Water Pump (L298N), Audio Speaker (BC547), Buzzer, 4x LEDs, LCD 16x2 Display\n\n💡 Key Features:\n✅ Real-time monitoring (100ms sampling) \n✅ Live Chart.js dashboard\n✅ Firebase cloud storage \n✅ Audio voice alerts for engineers \n✅ Auto responses (fan on high temp, pump on fire) \n✅ CSV/PDF exports \n✅ Serial & WiFi connectivity \n✅ Manual/auto control modes\n\n💡 Why Valuable:\n🛡️ Safety: Fire detection with auto water pump, multi-level alerts (LEDs, buzzer, speaker)\n📈 Predictive Maintenance: Early anomaly detection, vibration analysis, temp monitoring\n💰 Cost Savings: Reduces downtime, extends equipment life, automated cooling\n📊 Data-Driven: Historical analysis, compliance reporting, real-time insights\n\n🛠️ Full-Stack: Embedded (ESP32), motor control (L298N), audio (PCM), cloud (Firebase), web (Next.js/React/TS)\n",
+      "image": "https://drive.google.com/file/d/1H4cFWBqKpwVpGgSPP3UKVi4h7QIU-zah/view?usp=drive_link",
+      "tech": [
+        "Next.js",
+        "React",
+        "Typescript",
+        "Sensors",
+        "ESP32",
+        "ArduinoIDE",
+        "C++"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1mkdurPPrI7BfvN9aRpaL9j-B6m2U7eD1/view?usp=drive_link",
+      "date": "November 2025",
+      "categoryLabel": "IoT Systems"
+    },
+    {
       "id": 1764407188064,
       "category": "robotics",
       "title": "Box Sweep Robot",
@@ -630,7 +689,8 @@
       "github": "https://github.com/nayanapabasara",
       "live": "#",
       "date": "December 2024",
-      "categoryLabel": "MOBILE APPLICATION"
+      "categoryLabel": "MOBILE APPLICATION",
+      "video": "https://drive.google.com/file/d/11kCJ4UySV_N_xUapKsdx5cGrJdXioyz-/view?usp=sharing"
     },
     {
       "id": 2,
@@ -715,7 +775,8 @@
       "github": "https://github.com/nayanapabasara",
       "live": "#",
       "date": "February 2024",
-      "categoryLabel": "MOBILE APPLICATION"
+      "categoryLabel": "MOBILE APPLICATION",
+      "video": "https://drive.google.com/file/d/1HG_qlb1QrdSEzwev3XY4lCfMZysLKbqB/view?usp=sharing"
     },
     {
       "id": 7,
@@ -733,7 +794,8 @@
       "github": "https://github.com/nayanapabasara",
       "live": "#",
       "date": "January 2024",
-      "categoryLabel": "MACHINE LEARNING"
+      "categoryLabel": "MACHINE LEARNING",
+      "video": "https://drive.google.com/file/d/17gvMmiVla9wHJN4Q0BdN8kToOEng3jV7/view?usp=sharing"
     },
     {
       "id": 8,
@@ -884,7 +946,7 @@
       "category": "mechanical",
       "title": "Hand Operated Forklift Machine",
       "description": "Innovative mechanical forklift design with manual operation system, hydraulic lifting mechanism, and ergonomic controls. Features load balancing, safety mechanisms, and precision movement control for warehouse operations.",
-      "image": "/hand-forklift.jpg",
+      "image": "https://drive.google.com/file/d/11RE_tx1GFyTJ7hzDHsgd3w9_6JzbgGqp/view?usp=sharing",
       "tech": [
         "SolidWorks",
         "Mechanical Design",
@@ -895,7 +957,8 @@
       "github": "https://github.com/nayanapabasara",
       "live": "#",
       "date": "May 2023",
-      "categoryLabel": "MECHANICAL DESIGN"
+      "categoryLabel": "MECHANICAL DESIGN",
+      "video": "https://drive.google.com/file/d/1cAdczTFRC3bBdBMSjJxwRxNaKWQyJ78N/view?usp=sharing"
     },
     {
       "id": 16,
