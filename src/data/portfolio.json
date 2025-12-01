@@ -295,6 +295,29 @@
   ],
   "certifications": [
     {
+      "id": 1764608119146,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/16Mvk5PWjyqUQTKAnRre4O95yDSC7JBQY/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/16Mvk5PWjyqUQTKAnRre4O95yDSC7JBQY/view?usp=sharing",
+      "credentialId": "",
+      "title": "PLC Programming & Automation.",
+      "provider": "Sri Lanka Institute of Robotics (SLIR)",
+      "date": "August 2025",
+      "link": "",
+      "credentialUrl": "",
+      "skills": [
+        "Siemens",
+        "Xinjie",
+        "Mitsubishi",
+        "SCADA",
+        "HMI",
+        "VFD_control",
+        "Ladder_Diagram",
+        "Flow_Chart",
+        "FBD"
+      ]
+    },
+    {
       "id": 1764607091837,
       "icon": "fa-solid fa-certificate",
       "logo": "https://drive.google.com/file/d/1R9jCb2QDmCNGcfxqXqXRYK7DgpEKQfJJ/view?usp=sharing",
@@ -662,7 +685,7 @@
     },
     {
       "id": 3,
-      "institution": "Mayurapada C.C. Narammala",
+      "institution": "Mayurapada Central College Narammala",
       "degree": "Advance Level - Engineering Technology (A), Science for Technology (B), Information & Communication Technology (B)",
       "period": "2021",
       "logo": "https://drive.google.com/file/d/12QEbVj16CKi9UNvj8_Fw3sNpdAx86NX4/view?usp=drive_link"
