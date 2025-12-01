@@ -330,7 +330,7 @@
     {
       "id": 1764606811219,
       "icon": "fa-solid fa-certificate",
-      "logo": "",
+      "logo": "/hackerrank-logo.png",
       "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
       "credentialId": "D2D10D57922C",
       "title": "Java (Basic)",
@@ -345,7 +345,7 @@
     {
       "id": 1764606805751,
       "icon": "fa-solid fa-certificate",
-      "logo": "",
+      "logo": "/hackerrank-logo.png",
       "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
       "credentialId": "31FF1CAF109E",
       "title": "Python (Basic) Certificate",
@@ -360,7 +360,7 @@
     {
       "id": 1764606799169,
       "icon": "fa-solid fa-certificate",
-      "logo": "",
+      "logo": "/hackerrank-logo.png",
       "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
       "credentialId": "E027002EC8D4",
       "title": "SQL (Basic)",
@@ -519,8 +519,8 @@
     {
       "id": 5,
       "icon": "fa-solid fa-brain",
-      "logo": "https://drive.google.com/file/d/1GPhcLKpQcKTG8AC-nO4NJHs6uD2u3TEW/view?usp=sharing",
-      "logoFallback": "https://drive.google.com/file/d/1GPhcLKpQcKTG8AC-nO4NJHs6uD2u3TEW/view?usp=sharing",
+      "logo": "https://drive.google.com/file/d/1ZBk_KwFIDLSYk0CdTxhhZvAit11Qwykx/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1ZBk_KwFIDLSYk0CdTxhhZvAit11Qwykx/view?usp=sharing",
       "credentialId": "BZyhjkk8Hf",
       "title": "Generative AI",
       "provider": "Coursera",
