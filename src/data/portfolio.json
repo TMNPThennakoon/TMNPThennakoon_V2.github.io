@@ -295,6 +295,84 @@
   ],
   "certifications": [
     {
+      "id": 1764607091837,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/1R9jCb2QDmCNGcfxqXqXRYK7DgpEKQfJJ/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1R9jCb2QDmCNGcfxqXqXRYK7DgpEKQfJJ/view?usp=sharing",
+      "credentialId": "b122e0d927f444eabd2a35e7ea05ee8e",
+      "title": "SQL and Relational Databases 101",
+      "provider": "Cognitive Class",
+      "date": "May 2024",
+      "link": "https://courses.cognitiveclass.ai/certificates/b122e0d927f444eabd2a35e7ea05ee8e",
+      "credentialUrl": "",
+      "skills": [
+        "SQL",
+        "Relational_Database",
+        "Data_Types"
+      ]
+    },
+    {
+      "id": 1764607077387,
+      "icon": "fa-solid fa-certificate",
+      "logo": "https://drive.google.com/file/d/1R9jCb2QDmCNGcfxqXqXRYK7DgpEKQfJJ/view?usp=sharing",
+      "logoFallback": "https://drive.google.com/file/d/1R9jCb2QDmCNGcfxqXqXRYK7DgpEKQfJJ/view?usp=sharing",
+      "credentialId": "dde312d67d914fd29ca70a8147b58d72",
+      "title": "Python 101 for Data Science",
+      "provider": "Cognitive Class",
+      "date": "",
+      "link": "https://courses.cognitiveclass.ai/certificates/dde312d67d914fd29ca70a8147b58d72",
+      "credentialUrl": "",
+      "skills": [
+        "Python",
+        "Data_Science"
+      ]
+    },
+    {
+      "id": 1764606811219,
+      "icon": "fa-solid fa-certificate",
+      "logo": "",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
+      "credentialId": "D2D10D57922C",
+      "title": "Java (Basic)",
+      "provider": "HackerRank",
+      "date": "March 2024",
+      "link": "https://www.hackerrank.com/certificates/d2d10d57922c",
+      "credentialUrl": "",
+      "skills": [
+        "Java"
+      ]
+    },
+    {
+      "id": 1764606805751,
+      "icon": "fa-solid fa-certificate",
+      "logo": "",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
+      "credentialId": "31FF1CAF109E",
+      "title": "Python (Basic) Certificate",
+      "provider": "HackerRank",
+      "date": "March 2024",
+      "link": "https://www.hackerrank.com/certificates/31ff1caf109e",
+      "credentialUrl": "",
+      "skills": [
+        "Python"
+      ]
+    },
+    {
+      "id": 1764606799169,
+      "icon": "fa-solid fa-certificate",
+      "logo": "",
+      "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
+      "credentialId": "E027002EC8D4",
+      "title": "SQL (Basic)",
+      "provider": "HackerRank",
+      "date": "March 2024",
+      "link": "https://www.hackerrank.com/certificates/e027002ec8d4",
+      "credentialUrl": "",
+      "skills": [
+        "SQL"
+      ]
+    },
+    {
       "id": 1764460995819,
       "icon": "fa-solid fa-certificate",
       "logo": "https://drive.google.com/file/d/1bIYkywsGFWCyKlJPIVTDYLkfJp2rJrx_/view?usp=drivesdk",
@@ -386,7 +464,8 @@
         "CSS",
         "JavaScript",
         "React"
-      ]
+      ],
+      "link": "https://drive.google.com/file/d/1VSmd5iDpmE-H7JshfQmuPbll_fMT_3kf/view?usp=drive_link"
     },
     {
       "id": 2,
@@ -401,7 +480,8 @@
         "Project Management",
         "Communication",
         "Leadership"
-      ]
+      ],
+      "link": "https://drive.google.com/file/d/10uTLQzca-wE660pzPwMg7KTCiSnE6OY0/view?usp=drive_link"
     },
     {
       "id": 3,
@@ -417,7 +497,8 @@
         "Express",
         "Backend",
         "API"
-      ]
+      ],
+      "link": "https://drive.google.com/file/d/1hceUwNuQc3MjJsNKlBhn1TRzeLu1qxUP/view?usp=drive_link"
     },
     {
       "id": 4,
@@ -432,7 +513,8 @@
         "Digital Marketing",
         "SEO",
         "Analytics"
-      ]
+      ],
+      "link": "https://skillshop.exceedlms.com/student/award/k4jou7bsUU4KutwCmSM867mK"
     },
     {
       "id": 5,
@@ -447,7 +529,8 @@
         "AI",
         "Machine Learning",
         "Deep Learning"
-      ]
+      ],
+      "link": "https://coursera.org/verify/E7XNTUECWTBB "
     },
     {
       "id": 6,
@@ -462,7 +545,8 @@
         "Python",
         "Programming",
         "Data Structures"
-      ]
+      ],
+      "link": "https://drive.google.com/file/d/1TfC9Ri-_4XRMEfpaRlYLkjAsSjByPOwu/view?usp=drive_link"
     },
     {
       "id": 7,
@@ -477,7 +561,8 @@
         "Project Management",
         "Planning",
         "Leadership"
-      ]
+      ],
+      "link": "https://drive.google.com/file/d/1yWwvjT5XAEgALFDkWs_FIibA0F6mp2cT/view?usp=drive_link"
     },
     {
       "id": 8,
@@ -492,7 +577,8 @@
         "Agile",
         "Scrum",
         "ICT"
-      ]
+      ],
+      "link": "https://drive.google.com/file/d/1PHis0WEv1qBaYJyX3i2jdF7hCXQu__VZ/view?usp=drive_link"
     },
     {
       "id": 9,
@@ -507,7 +593,8 @@
         "AI",
         "Machine Learning",
         "Data Science"
-      ]
+      ],
+      "link": "https://code.sliit.org/certificates/5dxqvoubbc"
     },
     {
       "id": 10,
@@ -522,7 +609,8 @@
         "Deep Learning",
         "Neural Networks",
         "TensorFlow"
-      ]
+      ],
+      "link": "https://code.sliit.org/certificates/yk75lue7cs"
     },
     {
       "id": 11,
@@ -537,7 +625,8 @@
         "Software Engineering",
         "Problem Solving",
         "Algorithms"
-      ]
+      ],
+      "link": "https://www.hackerrank.com/certificates/9712cd1c2aec"
     },
     {
       "id": 12,
@@ -552,7 +641,8 @@
         "Project Management",
         "Scheduling",
         "Scope"
-      ]
+      ],
+      "link": "https://drive.google.com/file/d/10uTLQzca-wE660pzPwMg7KTCiSnE6OY0/view?usp=drive_link"
     }
   ],
   "education": [
