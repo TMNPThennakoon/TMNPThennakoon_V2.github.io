@@ -711,6 +711,25 @@
   ],
   "projects": [
     {
+      "id": 1764937875183,
+      "category": "web",
+      "title": "Portfolio website V2 + Admin Dashboard",
+      "description": "I built a portfolio site with a modern dark theme, smooth animations, and 3D effects. It showcases my projects, skills, certifications, education, and experience.\n\n✨ Features:\n* Modern dark UI with smooth animations\n* 3D background effects powered by Three.js\n* Fully responsive design\n* Admin dashboard for content management\n* Interactive project showcase with detailed views\n* Timeline for education and experience\n\n🛠️ Tech Stack:\n• React \n• Vite \n• Tailwind CSS \n• Framer Motion \n• Three.js\n\nCheck it out: nayanapabasara.com\n\nBuilt with attention to detail and a focus on user experience. Open to feedback and collaboration opportunities.",
+      "image": "https://drive.google.com/file/d/1YA885WYFDxGSM84eWG27kfIsWJB2Q10Z/view?usp=drivesdk",
+      "tech": [
+        "React",
+        "Vite",
+        "Tailwind_CSS",
+        "Framer_Motion",
+        "Three.Js"
+      ],
+      "github": "",
+      "live": "#nayanapabasara.com",
+      "video": "https://drive.google.com/file/d/1f_s1SOcYRBKut0ZCUcWwnmo6709dgHTZ/view?usp=drivesdk",
+      "date": "November 2025",
+      "categoryLabel": "WEB APPLICATION"
+    },
+    {
       "id": 1764493888798,
       "category": "automation",
       "title": "Automated Water Treatment and Bottle Filling System using Siemens PLC",
@@ -763,7 +782,7 @@
         "API"
       ],
       "github": "",
-      "live": "#",
+      "live": "#https://nayana.top/",
       "video": "",
       "date": "October 2025",
       "categoryLabel": "WEB APPLICATION"
