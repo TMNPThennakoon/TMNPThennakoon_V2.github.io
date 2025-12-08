@@ -733,7 +733,7 @@
       "id": 1764493888798,
       "category": "automation",
       "title": "Automated Water Treatment and Bottle Filling System using Siemens PLC",
-      "description": "I developed a ladder logic control program for a Water Treatment and Bottle Filling System using Siemens PLC (TIA Portal).\n\nThe design followed a flowchart-based approach to break down the process into sequential steps such as tank filling, water treatment, and bottle filling. Using 3 sensors, pumps, and a conveyor model, the system logic was mapped into ladder diagrams that ensure safe, reliable, and continuous operation.\n\nThis project demonstrates how industrial processes can be modeled and automated purely through PLC logic design, without needing full-scale hardware.\n\n • Tools: Siemens S7-200 PLC, TIA Portal (ladder logic)\n • Inputs (Sensors):\n • Tank level sensor\n • Bottle detection sensor (on conveyor)\n • Fill-level/overflow sensor\n • Outputs (Actuators – simulated in logic):\n • Pumps for water circulation\n • Gate valves for flow control\n • Conveyor motor for bottle movement\n • Tower light indicators (Green/Amber/Red)\n • Control Method: Flowchart → Sequential function steps → Ladder logic design\n • Safety Logic: E-stop, overflow protection, low-level cut-off",
+      "description": "I developed a ladder logic control program for a Water Treatment and Bottle Filling System using Siemens PLC (SIMATIC_Manager).\nThe design followed a flowchart-based approach to break down the process into sequential steps such as tank filling, water treatment, and bottle filling. Using 3 sensors, pumps, and a conveyor model, the system logic was mapped into ladder diagrams that ensure safe, reliable, and continuous operation.\n\nThis project demonstrates how industrial processes can be modeled and automated purely through PLC logic design, without needing full-scale hardware.\n\n • Tools: Siemens S7-200 PLC, SIMATIC_Manager(ladder logic)\n • Inputs (Sensors):\n • Tank level sensor\n • Bottle detection sensor (on conveyor)\n • Fill-level/overflow sensor\n • Outputs (Actuators – simulated in logic):\n • Pumps for water circulation\n • Gate valves for flow control\n • Conveyor motor for bottle movement\n • Tower light indicators (Green/Amber/Red)\n • Control Method: Flowchart → Sequential function steps → Ladder logic design\n • Safety Logic: E-stop, overflow protection, low-level cut-off",
       "image": "https://drive.google.com/file/d/1ZYJdhF5QfGQJTIWQkAqKchHtvwCKWgrh/view?usp=sharing",
       "tech": [
         "Siemens PLC",
@@ -882,7 +882,7 @@
       "id": 4,
       "category": "automation",
       "title": "Pneumatic Product Sorting System",
-      "description": "I designed ladder diagram for product sorting system using Siemens PLC and pneumatic technology. The system integrates 3 conveyor belts, 7 sensors, rodless actuator, pneumatic cylinders, an air suction pick-and-place unit, and an air gripper to detect, pick, and sort products automatically.\n\nThe complete automation cycle was first mapped with a flowchart, then programmed into a ladder logic sequence in TIA Portal. The system simulates a real-world industrial sorting line used in packaging, food processing, and logistics industries.\n\n\nKey Features\n • Controller: Siemens S7-200 PLC\n • Conveyors (3): Sequential transport of products across different stations\n • Sensors (7): For product detection, position verification, and safety interlocks\n • Pneumatic Actuation:\n • Rodless cylinder for linear transfer\n • Air suction unit for pick-and-place\n • Air gripper for secure handling\n • Double-acting cylinders for push/divert actions\n • Indicators: Tower lights for status (Running, Sorting, Fault)\n • Safety: Emergency stop, jam detection, and pneumatic interlocks",
+      "description": "I designed ladder diagram for product sorting system using Siemens PLC and pneumatic technology. The system integrates 3 conveyor belts, 7 sensors, rodless actuator, pneumatic cylinders, an air suction pick-and-place unit, and an air gripper to detect, pick, and sort products automatically.\n\nThe complete automation cycle was first mapped with a flowchart, then programmed into a ladder logic sequence in STEP_7-Micro/WIN. The system simulates a real-world industrial sorting line used in packaging, food processing, and logistics industries.\n\n\nKey Features\n • Controller: Siemens S7-200 PLC\n • Conveyors (3): Sequential transport of products across different stations\n • Sensors (7): For product detection, position verification, and safety interlocks\n • Pneumatic Actuation:\n • Rodless cylinder for linear transfer\n • Air suction unit for pick-and-place\n • Air gripper for secure handling\n • Double-acting cylinders for push/divert actions\n • Indicators: Tower lights for status (Running, Sorting, Fault)\n • Safety: Emergency stop, jam detection, and pneumatic interlocks",
       "image": "/pneumatic-sorting.jpg",
       "tech": [
         "Siemens PLC",
@@ -890,7 +890,8 @@
         "Flow_Chart_Diagram",
         "WinCC",
         "HMI",
-        "SIMATIC_Manager"
+        "SIMATIC_Manager",
+        "STEP_7-Micro/WIN"
       ],
       "github": "https://github.com/nayanapabasara",
       "live": "#",
@@ -908,7 +909,8 @@
         "S7-200 PLC",
         "Ladder Logic",
         "Safety Systems",
-        "SCADA"
+        "SCADA",
+        "STEP_7-Micro/WIN"
       ],
       "github": "https://github.com/nayanapabasara",
       "live": "#",
