@@ -711,6 +711,85 @@
   ],
   "projects": [
     {
+      "id": 1768673803550,
+      "category": "mechanical",
+      "title": "Intricate Geometric Flowerpot",
+      "description": "An artistic flowerpot design created using advanced SolidWorks features. The project highlights the use of the Flex Command to create intricate twists and spiral geometries, resulting in a unique, non-linear product form.",
+      "image": "https://drive.google.com/file/d/1BNPD4GJrJLCafbPstkmdfjuMGLRcdZC8/view?usp=sharing",
+      "tech": [
+        "SolidWorks",
+        "Flex Command",
+        "Twist & Deform Tools",
+        "3D Modeling",
+        "Product Aesthetics",
+        "Parametric Design"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/13ewKKemZJu0U8ZE80R5G0nvq5lJYLtjj/view?usp=sharing",
+      "date": "January 2026",
+      "categoryLabel": "CREATIVE GEOMETRY MODELING"
+    },
+    {
+      "id": 1768673285059,
+      "category": "mechanical",
+      "title": "Stylized Automotive Alloy Wheel",
+      "description": "A high-end automotive wheel design featuring complex surface geometry and aesthetic spoke patterns. This project demonstrates proficiency in revolved features, circular patterns, and advanced surface finishing to achieve a realistic metallic look.",
+      "image": "https://drive.google.com/file/d/1K-ShNQaAGExqYgyeMR0u1wW9yzMZfHYs/view?usp=sharing",
+      "tech": [
+        "SolidWorks",
+        "3D CAD",
+        "Surface Modeling",
+        "Automotive Design",
+        "Circular Patterning",
+        "Material Visualization"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1-Q5Zs4dv0_si1IYO5EdYr92KmrHbps4C/view?usp=sharing",
+      "date": "January 2026",
+      "categoryLabel": "ADVANCED SURFACING & RENDERING"
+    },
+    {
+      "id": 1768672759753,
+      "category": "mechanical",
+      "title": "Kitchen Drying Rack Weldment Design",
+      "description": "A space-saving, wall-mounted kitchen drying rack designed for efficient organization. The model features a multi-tiered frame for dish storage and integrated hooks for hanging utensils, prioritizing both structural stability and ergonomic kitchen management.",
+      "image": "https://drive.google.com/file/d/1wEdsVfmxAN4swCHozknpM8rxTKATvVt7/view?usp=drive_link",
+      "tech": [
+        "SolidWorks",
+        "Weldment",
+        "3D Product Design",
+        "Surface Modeling",
+        "Mechanical Assembly",
+        "Kitchenware Engineering",
+        "Material Rendering"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1g9CuuPCDUIEeiuh9gUQizM5DFliepFoA/view?usp=drive_link",
+      "date": "January 2026",
+      "categoryLabel": "CONSUMER PRODUCT MODELING"
+    },
+    {
+      "id": 1768669400117,
+      "category": "mechanical",
+      "title": "Automotive Shock Absorber Assembly",
+      "description": "This project involves the detailed 3D modeling and assembly of a mechanical shock absorber system, designed using SolidWorks. The goal was to create a functional representation of a suspension component, focusing on the integration of various mechanical parts like helical springs, telescopic rods, and gear interfaces.\n\nKey Technical Features\nDetailed Assembly Modeling: Developed a multi-part assembly including a precision-engineered helical spring, a central telescopic rod, and a gear-driven mounting base.\n\nMaterial Visualization: Applied realistic material textures and color coding (Red for the spring and Metallic for the rod/gear) to distinguish between static and dynamic components.\n\nMechanical Precision: Focused on the alignment and mating of individual parts to ensure a realistic mechanical stroke and structural integrity within the CAD environment.\n\nSoftware & Tools Used\nCAD Software: SolidWorks\n\nModules: 3D Part Modeling, Advanced Assembly, and Appearance Rendering",
+      "image": "https://drive.google.com/file/d/1xh60dJWln4gvG3CeUUI1TVhMZ6WyxGaU/view?usp=drive_link",
+      "tech": [
+        "SolidWorks",
+        "Mechanical Assembly",
+        "3D Part Modeling",
+        "Product Design"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1nmG0rltf9fXBlYmnB0nFwyE_6GjDviPS/view?usp=drive_link",
+      "date": "December 2025",
+      "categoryLabel": "MECHANICAL DESIGN"
+    },
+    {
       "id": 1764937875183,
       "category": "web",
       "title": "Portfolio website V2 + Admin Dashboard",
