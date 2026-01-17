@@ -711,6 +711,27 @@
   ],
   "projects": [
     {
+      "id": 1768675840698,
+      "category": "mechanical",
+      "title": "Truck Tyre and Alloy Rim Assembly",
+      "description": "A high-fidelity 3D model of a heavy-duty vehicle tyre featuring intricate tread patterns for enhanced traction simulation. The assembly includes a detailed metallic rim with a multi-bolt mounting system, showcasing advanced circular patterning and material application in SolidWorks.",
+      "image": "https://drive.google.com/file/d/1678d8K-7nV-XLoBH_QMThS7In_KZoIBn/view?usp=drive_link",
+      "tech": [
+        "SolidWorks",
+        "3D CAD modeling",
+        "Circular Patterning",
+        "Automotive Component Design",
+        "Assembly Modeling",
+        "Material Rendering",
+        "Surface Detailing"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "January 2026",
+      "categoryLabel": "AUTOMOTIVE ENGINEERING"
+    },
+    {
       "id": 1768674796796,
       "category": "iot",
       "title": "PCB Design for Industrial Machine Vibration & Environment Logger",
@@ -1173,8 +1194,8 @@
         "Express.js",
         "JWT Authentication"
       ],
-      "github": "https://github.com/nayanapabasara",
-      "live": "#",
+      "github": "https://edusync-frontend-six.vercel.app/",
+      "live": "#https://edusync-frontend-six.vercel.app/",
       "date": "July 2023",
       "categoryLabel": "WEB APPLICATION"
     },
