@@ -711,6 +711,25 @@
   ],
   "projects": [
     {
+      "id": 1768674796796,
+      "category": "iot",
+      "title": "PCB Design for Industrial Machine Vibration & Environment Logger",
+      "description": "A specialized Data Acquisition (DAQ) system designed for monitoring industrial machinery performance and health. This system tracks real-time vibration data alongside environmental factors like temperature and humidity. It features a custom-designed, multi-layered PCB integrated with an ESP32 microcontroller, specialized sensors, and local status indicators.",
+      "image": "https://drive.google.com/file/d/1i6zD939_v4Naq5CJMUwKKBOMCPLP33Cb/view?usp=drive_link",
+      "tech": [
+        "KiCad",
+        "Circuit Schematic Design",
+        "PCB Design",
+        "ESP32 Microcontroller",
+        "Embedded Systems"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1uuZpcrhNi4x4v8Rqt-izLF61SJzClhaz/view?usp=drive_link",
+      "date": "November 2025",
+      "categoryLabel": "EMBEDDED SYSTEMS & PCB DESIGN"
+    },
+    {
       "id": 1768673803550,
       "category": "mechanical",
       "title": "Intricate Geometric Flowerpot",
@@ -1239,7 +1258,7 @@
       "category": "mechanical",
       "title": "SolidWorks Conveyor Belt Design",
       "description": "Professional conveyor belt system designed using SolidWorks with detailed 3D modeling and assembly. Features modular components, belt tensioning mechanisms, and motor mounting systems. Includes engineering drawings and manufacturing documentation. Demonstrates advanced CAD modeling skills and mechanical engineering concepts.",
-      "image": "/conveyor.png",
+      "image": "https://drive.google.com/file/d/1Oh7rL_SAdfBkuFfJYnI6df0WOiaafxfH/view?usp=drive_link, https://drive.google.com/file/d/1xTpVf5Uob8C9DJF1Cm5DNqoh9VqynPw6/view?usp=drive_link",
       "tech": [
         "SolidWorks",
         "CAD Modeling",
@@ -1251,7 +1270,8 @@
       "github": "https://github.com/nayanapabasara",
       "live": "#",
       "date": "February 2024",
-      "categoryLabel": "MECHANICAL DESIGN"
+      "categoryLabel": "MECHANICAL DESIGN",
+      "video": "https://drive.google.com/file/d/1Oh7rL_SAdfBkuFfJYnI6df0WOiaafxfH/view?usp=drive_link, https://drive.google.com/file/d/1xTpVf5Uob8C9DJF1Cm5DNqoh9VqynPw6/view?usp=drive_link"
     }
   ],
   "contact": {
