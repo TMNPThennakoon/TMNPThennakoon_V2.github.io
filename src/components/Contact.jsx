@@ -128,7 +128,7 @@ function Contact() {
                 <input
                   type="text"
                   name="name"
-                  placeholder="John Doe"
+                  placeholder="Pabasara Thennakoon"
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -141,7 +141,7 @@ function Contact() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="john@example.com"
+                  placeholder="pabasara@gmail.com"
                   value={formData.email}
                   onChange={handleChange}
                   required
