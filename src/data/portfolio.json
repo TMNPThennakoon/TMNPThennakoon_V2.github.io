@@ -711,6 +711,27 @@
   ],
   "projects": [
     {
+      "id": 1768713545726,
+      "category": "mechanical",
+      "title": "Internal Fluid Flow Analysis through a Pipe System",
+      "description": "A Computational Fluid Dynamics (CFD) study conducted using SolidWorks Flow Simulation to analyze internal fluid behavior. The project involves determining key engineering parameters such as Velocity profiles, Mass Flow Rate, Pressure drops, and Temperature distribution across a bent pipe geometry under specified boundary conditions.",
+      "image": "https://drive.google.com/file/d/1HgqBW6BbyIEGKv0z1TaoLxC_apd_TroW/view?usp=drive_link, https://drive.google.com/file/d/1gvLmtDI9zZ7nKWsQ4YcTCt25wzMTZZ7O/view?usp=drive_link",
+      "tech": [
+        "SolidWorks Flow Simulation",
+        "Computational Fluid Dynamics (CFD)",
+        "Fluid Mechanics",
+        "Thermal Analysis",
+        "Boundary Condition Setup",
+        "Flow Trajectory Visualization",
+        "Engineering Analysis"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/1HgqBW6BbyIEGKv0z1TaoLxC_apd_TroW/view?usp=drive_link, https://drive.google.com/file/d/1gvLmtDI9zZ7nKWsQ4YcTCt25wzMTZZ7O/view?usp=drive_link",
+      "date": "January 2026",
+      "categoryLabel": "CFD & THERMAL ANALYSIS"
+    },
+    {
       "id": 1768675840698,
       "category": "mechanical",
       "title": "Truck Tyre and Alloy Rim Assembly",
