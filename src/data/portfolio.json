@@ -353,8 +353,8 @@
     {
       "id": 1764606811219,
       "icon": "fa-solid fa-certificate",
-      "logo": "/hackerrank-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
+      "logo": "https://drive.google.com/file/d/1qjfxhjCWsMUkUPuxkb2YyAY7_zgX57Pd/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1qjfxhjCWsMUkUPuxkb2YyAY7_zgX57Pd/view?usp=drivesdk",
       "credentialId": "D2D10D57922C",
       "title": "Java (Basic)",
       "provider": "HackerRank",
@@ -368,8 +368,8 @@
     {
       "id": 1764606805751,
       "icon": "fa-solid fa-certificate",
-      "logo": "/hackerrank-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
+      "logo": "https://drive.google.com/file/d/1qjfxhjCWsMUkUPuxkb2YyAY7_zgX57Pd/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1qjfxhjCWsMUkUPuxkb2YyAY7_zgX57Pd/view?usp=drivesdk",
       "credentialId": "31FF1CAF109E",
       "title": "Python (Basic) Certificate",
       "provider": "HackerRank",
@@ -383,8 +383,8 @@
     {
       "id": 1764606799169,
       "icon": "fa-solid fa-certificate",
-      "logo": "/hackerrank-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
+      "logo": "https://drive.google.com/file/d/1qjfxhjCWsMUkUPuxkb2YyAY7_zgX57Pd/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1qjfxhjCWsMUkUPuxkb2YyAY7_zgX57Pd/view?usp=drivesdk",
       "credentialId": "E027002EC8D4",
       "title": "SQL (Basic)",
       "provider": "HackerRank",
@@ -638,8 +638,8 @@
     {
       "id": 11,
       "icon": "fa-solid fa-laptop-code",
-      "logo": "/hackerrank-logo.png",
-      "logoFallback": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/HackerRank_logo.png/512px-HackerRank_logo.png",
+      "logo": "https://drive.google.com/file/d/1qjfxhjCWsMUkUPuxkb2YyAY7_zgX57Pd/view?usp=drivesdk",
+      "logoFallback": "https://drive.google.com/file/d/1qjfxhjCWsMUkUPuxkb2YyAY7_zgX57Pd/view?usp=drivesdk",
       "credentialId": "971CD1C2AEC",
       "title": "Software Engineer Intern",
       "provider": "HackerRank",
