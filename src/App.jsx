@@ -205,31 +205,41 @@ function App() {
                 onMouseLeave={() => setAboutDropdownOpen(false)}
               >
                 <button
-                  className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold flex items-center gap-1"
+                  className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold flex items-center gap-1`}
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
                   {portfolioData?.navLabels?.about || 'About'}
                   <FaChevronDown className={`transition-transform duration-300 ${aboutDropdownOpen ? 'rotate-180' : ''}`} size={12} />
                 </button>
                 {aboutDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 bg-black/95 backdrop-blur-md border border-gray-800 rounded-lg shadow-xl min-w-[180px] py-2 z-50">
+                  <div className={`absolute top-full left-0 mt-2 border rounded-xl shadow-xl min-w-[180px] py-2 z-50 transition-all ${
+                    theme === 'light' 
+                      ? 'bg-white/95 backdrop-blur-md border-gray-200 text-gray-900 shadow-xl' 
+                      : 'bg-gray-900/95 backdrop-blur-md border-gray-800 text-white shadow-2xl'
+                  }`}>
                     <a
                       href="#about"
-                      className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
+                      className={`block px-4 py-2 font-extrabold transition-colors duration-300 ${
+                        theme === 'light' ? 'text-gray-900 hover:bg-cyan-50 hover:text-cyan-600' : 'text-gray-200 hover:bg-gray-800 hover:text-cyan-400'
+                      }`}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
                       {portfolioData?.navLabels?.about || 'About'}
                     </a>
                     <a
                       href="#education"
-                      className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
+                      className={`block px-4 py-2 font-extrabold transition-colors duration-300 ${
+                        theme === 'light' ? 'text-gray-900 hover:bg-cyan-50 hover:text-cyan-600' : 'text-gray-200 hover:bg-gray-800 hover:text-cyan-400'
+                      }`}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
                       {portfolioData?.navLabels?.education || 'Education'}
                     </a>
                     <a
                       href="#experience"
-                      className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
+                      className={`block px-4 py-2 font-extrabold transition-colors duration-300 ${
+                        theme === 'light' ? 'text-gray-900 hover:bg-cyan-50 hover:text-cyan-600' : 'text-gray-200 hover:bg-gray-800 hover:text-cyan-400'
+                      }`}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
                       {portfolioData?.navLabels?.experience || 'Experience'}
@@ -402,7 +412,9 @@ function App() {
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-black/95 backdrop-blur-md border-b border-gray-800 py-3'
+            ? theme === 'light'
+              ? 'bg-white/95 backdrop-blur-md border-b border-gray-200 py-3 shadow-md text-gray-900'
+              : 'bg-black/95 backdrop-blur-md border-b border-gray-800 py-3 text-white'
             : 'bg-transparent py-5'
         }`}
       >
@@ -437,31 +449,41 @@ function App() {
               onMouseLeave={() => setAboutDropdownOpen(false)}
             >
               <button
-                className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold flex items-center gap-1"
+                className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold flex items-center gap-1`}
                 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
               >
                 About
                 <FaChevronDown className={`transition-transform duration-300 ${aboutDropdownOpen ? 'rotate-180' : ''}`} size={12} />
               </button>
               {aboutDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 bg-black/95 backdrop-blur-md border border-gray-800 rounded-lg shadow-xl min-w-[180px] py-2 z-50">
+                <div className={`absolute top-full left-0 mt-2 border rounded-xl shadow-xl min-w-[180px] py-2 z-50 transition-all ${
+                  theme === 'light' 
+                    ? 'bg-white/95 backdrop-blur-md border-gray-200 text-gray-900 shadow-xl' 
+                    : 'bg-gray-900/95 backdrop-blur-md border-gray-800 text-white shadow-2xl'
+                }`}>
                   <a
                     href="#about"
-                    className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
+                    className={`block px-4 py-2 font-extrabold transition-colors duration-300 ${
+                      theme === 'light' ? 'text-gray-900 hover:bg-cyan-50 hover:text-cyan-600' : 'text-gray-200 hover:bg-gray-800 hover:text-cyan-400'
+                    }`}
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
                     About
                   </a>
                   <a
                     href="#education"
-                    className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
+                    className={`block px-4 py-2 font-extrabold transition-colors duration-300 ${
+                      theme === 'light' ? 'text-gray-900 hover:bg-cyan-50 hover:text-cyan-600' : 'text-gray-200 hover:bg-gray-800 hover:text-cyan-400'
+                    }`}
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
                     Education
                   </a>
                   <a
                     href="#experience"
-                    className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
+                    className={`block px-4 py-2 font-extrabold transition-colors duration-300 ${
+                      theme === 'light' ? 'text-gray-900 hover:bg-cyan-50 hover:text-cyan-600' : 'text-gray-200 hover:bg-gray-800 hover:text-cyan-400'
+                    }`}
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
                     Experience
