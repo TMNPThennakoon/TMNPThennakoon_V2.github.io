@@ -56,7 +56,7 @@ function Experience() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [portfolioData, setPortfolioData] = useState(getPortfolioData());
-  const experiences = portfolioData.experience;
+  const experiences = portfolioData?.experience || [];
 
   useEffect(() => {
     const handleUpdate = (event) => {
