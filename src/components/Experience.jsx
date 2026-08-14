@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getPortfolioData } from '../utils/portfolioData';
+import { useTheme } from '../contexts/ThemeContext';
 
 // Function to convert Wikipedia URLs to direct image URLs
 const convertWikipediaUrl = (url) => {
@@ -58,6 +59,8 @@ const convertGoogleDriveLink = (url) => {
 };
 
 function Experience() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [portfolioData, setPortfolioData] = useState(getPortfolioData());
@@ -124,9 +127,13 @@ function Experience() {
     <section
       id="experience"
       ref={sectionRef}
-      className="relative py-20 sm:py-24 bg-black overflow-hidden"
+      className={`relative py-20 sm:py-24 overflow-hidden transition-colors duration-500 ${
+        isLight ? 'bg-slate-50 text-gray-900' : 'bg-black text-white'
+      }`}
       style={{
-        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)',
+        backgroundImage: isLight 
+          ? 'radial-gradient(circle at 2px 2px, rgba(0,0,0,0.05) 1px, transparent 0)'
+          : 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)',
         backgroundSize: '40px 40px'
       }}
     >
@@ -145,7 +152,7 @@ function Experience() {
             }}
           >
             <span 
-              className="bg-gradient-to-r from-white to-blue-300 bg-clip-text text-transparent"
+              className={`bg-gradient-to-r ${isLight ? 'from-gray-900 via-sky-800 to-blue-700' : 'from-white to-blue-300'} bg-clip-text text-transparent`}
               style={{
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -156,7 +163,7 @@ function Experience() {
               Work{' '}
             </span>
             <span 
-              className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent"
+              className="bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent"
               style={{
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -168,14 +175,14 @@ function Experience() {
             </span>
           </h2>
           <p
-            className={`text-lg text-gray-400 mt-2 transition-opacity duration-1000 ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`text-lg mt-2 transition-opacity duration-1000 ${
+              isLight ? 'text-gray-600 font-medium' : 'text-gray-400'
+            } ${isVisible ? 'opacity-100' : 'opacity-0'}`}
           >
             Professional journey and career milestones
           </p>
           <div
-            className={`h-1 w-24 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mt-4 transition-opacity duration-1000 ${
+            className={`h-1 w-24 bg-gradient-to-r from-sky-400 to-emerald-400 mx-auto mt-4 transition-opacity duration-1000 ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           ></div>
@@ -185,20 +192,24 @@ function Experience() {
           {experiences.map((exp, index) => (
             <div
               key={exp.id || index}
-              className={`group relative bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-cyan-500/30 hover:border-cyan-400 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 overflow-hidden mb-6 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
+              className={`group relative rounded-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden mb-6 ${
+                isLight 
+                  ? 'bg-white/90 border border-gray-200 shadow-md hover:shadow-xl hover:border-cyan-500' 
+                  : 'bg-gradient-to-br from-gray-900 to-black border border-cyan-500/30 hover:border-cyan-400 hover:shadow-2xl hover:shadow-cyan-500/20'
+              } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="p-8 flex flex-col sm:flex-row items-start gap-6">
-                {/* Logo/Icon */}
+                {/* Logo/Icon without hard outer border + rounded corners + smooth animation */}
                 <div className="flex-shrink-0 relative">
                   {exp.logo ? (
-                    <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 p-2 flex items-center justify-center backdrop-blur-md shadow-lg group-hover:border-cyan-400/50 group-hover:scale-105 transition-all">
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center p-2 shadow-sm hover:shadow-md hover:scale-110 group-hover:rotate-2 transition-all duration-300 ${
+                      isLight ? 'bg-gray-100' : 'bg-gray-800/80'
+                    }`}>
                       <img
                         src={convertGoogleDriveLink(exp.logo)}
                         alt={`${exp.company || 'Company'} logo`}
-                        className="w-full h-full object-contain rounded-xl"
+                        className="w-full h-full object-contain rounded-xl transition-all duration-300"
                         loading="lazy"
                         referrerPolicy="no-referrer"
                         onError={(e) => {
@@ -207,7 +218,6 @@ function Experience() {
                           attemptCount++;
                           imgElement.dataset.attemptCount = attemptCount.toString();
                           
-                          // Retry alternative Drive link formats
                           if (exp.logo && exp.logo.includes('drive.google.com') && attemptCount <= 3) {
                             const fileIdMatch = exp.logo.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) ||
                               exp.logo.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
@@ -218,50 +228,41 @@ function Experience() {
                                 imgElement.src = `https://drive.google.com/uc?export=view&id=${fileId}`;
                                 return;
                               } else if (attemptCount === 2) {
-                                imgElement.src = `https://drive.google.com/thumbnail?id=${fileId}&sz=w500`;
+                                imgElement.src = `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=${encodeURIComponent(exp.logo)}`;
                                 return;
                               }
                             }
                           }
-                          
-                          // Fallback to local path if relative
-                          if (attemptCount <= 4 && exp.logo && !exp.logo.startsWith('http')) {
-                            const localPath = exp.logo.startsWith('/') ? exp.logo : `/${exp.logo}`;
-                            if (imgElement.src !== localPath) {
-                              imgElement.src = localPath;
-                              return;
-                            }
-                          }
-                          
-                          // Hide image and display fallback icon
                           imgElement.style.display = 'none';
-                          const fallback = imgElement.parentElement?.querySelector('.icon-fallback');
-                          if (fallback) fallback.style.display = 'flex';
                         }}
                       />
-                      <div className="icon-fallback hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full shadow-lg shadow-cyan-500/50">
-                        <i className={`${exp.icon || 'fa-solid fa-briefcase'} text-2xl text-white`}></i>
-                      </div>
                     </div>
                   ) : (
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-500/50">
-                      <i className={`${exp.icon || 'fa-solid fa-briefcase'} text-2xl text-white`}></i>
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-xl font-bold shadow-sm hover:scale-110 transition-all duration-300 ${
+                      isLight ? 'bg-cyan-100 text-cyan-700' : 'bg-cyan-500/20 text-cyan-400'
+                    }`}>
+                      {exp.company ? exp.company.substring(0, 2).toUpperCase() : 'EXP'}
                     </div>
                   )}
                 </div>
 
-                {/* Content */}
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
-                    {exp.title}
-                  </h3>
-                  <h4 className="text-xl font-semibold text-blue-300 mb-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <h3 className={`text-xl font-bold ${isLight ? 'text-gray-900' : 'text-white'}`}>
+                      {exp.title}
+                    </h3>
+                    <span className={`px-3 py-1 text-xs font-semibold rounded-full w-fit ${
+                      isLight ? 'bg-cyan-100 text-cyan-800' : 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                    }`}>
+                      {exp.duration}
+                    </span>
+                  </div>
+                  
+                  <h4 className={`text-base font-semibold mb-4 ${isLight ? 'text-cyan-700' : 'text-cyan-400'}`}>
                     {exp.company}
                   </h4>
-                  <p className="text-gray-400 text-sm mb-4">
-                    {exp.duration}
-                  </p>
-                  <p className="text-blue-100 leading-relaxed">
+                  
+                  <p className={`text-sm leading-relaxed ${isLight ? 'text-gray-700' : 'text-gray-300'}`}>
                     {exp.description}
                   </p>
                 </div>

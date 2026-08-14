@@ -60,8 +60,11 @@ const convertGoogleDriveLink = (url) => {
 };
 
 import ThreeCanvas from './ThreeCanvas';
+import { useTheme } from '../contexts/ThemeContext';
 
 function Profile() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const containerRef = useRef(null);
   const imageRef = useRef(null);
   const contentRef = useRef(null);
@@ -311,7 +314,7 @@ function Profile() {
 
           {/* Description */}
           <motion.p
-            className="text-lg sm:text-xl text-gray-200 font-normal leading-relaxed drop-shadow-sm"
+            className={`text-lg sm:text-xl font-medium leading-relaxed drop-shadow-sm ${isLight ? 'text-gray-900' : 'text-gray-200'}`}
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}

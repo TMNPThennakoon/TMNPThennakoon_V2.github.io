@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaRobot, FaTimes, FaPaperPlane, FaUser, FaMagic } from 'react-icons/fa';
 import { getPortfolioData } from '../utils/portfolioData';
+import { useTheme } from '../contexts/ThemeContext';
 
 function Chatbot() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const [isOpen, setIsOpen] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -220,47 +223,63 @@ function Chatbot() {
         {/* Pulsing Outer Ring */}
         <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 opacity-75 blur animate-pulse group-hover:opacity-100 transition duration-300"></span>
         
-        <div className="relative w-12 h-12 rounded-full bg-gray-900 border border-cyan-400/60 text-cyan-400 flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300">
-          <FaRobot size={22} className="text-cyan-300" />
+        <div className={`relative w-12 h-12 rounded-full border flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 ${
+          isLight ? 'bg-white border-cyan-500 text-cyan-600' : 'bg-gray-900 border-cyan-400/60 text-cyan-400'
+        }`}>
+          <FaRobot size={22} className={isLight ? 'text-cyan-600' : 'text-cyan-300'} />
           <span className="absolute top-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-black animate-ping"></span>
         </div>
       </button>
 
       {/* Chat Modal */}
       {isOpen && (
-        <div className="fixed bottom-22 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 bg-gray-900/95 backdrop-blur-xl border border-cyan-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300" style={{ maxHeight: '520px', height: '80vh' }}>
+        <div className={`fixed bottom-22 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 backdrop-blur-xl border rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 ${
+          isLight ? 'bg-white/95 border-gray-300 text-gray-900' : 'bg-gray-900/95 border-cyan-500/30 text-white'
+        }`} style={{ maxHeight: '520px', height: '80vh' }}>
           
           {/* Header */}
-          <div className="p-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-gray-800 flex justify-between items-center">
+          <div className={`p-4 border-b flex justify-between items-center ${
+            isLight ? 'bg-gradient-to-r from-gray-100 via-white to-gray-100 border-gray-200' : 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-gray-800'
+          }`}>
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-400">
+              <div className={`p-2 rounded-xl border ${
+                isLight ? 'bg-cyan-100 border-cyan-300 text-cyan-700' : 'bg-cyan-500/20 border-cyan-400/40 text-cyan-400'
+              }`}>
                 <FaRobot size={20} />
               </div>
               <div>
-                <h3 className="font-extrabold text-white text-base flex items-center gap-1.5">
+                <h3 className={`font-extrabold text-base flex items-center gap-1.5 ${isLight ? 'text-gray-900' : 'text-white'}`}>
                   Nayana AI Assistant <FaMagic className="text-amber-400" size={14} />
                 </h3>
-                <p className="text-xs text-emerald-400 font-medium flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block"></span> Verified Portfolio AI
+                <p className="text-xs text-emerald-500 font-medium flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block"></span> Verified Portfolio AI
                 </p>
               </div>
             </div>
             
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors"
+              className={`p-2 rounded-lg transition-colors ${
+                isLight ? 'text-gray-500 hover:text-gray-900 hover:bg-gray-200' : 'text-gray-400 hover:text-white hover:bg-gray-800'
+              }`}
             >
               <FaTimes size={16} />
             </button>
           </div>
 
           {/* Quick Prompts */}
-          <div className="px-3 py-2 bg-gray-950/60 border-b border-gray-800/80 overflow-x-auto flex gap-2 no-scrollbar">
+          <div className={`px-3 py-2 border-b overflow-x-auto flex gap-2 no-scrollbar ${
+            isLight ? 'bg-gray-50 border-gray-200' : 'bg-gray-950/60 border-gray-800/80'
+          }`}>
             {quickPrompts.map((prompt, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSendMessage(prompt.replace(/^[^\s]+\s/, ''))}
-                className="px-2.5 py-1 bg-white/5 hover:bg-cyan-500/20 border border-white/10 hover:border-cyan-400/50 rounded-full text-xs text-gray-300 hover:text-cyan-300 whitespace-nowrap transition-all"
+                className={`px-2.5 py-1 border rounded-full text-xs whitespace-nowrap transition-all ${
+                  isLight 
+                    ? 'bg-white hover:bg-cyan-50 border-gray-300 hover:border-cyan-400 text-gray-800 hover:text-cyan-700' 
+                    : 'bg-white/5 hover:bg-cyan-500/20 border-white/10 hover:border-cyan-400/50 text-gray-300 hover:text-cyan-300'
+                }`}
               >
                 {prompt}
               </button>
@@ -275,19 +294,25 @@ function Chatbot() {
                 className={`flex gap-2.5 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.sender === 'bot' && (
-                  <div className="w-7 h-7 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 flex-shrink-0 mt-0.5">
+                  <div className={`w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                    isLight ? 'bg-cyan-100 border-cyan-300 text-cyan-700' : 'bg-cyan-500/20 border-cyan-400/40 text-cyan-400'
+                  }`}>
                     <FaRobot size={14} />
                   </div>
                 )}
                 <div
                   className={`max-w-[82%] p-3 rounded-2xl leading-relaxed whitespace-pre-line text-sm ${
                     msg.sender === 'user'
-                      ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-black font-medium rounded-tr-none shadow-md'
-                      : 'bg-gray-800 border border-gray-700/80 text-gray-200 rounded-tl-none shadow-md'
+                      ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-black font-semibold rounded-tr-none shadow-md'
+                      : isLight
+                      ? 'bg-gray-100 border border-gray-200 text-gray-900 font-medium rounded-tl-none shadow-sm'
+                      : 'bg-gray-800 border border-gray-700/80 text-gray-100 rounded-tl-none shadow-md'
                   }`}
                 >
                   {msg.text}
-                  <span className={`block text-[10px] mt-1 ${msg.sender === 'user' ? 'text-black/70 text-right' : 'text-gray-400'}`}>
+                  <span className={`block text-[10px] mt-1 ${
+                    msg.sender === 'user' ? 'text-black/70 text-right' : isLight ? 'text-gray-500' : 'text-gray-400'
+                  }`}>
                     {msg.timestamp}
                   </span>
                 </div>
@@ -301,13 +326,17 @@ function Chatbot() {
 
             {isTyping && (
               <div className="flex gap-2.5 justify-start items-center">
-                <div className="w-7 h-7 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                <div className={`w-7 h-7 rounded-full border flex items-center justify-center flex-shrink-0 ${
+                  isLight ? 'bg-cyan-100 border-cyan-300 text-cyan-700' : 'bg-cyan-500/20 border-cyan-400/40 text-cyan-400'
+                }`}>
                   <FaRobot size={14} />
                 </div>
-                <div className="bg-gray-800 border border-gray-700 px-4 py-2.5 rounded-2xl rounded-tl-none flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce"></span>
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.2s]"></span>
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.4s]"></span>
+                <div className={`px-4 py-2.5 rounded-2xl rounded-tl-none flex items-center gap-1.5 ${
+                  isLight ? 'bg-gray-100 border border-gray-200' : 'bg-gray-800 border border-gray-700'
+                }`}>
+                  <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce"></span>
+                  <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce [animation-delay:0.2s]"></span>
+                  <span className="w-2 h-2 rounded-full bg-cyan-500 animate-bounce [animation-delay:0.4s]"></span>
                 </div>
               </div>
             )}
@@ -320,14 +349,20 @@ function Chatbot() {
               e.preventDefault();
               handleSendMessage();
             }}
-            className="p-3 bg-gray-900 border-t border-gray-800 flex items-center gap-2"
+            className={`p-3 border-t flex items-center gap-2 ${
+              isLight ? 'bg-white border-gray-200' : 'bg-gray-900 border-gray-800'
+            }`}
           >
             <input
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Ask about PLC, Michelin, code, or any topic..."
-              className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400"
+              className={`flex-1 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none ${
+                isLight 
+                  ? 'bg-gray-100 border border-gray-300 text-gray-900 placeholder-gray-500 focus:border-cyan-500' 
+                  : 'bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-cyan-400'
+              }`}
             />
             <button
               type="submit"
