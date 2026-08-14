@@ -200,46 +200,42 @@ function Experience() {
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="p-8 flex flex-col sm:flex-row items-start gap-6">
-                {/* Logo/Icon without hard outer border + rounded corners + smooth animation */}
+                {/* Standalone Larger Logo without outer background box */}
                 <div className="flex-shrink-0 relative">
                   {exp.logo ? (
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center p-2 shadow-sm hover:shadow-md hover:scale-110 group-hover:rotate-2 transition-all duration-300 ${
-                      isLight ? 'bg-gray-100' : 'bg-gray-800/80'
-                    }`}>
-                      <img
-                        src={convertGoogleDriveLink(exp.logo)}
-                        alt={`${exp.company || 'Company'} logo`}
-                        className="w-full h-full object-contain rounded-xl transition-all duration-300"
-                        loading="lazy"
-                        referrerPolicy="no-referrer"
-                        onError={(e) => {
-                          const imgElement = e.target;
-                          let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
-                          attemptCount++;
-                          imgElement.dataset.attemptCount = attemptCount.toString();
-                          
-                          if (exp.logo && exp.logo.includes('drive.google.com') && attemptCount <= 3) {
-                            const fileIdMatch = exp.logo.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) ||
-                              exp.logo.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
-                              exp.logo.match(/\/d\/([a-zA-Z0-9_-]+)/);
-                            if (fileIdMatch) {
-                              const fileId = fileIdMatch[1];
-                              if (attemptCount === 1) {
-                                imgElement.src = `https://drive.google.com/uc?export=view&id=${fileId}`;
-                                return;
-                              } else if (attemptCount === 2) {
-                                imgElement.src = `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=${encodeURIComponent(exp.logo)}`;
-                                return;
-                              }
+                    <img
+                      src={convertGoogleDriveLink(exp.logo)}
+                      alt={`${exp.company || 'Company'} logo`}
+                      className="w-20 h-20 sm:w-24 sm:h-24 object-contain rounded-2xl shadow-md hover:scale-110 group-hover:rotate-2 transition-all duration-300 border-0"
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const imgElement = e.target;
+                        let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
+                        attemptCount++;
+                        imgElement.dataset.attemptCount = attemptCount.toString();
+                        
+                        if (exp.logo && exp.logo.includes('drive.google.com') && attemptCount <= 3) {
+                          const fileIdMatch = exp.logo.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) ||
+                            exp.logo.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
+                            exp.logo.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                          if (fileIdMatch) {
+                            const fileId = fileIdMatch[1];
+                            if (attemptCount === 1) {
+                              imgElement.src = `https://drive.google.com/uc?export=view&id=${fileId}`;
+                              return;
+                            } else if (attemptCount === 2) {
+                              imgElement.src = `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=${encodeURIComponent(exp.logo)}`;
+                              return;
                             }
                           }
-                          imgElement.style.display = 'none';
-                        }}
-                      />
-                    </div>
+                        }
+                        imgElement.style.display = 'none';
+                      }}
+                    />
                   ) : (
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-xl font-bold shadow-sm hover:scale-110 transition-all duration-300 ${
-                      isLight ? 'bg-cyan-100 text-cyan-700' : 'bg-cyan-500/20 text-cyan-400'
+                    <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-md hover:scale-110 transition-all duration-300 ${
+                      isLight ? 'bg-cyan-100 text-cyan-800' : 'bg-cyan-500/20 text-cyan-400'
                     }`}>
                       {exp.company ? exp.company.substring(0, 2).toUpperCase() : 'EXP'}
                     </div>
