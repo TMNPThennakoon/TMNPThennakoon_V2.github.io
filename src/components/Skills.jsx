@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { getPortfolioData } from '../utils/portfolioData';
+import { useTheme } from '../contexts/ThemeContext';
 import {
   SiHtml5,
   SiCss3,
@@ -16,13 +17,52 @@ import {
   SiPhp,
   SiPython,
   SiDocker,
+  SiTensorflow,
+  SiAutodesk,
 } from 'react-icons/si';
-import { FaJava, FaCode, FaCogs, FaDatabase, FaServer, FaMicrochip, FaRobot } from 'react-icons/fa';
+import { 
+  FaJava, 
+  FaCode, 
+  FaCogs, 
+  FaDatabase, 
+  FaMicrochip, 
+  FaBrain, 
+  FaDraftingCompass, 
+  FaTools, 
+  FaCube, 
+  FaLaptopCode 
+} from 'react-icons/fa';
 
-// Icon mapping helper with original brand colors matching user's screenshot design
+// Icon mapping helper with specific brand & domain icons
 const getBrandIcon = (title = '', categoryIcon = '') => {
   const name = title.toLowerCase();
 
+  // SolidWorks & CAD
+  if (name.includes('solidworks') || name.includes('cad') || name.includes('3d model')) {
+    return <FaCube className="text-5xl text-orange-500" />;
+  }
+
+  // FPGA & Digital Logic
+  if (name.includes('fpga') || name.includes('verilog') || name.includes('vhdl') || name.includes('chip')) {
+    return <FaMicrochip className="text-5xl text-emerald-400" />;
+  }
+
+  // Engineering Tools
+  if (name.includes('engineering tool') || name.includes('autocad') || name.includes('matlab')) {
+    return <FaDraftingCompass className="text-5xl text-sky-400" />;
+  }
+
+  // Data Science & Machine Learning
+  if (name.includes('data science') || name.includes('ml') || name.includes('machine learning') || name.includes('ai') || name.includes('tensorflow')) {
+    return <FaBrain className="text-5xl text-rose-400" />;
+  }
+
+  // Database Management
+  if (name.includes('database') || name.includes('sql') || name.includes('mysql')) {
+    return <FaDatabase className="text-5xl text-cyan-400" />;
+  }
+
+  // Languages & Dev Stack
   if (name.includes('java') && !name.includes('script')) return <FaJava className="text-5xl text-amber-500" />;
   if (name.includes('javascript') || name.includes('js')) return <SiJavascript className="text-5xl text-yellow-400 bg-black rounded p-0.5" />;
   if (name.includes('php')) return <SiPhp className="text-5xl text-indigo-400" />;
@@ -31,18 +71,16 @@ const getBrandIcon = (title = '', categoryIcon = '') => {
   if (name.includes('css')) return <SiCss3 className="text-5xl text-blue-500" />;
   if (name.includes('react')) return <SiReact className="text-5xl text-cyan-400" />;
   if (name.includes('flutter')) return <SiFlutter className="text-5xl text-sky-400" />;
-  if (name.includes('vs code') || name.includes('vscode') || name.includes('visual studio')) return <FaCode className="text-5xl text-blue-400" />;
   if (name.includes('git') && !name.includes('hub')) return <SiGit className="text-5xl text-orange-600" />;
-  if (name.includes('github')) return <SiGithub className="text-5xl text-white" />;
+  if (name.includes('github')) return <SiGithub className="text-5xl text-gray-300" />;
   if (name.includes('mysql')) return <SiMysql className="text-5xl text-sky-500" />;
-  if (name.includes('python')) return <SiPython className="text-5xl text-yellow-300" />;
+  if (name.includes('python')) return <SiPython className="text-5xl text-yellow-400" />;
   if (name.includes('node')) return <SiNodedotjs className="text-5xl text-emerald-500" />;
   if (name.includes('arduino')) return <SiArduino className="text-5xl text-teal-400" />;
   if (name.includes('raspberry')) return <SiRaspberrypi className="text-5xl text-rose-500" />;
   if (name.includes('docker')) return <SiDocker className="text-5xl text-blue-400" />;
   if (name.includes('plc') || name.includes('automation') || name.includes('siemens')) return <FaCogs className="text-5xl text-cyan-400" />;
-  if (name.includes('iot') || name.includes('embedded') || name.includes('sensor')) return <FaMicrochip className="text-5xl text-rose-400" />;
-  if (name.includes('scada') || name.includes('database') || name.includes('sql')) return <FaDatabase className="text-5xl text-teal-400" />;
+  if (name.includes('web development') || name.includes('web dev')) return <FaLaptopCode className="text-5xl text-sky-400" />;
 
   // Default fallback
   return <FaCode className="text-5xl text-cyan-400" />;
@@ -51,6 +89,7 @@ const getBrandIcon = (title = '', categoryIcon = '') => {
 export default function Skills() {
   const containerRef = useRef(null);
   const titleRef = useRef(null);
+  const { theme } = useTheme();
   const [portfolioData, setPortfolioData] = useState(getPortfolioData());
   const skillCategories = portfolioData.skills || [];
 
@@ -65,17 +104,22 @@ export default function Skills() {
     return () => window.removeEventListener('portfolioDataUpdated', handleUpdate);
   }, []);
 
+  const isLight = theme === 'light';
+
   return (
     <section
       id="skills"
-      className="relative py-24 bg-black text-white overflow-hidden flex flex-col items-center justify-center"
+      className={`relative py-24 overflow-hidden flex flex-col items-center justify-center transition-colors duration-500 ${
+        isLight ? 'bg-slate-50 text-gray-900' : 'bg-black text-white'
+      }`}
     >
       {/* Background glow ambient lights */}
       <div
         className="absolute inset-0 z-0 opacity-80"
         style={{
-          background:
-            'radial-gradient(1000px 600px at 10% 10%, rgba(56,189,248,0.08), transparent 60%), radial-gradient(800px 400px at 90% 90%, rgba(16,185,129,0.08), transparent 60%)',
+          background: isLight
+            ? 'radial-gradient(1000px 600px at 10% 10%, rgba(14,165,233,0.1), transparent 60%), radial-gradient(800px 400px at 90% 90%, rgba(16,185,129,0.08), transparent 60%)'
+            : 'radial-gradient(1000px 600px at 10% 10%, rgba(56,189,248,0.08), transparent 60%), radial-gradient(800px 400px at 90% 90%, rgba(16,185,129,0.08), transparent 60%)',
         }}
       />
 
@@ -87,16 +131,16 @@ export default function Skills() {
             isTitleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-cyan-400 via-sky-400 to-emerald-400 bg-clip-text text-transparent mb-3">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight bg-gradient-to-r from-cyan-500 via-sky-500 to-emerald-500 bg-clip-text text-transparent mb-3">
             Skills & Technologies
           </h2>
           <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-emerald-400 mx-auto mt-4 rounded-full" />
-          <p className="text-gray-400 mt-4 text-base sm:text-lg max-w-2xl mx-auto font-medium">
+          <p className={`mt-4 text-base sm:text-lg max-w-2xl mx-auto font-medium ${isLight ? 'text-gray-600' : 'text-gray-400'}`}>
             A modern engineering stack that merges creativity, performance, and industrial automation.
           </p>
         </div>
 
-        {/* Skill Cards Grid - Matching attached screenshot */}
+        {/* Skill Cards Grid - Theme Aware */}
         <div
           ref={containerRef}
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6"
@@ -104,12 +148,16 @@ export default function Skills() {
           {skillCategories.map((category, idx) => (
             <motion.div
               key={category.id || idx}
-              className="group relative rounded-2xl p-6 bg-gray-900/90 border border-gray-800/80 hover:border-cyan-500/60 transition-all duration-300 flex flex-col items-center justify-center gap-3 text-center shadow-xl hover:-translate-y-1.5 hover:shadow-cyan-500/10 cursor-pointer overflow-hidden"
+              className={`group relative rounded-2xl p-6 transition-all duration-300 flex flex-col items-center justify-center gap-3 text-center cursor-pointer overflow-hidden backdrop-blur-md ${
+                isLight
+                  ? 'bg-white/90 border border-gray-200 shadow-md hover:shadow-xl hover:border-cyan-500 hover:-translate-y-1.5'
+                  : 'bg-gray-900/90 border border-gray-800/80 shadow-xl hover:border-cyan-500/60 hover:-translate-y-1.5 hover:shadow-cyan-500/10'
+              }`}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: idx * 0.03 }}
             >
-              {/* Subtle hover glow aura */}
+              {/* Hover glow aura */}
               <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
               {/* Icon Container */}
@@ -132,13 +180,17 @@ export default function Skills() {
               </div>
 
               {/* Title Label */}
-              <h3 className="relative z-10 font-extrabold text-sm sm:text-base text-gray-200 group-hover:text-white transition-colors">
+              <h3 className={`relative z-10 font-extrabold text-sm sm:text-base transition-colors ${
+                isLight ? 'text-gray-900 group-hover:text-cyan-600' : 'text-gray-200 group-hover:text-white'
+              }`}>
                 {category.title}
               </h3>
 
-              {/* Skills count / sub-details if any */}
+              {/* Skills sub-details */}
               {category.skills && category.skills.length > 0 && (
-                <p className="relative z-10 text-[11px] text-gray-500 group-hover:text-gray-400 font-medium transition-colors">
+                <p className={`relative z-10 text-[11px] font-medium transition-colors ${
+                  isLight ? 'text-gray-500 group-hover:text-gray-700' : 'text-gray-500 group-hover:text-gray-400'
+                }`}>
                   {category.skills.join(', ')}
                 </p>
               )}

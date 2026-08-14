@@ -712,6 +712,12 @@ function AdminDashboard() {
                           <option value={20}>Every 20 seconds</option>
                           <option value={30}>Every 30 seconds</option>
                           <option value={60}>Every 1 minute</option>
+                          <option value={300}>Every 5 minutes</option>
+                          <option value={900}>Every 15 minutes</option>
+                          <option value={1800}>Every 30 minutes</option>
+                          <option value={3600}>Every 1 hour</option>
+                          <option value={7200}>Every 2 hours</option>
+                          <option value={21600}>Every 6 hours</option>
                         </select>
                       )}
                     </div>
@@ -740,6 +746,44 @@ function AdminDashboard() {
                     <h4 className="text-xl font-bold text-white">Live 3D Animation Preview</h4>
                     <p className="text-xs text-gray-300 mt-1">This animation will render live behind your portfolio hero section!</p>
                   </div>
+                </div>
+              </div>
+
+              {/* Gemini AI API Key Manager */}
+              <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                    <span>🤖</span> AI Assistant & Google Gemini API Key
+                  </h3>
+                  <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-xs font-semibold">
+                    Admin Security Managed
+                  </span>
+                </div>
+                <p className="text-xs text-gray-400">
+                  Configure your Google Gemini API Key here to enable deep, unlimited AI responses for your visitors on any engineering or coding topic!
+                </p>
+                <div>
+                  <label className="block text-xs font-bold text-gray-300 mb-1.5">Google Gemini API Key</label>
+                  <input
+                    type="password"
+                    value={portfolioData.aiConfig?.geminiApiKey || ''}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      localStorage.setItem('geminiApiKey', val);
+                      setPortfolioData(prev => ({
+                        ...prev,
+                        aiConfig: {
+                          ...(prev.aiConfig || {}),
+                          geminiApiKey: val
+                        }
+                      }));
+                    }}
+                    placeholder="Paste your Gemini API Key here..."
+                    className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
+                  />
+                  <p className="text-[11px] text-gray-500 mt-1">
+                    Free API key from Google AI Studio. Stored securely in your admin portfolio configuration.
+                  </p>
                 </div>
               </div>
             </div>

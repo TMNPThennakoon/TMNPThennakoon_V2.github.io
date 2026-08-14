@@ -13,7 +13,7 @@ function Chatbot() {
     {
       id: 1,
       sender: 'bot',
-      text: "👋 Hi! I'm Nayana's AI Assistant. Ask me anything about Nayana's engineering skills, PLC/SCADA experience, projects, or contact info!",
+      text: "👋 Hi! I'm Nayana's AI Assistant. Ask me anything about Nayana's engineering skills, PLC/SCADA experience, projects, or general engineering & coding topics!",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -38,17 +38,17 @@ function Chatbot() {
     "📧 How to contact Nayana?"
   ];
 
-  // Natural Language Knowledge Engine
-  const generateAIResponse = (userQuery) => {
+  // Natural Language Knowledge Engine & Secure Admin Gemini API Fallback
+  const fetchAIResponse = async (userQuery) => {
     const query = userQuery.toLowerCase().trim();
     const profile = portfolioData?.profile || {};
     const experiences = portfolioData?.experience || [];
     const education = portfolioData?.education || [];
     const projects = portfolioData?.projects || [];
     const certifications = portfolioData?.certifications || [];
-    const skills = portfolioData?.skills || {};
+    const apiKey = portfolioData?.aiConfig?.geminiApiKey || localStorage.getItem('geminiApiKey') || '';
 
-    // 1. Contact / Social Links
+    // 1. Check local portfolio data first
     if (query.includes('contact') || query.includes('email') || query.includes('phone') || query.includes('linkedin') || query.includes('github') || query.includes('reach')) {
       const email = profile.socialLinks?.email || 'nayanapabasara1@gmail.com';
       const linkedin = profile.socialLinks?.linkedin || 'https://www.linkedin.com/in/napi-9046392b3/';
@@ -56,7 +56,6 @@ function Chatbot() {
       return `You can contact Nayana via:\n• 📧 Email: ${email}\n• 💼 LinkedIn: ${linkedin}\n• 🐙 GitHub: ${github}\n• 📄 You can also download Nayana's CV directly from the home section!`;
     }
 
-    // 2. Experience / Work (Michelin, Ebony)
     if (query.includes('experience') || query.includes('work') || query.includes('michelin') || query.includes('ebony') || query.includes('intern')) {
       if (query.includes('michelin')) {
         const michelin = experiences.find(e => e.company?.toLowerCase().includes('michelin')) || experiences[0];
@@ -66,47 +65,69 @@ function Chatbot() {
       return `Nayana's Professional Experience:\n${expList || '1. Intern - Automation Engineer at Michelin Lanka\n2. Training Assistant Manager at Ebony Holdings'}`;
     }
 
-    // 3. Technical Knowledge (PLC, SCADA, Arduino, React, Python, etc.)
-    if (query.includes('plc') || query.includes('scada') || query.includes('siemens') || query.includes('automation') || query.includes('ladder')) {
-      return `⚙️ **PLC & Industrial Automation Knowledge**:\nNayana has extensive hands-on experience in PLC programming (Siemens S7-1200/1500, Ladder Logic, Function Blocks), Ignition SCADA development, MS SQL integration, Modbus TCP, industrial sensors, and pneumatics!`;
-    }
-
-    if (query.includes('react') || query.includes('web') || query.includes('javascript') || query.includes('frontend') || query.includes('fullstack') || query.includes('node')) {
-      return `💻 **Web Development Stack**:\nNayana specializes in modern Web Development using **React, JavaScript (ES6+), Vite, Tailwind CSS, Node.js, Express, and MySQL/MongoDB** database design.`;
-    }
-
-    if (query.includes('iot') || query.includes('arduino') || query.includes('embedded') || query.includes('raspberry pi') || query.includes('hardware')) {
-      return `🤖 **IoT & Embedded Systems**:\nNayana works with Arduino microcontrollers, ESP32 Wi-Fi/Bluetooth modules, Raspberry Pi single-board computers, sensor integration, pneumatic actuators, and CAD 3D designing.`;
-    }
-
-    // 4. Education & University
-    if (query.includes('education') || query.includes('university') || query.includes('degree') || query.includes('colombo') || query.includes('degree')) {
+    if (query.includes('education') || query.includes('university') || query.includes('degree') || query.includes('colombo')) {
       const eduList = education.map(e => `🎓 **${e.institution}**: ${e.degree} (${e.period})`).join('\n\n');
       return eduList || `🎓 **University of Colombo**:\nBachelor of Engineering Technology Honours in Instrumentation & Automation Technology (2022 - 2026).`;
     }
 
-    // 5. Projects
-    if (query.includes('project') || query.includes('portfolio') || query.includes('app') || query.includes('built')) {
+    if (query.includes('project') || query.includes('built') || query.includes('app')) {
       const topProjects = projects.slice(0, 5).map(p => `🚀 **${p.title}**: ${p.description}`).join('\n\n');
       return `Here are some of Nayana's key projects:\n\n${topProjects || '1. CleanRobo (Smart Floor Cleaner)\n2. E-Mart E-Commerce Platform\n3. Smart Home Automation\n4. Pneumatic Sorting System'}`;
     }
 
-    // 6. Certifications
     if (query.includes('certif') || query.includes('course') || query.includes('coursera') || query.includes('udemy')) {
       const certList = certifications.map(c => `🏆 **${c.title}** - ${c.provider} (${c.date})`).join('\n');
       return `Certifications & Qualifications:\n${certList || '• Coursera & Udemy Verified Certifications in PLC, Web Development, and Automation.'}`;
     }
 
-    // 7. General Profile Bio
-    if (query.includes('who') || query.includes('nayana') || query.includes('about') || query.includes('hello') || query.includes('hi') || query.includes('hey')) {
-      return `👋 Hi there! I'm Nayana Pabasara's AI Assistant.\nNayana is an **Engineering Technology Student** specializing in **Instrumentation & Automation** at the **University of Colombo**.\nHe builds web apps, PLC SCADA systems, IoT devices, and automation tools!`;
+    // 2. Query Google Gemini AI if Admin configured API Key
+    if (apiKey.trim()) {
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey.trim()}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [
+                {
+                  role: 'user',
+                  parts: [
+                    {
+                      text: `You are Nayana Pabasara's AI Portfolio & Automation Engineering Assistant. Answer the user's question with technical depth, precision, and clarity. User Query: ${userQuery}`
+                    }
+                  ]
+                }
+              ]
+            })
+          }
+        );
+        const data = await response.json();
+        if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+          return data.candidates[0].content.parts[0].text;
+        }
+      } catch (err) {
+        console.error('Gemini API Error:', err);
+      }
     }
 
-    // Fallback response with helpful triggers
-    return `I can help you learn more about Nayana! Try asking about:\n• ⚡ "What are his technical skills?"\n• 🏭 "Tell me about Michelin experience"\n• 🎓 "Education details"\n• 🚀 "Projects built"\n• 📧 "Contact information"`;
+    // 3. Built-in Technical Engine Fallbacks
+    if (query.includes('plc') || query.includes('ladder') || query.includes('siemens') || query.includes('scada')) {
+      return `⚙️ **PLC & Automation Engineering**:\nNayana works with Siemens S7-1200/1500 PLCs, Ladder Logic (LAD), Function Block Diagrams (FBD), Structured Text (ST), Ignition SCADA, Modbus TCP/IP, and SQL database integration for industrial telemetry and equipment automation.`;
+    }
+
+    if (query.includes('fpga') || query.includes('verilog') || query.includes('vhdl')) {
+      return `🔬 **FPGA & Digital Logic**:\nNayana designs hardware digital logic circuits using Verilog/VHDL, Xilinx Vivado, state machines, logic gates, and hardware description languages.`;
+    }
+
+    if (query.includes('react') || query.includes('web') || query.includes('javascript') || query.includes('node') || query.includes('frontend')) {
+      return `💻 **Full-Stack Development**:\nNayana builds responsive web apps using React 19, JavaScript ES6+, Vite, Tailwind CSS, Node.js, Express, and MySQL/MongoDB databases.`;
+    }
+
+    return `I can answer queries about Nayana's portfolio, PLC automation, SCADA, Web Dev, and general engineering topics!`;
   };
 
-  const handleSendMessage = (textToSend) => {
+  const handleSendMessage = async (textToSend) => {
     const text = textToSend || inputMessage;
     if (!text.trim()) return;
 
@@ -121,39 +142,39 @@ function Chatbot() {
     if (!textToSend) setInputMessage('');
     setIsTyping(true);
 
-    setTimeout(() => {
-      const botResponseText = generateAIResponse(text);
-      const botMsg = {
-        id: Date.now() + 1,
-        sender: 'bot',
-        text: botResponseText,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      setMessages((prev) => [...prev, botMsg]);
-      setIsTyping(false);
-    }, 600);
+    const botResponseText = await fetchAIResponse(text);
+
+    const botMsg = {
+      id: Date.now() + 1,
+      sender: 'bot',
+      text: botResponseText,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setMessages((prev) => [...prev, botMsg]);
+    setIsTyping(false);
   };
 
   return (
     <>
-      {/* Floating Toggle Button */}
+      {/* Sleek Compact Floating Button with Pulsing Glow Ring */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 p-4 bg-gradient-to-r from-sky-400 via-cyan-400 to-emerald-400 text-black rounded-full shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center gap-2 group"
+        className="fixed bottom-6 right-6 z-50 group flex items-center justify-center"
         aria-label="Open AI Assistant"
       >
-        <div className="relative">
-          <FaRobot size={24} className="text-black" />
-          <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-black animate-pulse"></span>
+        {/* Pulsing Outer Ring */}
+        <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 opacity-75 blur animate-pulse group-hover:opacity-100 transition duration-300"></span>
+        
+        <div className="relative w-12 h-12 rounded-full bg-gray-900 border border-cyan-400/60 text-cyan-400 flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300">
+          <FaRobot size={22} className="text-cyan-300" />
+          <span className="absolute top-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-black animate-ping"></span>
         </div>
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 font-bold text-sm text-black whitespace-nowrap pl-1">
-          Ask Nayana AI
-        </span>
       </button>
 
       {/* Chat Modal */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 bg-gray-900/95 backdrop-blur-xl border border-cyan-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 animate-fadeIn" style={{ maxHeight: '520px', height: '80vh' }}>
+        <div className="fixed bottom-22 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 bg-gray-900/95 backdrop-blur-xl border border-cyan-500/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300" style={{ maxHeight: '520px', height: '80vh' }}>
           
           {/* Header */}
           <div className="p-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-b border-gray-800 flex justify-between items-center">
@@ -166,15 +187,16 @@ function Chatbot() {
                   Nayana AI Assistant <FaMagic className="text-amber-400" size={14} />
                 </h3>
                 <p className="text-xs text-emerald-400 font-medium flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block"></span> 100% Verified Portfolio Data
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block"></span> Verified Portfolio AI
                 </p>
               </div>
             </div>
+            
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1.5 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors"
+              className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors"
             >
-              <FaTimes size={18} />
+              <FaTimes size={16} />
             </button>
           </div>
 
@@ -250,7 +272,7 @@ function Chatbot() {
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              placeholder="Ask about skills, Michelin, projects..."
+              placeholder="Ask about PLC, Michelin, code, or any topic..."
               className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400"
             />
             <button
