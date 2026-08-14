@@ -497,14 +497,21 @@ function AdminDashboard() {
                 <button
                   onClick={() => {
                     if (githubToken) {
-                      localStorage.setItem('githubToken', githubToken);
-                      setSaveStatus('✅ GitHub token saved! Changes will now sync automatically.');
+                      localStorage.setItem('githubToken', githubToken.trim());
+                      setPortfolioData(prev => ({
+                        ...prev,
+                        aiConfig: {
+                          ...(prev.aiConfig || {}),
+                          githubToken: githubToken.trim()
+                        }
+                      }));
+                      setSaveStatus('✅ GitHub Token saved! Auto-Sync enabled for all future changes.');
                     } else {
                       localStorage.removeItem('githubToken');
-                      setSaveStatus('GitHub token removed.');
+                      setSaveStatus('GitHub Token removed.');
                     }
                     setShowGitHubSettings(false);
-                    setTimeout(() => setSaveStatus(''), 3000);
+                    setTimeout(() => setSaveStatus(''), 4000);
                   }}
                   className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-lg font-semibold"
                 >
