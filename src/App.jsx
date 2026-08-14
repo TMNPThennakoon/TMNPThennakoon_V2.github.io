@@ -13,6 +13,7 @@ import { FaBars, FaTimes, FaChevronDown, FaSun, FaMoon } from 'react-icons/fa';
 import { getPortfolioData } from './utils/portfolioData';
 import { useTheme } from './contexts/ThemeContext';
 import { trackVisitorSession } from './utils/analyticsTracker';
+import Chatbot from './components/Chatbot';
 
 // Function to generate initials from name
 const generateInitials = (name) => {
@@ -615,6 +616,9 @@ function App() {
           <p className="text-gray-400 font-extrabold">&copy; {new Date().getFullYear()} Nayana Pabasara. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* AI Assistant Chatbot */}
+      <Chatbot />
 
       {/* Gradient Outline Button Style */}
       <style>{`
