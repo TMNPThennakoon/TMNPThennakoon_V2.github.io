@@ -13,7 +13,7 @@ function Chatbot() {
     {
       id: 1,
       sender: 'bot',
-      text: "👋 Hi! I'm Nayana's AI Assistant. Ask me anything about Nayana's engineering skills, PLC/SCADA experience, projects, or general engineering & coding topics!",
+      text: "👋 Hi! I'm Nayana's AI Assistant. Ask me anything about Nayana's engineering background, Michelin experience, PLC/SCADA, projects, or technical topics!",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -38,22 +38,38 @@ function Chatbot() {
     "📧 How to contact Nayana?"
   ];
 
-  // Natural Language Knowledge Engine & Secure Admin Gemini API Fallback
+  // AI Response Generator supporting OpenAI ChatGPT, Gemini, and Friendly Technical Fallback
   const fetchAIResponse = async (userQuery) => {
-    const query = userQuery.toLowerCase().trim();
+    const rawQuery = userQuery.trim();
+    const query = rawQuery.toLowerCase();
     const profile = portfolioData?.profile || {};
     const experiences = portfolioData?.experience || [];
     const education = portfolioData?.education || [];
     const projects = portfolioData?.projects || [];
     const certifications = portfolioData?.certifications || [];
-    const apiKey = portfolioData?.aiConfig?.geminiApiKey || localStorage.getItem('geminiApiKey') || '';
 
-    // 1. Check local portfolio data first
+    // Keys stored in localStorage or Admin aiConfig
+    const openaiApiKey = (localStorage.getItem('openaiApiKey') || portfolioData?.aiConfig?.openaiApiKey || '').trim();
+    const geminiApiKey = (localStorage.getItem('geminiApiKey') || portfolioData?.aiConfig?.geminiApiKey || '').trim();
+
+    // 1. Friendly Greetings & Casual Introductions
+    const greetingRegex = /^(hi|hii|hiii|hello|hey|heyy|bro|mchn|machan|ayubowan|good morning|good evening|kohomada|hlo|hola)(\s+.*)?$/i;
+    if (greetingRegex.test(query) && query.split(' ').length <= 4) {
+      return `Hey there! 👋 Great to meet you! I'm Nayana's AI Assistant.\nHow can I help you today with Nayana's engineering background, Michelin internship, PLC automation, SCADA, or web dev projects?`;
+    }
+
+    // 2. Strict Technical & Portfolio Off-Topic Filtering Check
+    const offTopicRegex = /(movie|film|actress|actor|cricket|song|music|recipe|food|cooking|gossip|politics|election|president|modi|biden|trump)/i;
+    if (offTopicRegex.test(query)) {
+      return `I am specialized as Nayana's Engineering & Portfolio Assistant! 😊\nI can help you with questions about Nayana's background, PLC programming, SCADA, Web Development, Electronics, or technical topics. Feel free to ask any technical question!`;
+    }
+
+    // 3. Portfolio Instant Matcher
     if (query.includes('contact') || query.includes('email') || query.includes('phone') || query.includes('linkedin') || query.includes('github') || query.includes('reach')) {
       const email = profile.socialLinks?.email || 'nayanapabasara1@gmail.com';
       const linkedin = profile.socialLinks?.linkedin || 'https://www.linkedin.com/in/napi-9046392b3/';
       const github = profile.socialLinks?.github || 'https://github.com/nayanapabasara';
-      return `You can contact Nayana via:\n• 📧 Email: ${email}\n• 💼 LinkedIn: ${linkedin}\n• 🐙 GitHub: ${github}\n• 📄 You can also download Nayana's CV directly from the home section!`;
+      return `You can reach out to Nayana via:\n• 📧 Email: ${email}\n• 💼 LinkedIn: ${linkedin}\n• 🐙 GitHub: ${github}\n• 📄 You can also download Nayana's CV directly from the Home section!`;
     }
 
     if (query.includes('experience') || query.includes('work') || query.includes('michelin') || query.includes('ebony') || query.includes('intern')) {
@@ -75,16 +91,47 @@ function Chatbot() {
       return `Here are some of Nayana's key projects:\n\n${topProjects || '1. CleanRobo (Smart Floor Cleaner)\n2. E-Mart E-Commerce Platform\n3. Smart Home Automation\n4. Pneumatic Sorting System'}`;
     }
 
-    if (query.includes('certif') || query.includes('course') || query.includes('coursera') || query.includes('udemy')) {
-      const certList = certifications.map(c => `🏆 **${c.title}** - ${c.provider} (${c.date})`).join('\n');
-      return `Certifications & Qualifications:\n${certList || '• Coursera & Udemy Verified Certifications in PLC, Web Development, and Automation.'}`;
+    // 4. OpenAI ChatGPT API Call (gpt-4o-mini)
+    if (openaiApiKey && (openaiApiKey.startsWith('sk-') || openaiApiKey.length > 20)) {
+      try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${openaiApiKey}`
+          },
+          body: JSON.stringify({
+            model: 'gpt-4o-mini',
+            messages: [
+              {
+                role: 'system',
+                content: `You are Nayana Pabasara's friendly AI Assistant and Automation Engineer Specialist.
+Rules:
+1. Be warm, friendly, enthusiastic, and polite like a helpful friend.
+2. Answer questions about Nayana Pabasara's background, Michelin internship, University of Colombo degree, skills, and projects accurately.
+3. For general greetings (hi, hello, hey, bro), welcome the user warmly and invite them to ask about engineering or Nayana's portfolio.
+4. Answer ANY technical engineering, PLC, SCADA, coding, physics, electronics, or web development question with high precision.
+5. If the user asks completely non-technical off-topic questions (e.g. movies, gossip, food recipes), politely decline and state that you are specialized strictly in Engineering and Portfolio topics.`
+              },
+              { role: 'user', content: rawQuery }
+            ],
+            temperature: 0.7
+          })
+        });
+        const data = await response.json();
+        if (data.choices && data.choices[0]?.message?.content) {
+          return data.choices[0].message.content;
+        }
+      } catch (err) {
+        console.error('OpenAI API Error:', err);
+      }
     }
 
-    // 2. Query Google Gemini AI if Admin configured API Key
-    if (apiKey.trim()) {
+    // 5. Google Gemini API Call (gemini-2.5-flash)
+    if (geminiApiKey) {
       try {
         const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey.trim()}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -94,7 +141,7 @@ function Chatbot() {
                   role: 'user',
                   parts: [
                     {
-                      text: `You are Nayana Pabasara's AI Portfolio & Automation Engineering Assistant. Answer the user's question with technical depth, precision, and clarity. User Query: ${userQuery}`
+                      text: `You are Nayana Pabasara's friendly AI Assistant and Automation Engineering Specialist. Answer warmly and technically. User Query: ${rawQuery}`
                     }
                   ]
                 }
@@ -111,7 +158,7 @@ function Chatbot() {
       }
     }
 
-    // 3. Built-in Technical Engine Fallbacks
+    // 6. Intelligent Technical NLP Fallback Engine
     if (query.includes('plc') || query.includes('ladder') || query.includes('siemens') || query.includes('scada')) {
       return `⚙️ **PLC & Automation Engineering**:\nNayana works with Siemens S7-1200/1500 PLCs, Ladder Logic (LAD), Function Block Diagrams (FBD), Structured Text (ST), Ignition SCADA, Modbus TCP/IP, and SQL database integration for industrial telemetry and equipment automation.`;
     }
@@ -124,7 +171,7 @@ function Chatbot() {
       return `💻 **Full-Stack Development**:\nNayana builds responsive web apps using React 19, JavaScript ES6+, Vite, Tailwind CSS, Node.js, Express, and MySQL/MongoDB databases.`;
     }
 
-    return `I can answer queries about Nayana's portfolio, PLC automation, SCADA, Web Dev, and general engineering topics!`;
+    return `Hey! 👋 I can help you with Nayana's portfolio, PLC automation, SCADA, Web Dev, and any technical engineering questions!`;
   };
 
   const handleSendMessage = async (textToSend) => {

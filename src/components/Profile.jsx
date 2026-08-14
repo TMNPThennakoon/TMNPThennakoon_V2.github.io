@@ -281,10 +281,10 @@ function Profile() {
           />
         </div>
 
-        <div className="text-center lg:text-left space-y-6 max-w-2xl">
+        <div className="text-center lg:text-left space-y-6 max-w-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
           {/* Name with animation */}
           <motion.h1
-            className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent pb-3"
+            className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent pb-3 drop-shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -293,7 +293,7 @@ function Profile() {
           </motion.h1>
 
           <motion.div
-            className="h-1 w-24 bg-gradient-to-r from-sky-400 to-emerald-400 mx-auto lg:mx-0"
+            className="h-1 w-24 bg-gradient-to-r from-sky-400 to-emerald-400 mx-auto lg:mx-0 shadow-lg"
             initial={{ width: 0, opacity: 0 }}
             animate={isInView ? { width: 96, opacity: 1 } : { width: 0, opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -301,7 +301,7 @@ function Profile() {
 
           {/* Typing animation title */}
           <motion.h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold drop-shadow-md"
             style={{ minHeight: '90px' }}
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -315,7 +315,7 @@ function Profile() {
 
           {/* Description */}
           <motion.p
-            className="text-lg sm:text-xl text-gray-300"
+            className="text-lg sm:text-xl text-gray-200 font-medium leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}

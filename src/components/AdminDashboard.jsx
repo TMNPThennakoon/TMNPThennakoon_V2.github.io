@@ -23,6 +23,7 @@ function AdminDashboard() {
   const [showGitHubSettings, setShowGitHubSettings] = useState(false);
   const [githubToken, setGithubToken] = useState(localStorage.getItem('githubToken') || '');
   const [geminiApiKey, setGeminiApiKey] = useState(localStorage.getItem('geminiApiKey') || '');
+  const [openaiApiKey, setOpenaiApiKey] = useState(localStorage.getItem('openaiApiKey') || '');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visitorSessions, setVisitorSessions] = useState(getStoredSessions());
   const [analyticsFilter, setAnalyticsFilter] = useState('all');
@@ -757,39 +758,66 @@ function AdminDashboard() {
                 </div>
               </div>
 
-              {/* Gemini AI API Key Manager */}
-              <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl space-y-4">
+              {/* Universal AI API Key Manager (OpenAI ChatGPT & Google Gemini) */}
+              <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl space-y-5">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-bold text-cyan-400 flex items-center gap-2">
-                    <span>🤖</span> AI Assistant & Google Gemini API Key
+                    <span>🤖</span> AI Assistant API Manager (ChatGPT & Gemini)
                   </h3>
                   <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-xs font-semibold">
                     Admin Security Managed
                   </span>
                 </div>
                 <p className="text-xs text-gray-400">
-                  Configure your Google Gemini API Key here to enable deep, unlimited AI responses for your visitors on any engineering or coding topic!
+                  Configure your OpenAI ChatGPT API Key or Google Gemini API Key below. The chatbot automatically uses your active key to deliver friendly, 100% accurate AI responses to all site visitors!
                 </p>
-                <div>
-                  <label className="block text-xs font-bold text-gray-300 mb-1.5">Google Gemini API Key</label>
-                  <input
-                    type="password"
-                    value={geminiApiKey}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setGeminiApiKey(val);
-                      if (val.trim()) {
-                        localStorage.setItem('geminiApiKey', val.trim());
-                      } else {
-                        localStorage.removeItem('geminiApiKey');
-                      }
-                    }}
-                    placeholder="AQ.Ab8RN6JgjL..."
-                    className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
-                  />
-                  <p className="text-[11px] text-gray-500 mt-1">
-                    Stored securely in your browser session. Never committed to public GitHub files.
-                  </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* OpenAI ChatGPT Key Input */}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1.5">OpenAI ChatGPT API Key</label>
+                    <input
+                      type="password"
+                      value={openaiApiKey}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setOpenaiApiKey(val);
+                        if (val.trim()) {
+                          localStorage.setItem('openaiApiKey', val.trim());
+                        } else {
+                          localStorage.removeItem('openaiApiKey');
+                        }
+                      }}
+                      placeholder="sk-proj-e16AJcBD..."
+                      className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
+                    />
+                    <p className="text-[11px] text-gray-500 mt-1">
+                      OpenAI key (starts with sk-proj-...). Friendly ChatGPT engine.
+                    </p>
+                  </div>
+
+                  {/* Google Gemini Key Input */}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1.5">Google Gemini API Key</label>
+                    <input
+                      type="password"
+                      value={geminiApiKey}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setGeminiApiKey(val);
+                        if (val.trim()) {
+                          localStorage.setItem('geminiApiKey', val.trim());
+                        } else {
+                          localStorage.removeItem('geminiApiKey');
+                        }
+                      }}
+                      placeholder="AQ.Ab8RN6JgjL..."
+                      className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
+                    />
+                    <p className="text-[11px] text-gray-500 mt-1">
+                      Free Google Gemini API Key from AI Studio.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
