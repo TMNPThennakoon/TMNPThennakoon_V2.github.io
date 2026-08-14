@@ -1342,13 +1342,5 @@
     "phone": "Available on request",
     "location": "Colombo, Sri Lanka"
   },
-  "customSections": [
-    {
-      "id": 1786710940069,
-      "title": "Research",
-      "subtitle": "",
-      "content": "",
-      "enabled": true
-    }
-  ]
+  "customSections": []
 }
