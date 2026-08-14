@@ -526,7 +526,7 @@
     {
       "id": 4,
       "icon": "fa-solid fa-chart-line",
-      "logo": "/google-logo.png",
+      "logo": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
       "logoFallback": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
       "credentialId": "301531856",
       "title": "Fundamentals of Digital Marketing",
