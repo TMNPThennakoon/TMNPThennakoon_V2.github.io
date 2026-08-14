@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getPortfolioData, exportPortfolioData, importPortfolioData, savePortfolioData } from '../utils/portfolioData';
 import { getStoredSessions, exportAnalyticsCSV } from '../utils/analyticsTracker';
+import ThreeCanvas, { THREE_PRESETS } from './ThreeCanvas';
 import Profile from './Profile';
 import About from './About';
 import Skills from './Skills';
@@ -295,6 +296,7 @@ function AdminDashboard() {
 
   const menuItems = [
     { id: 'analytics', label: 'Analytics & Traffic', icon: '📊' },
+    { id: 'animation', label: '3D Animations & Theme', icon: '🎨' },
     { id: 'navigation', label: 'Navigation & Sections', icon: '🧭' },
     { id: 'profile', label: 'Home', icon: '🏠' },
     { id: 'about', label: 'About', icon: '👤' },
@@ -627,6 +629,117 @@ function AdminDashboard() {
                       )}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 3D Animations & Theme Tab */}
+          {activeTab === 'animation' && (
+            <div className="space-y-6">
+              <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl space-y-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-cyan-400 flex items-center gap-2">
+                    <span>🎨</span> 3D Background Animations (15 Presets)
+                  </h2>
+                  <p className="text-gray-400 text-sm mt-1">
+                    Choose a fixed 3D animation preset or enable Auto-Random rotation to cycle through stunning 3D scenes.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">Select 3D Animation Preset (15 Presets)</label>
+                    <select
+                      value={portfolioData.animationConfig?.preset || 'icosahedron'}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setPortfolioData(prev => ({
+                          ...prev,
+                          animationConfig: {
+                            ...(prev.animationConfig || {}),
+                            preset: val
+                          }
+                        }));
+                      }}
+                      className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
+                    >
+                      {THREE_PRESETS.map((p) => (
+                        <option key={p.id} value={p.id}>{p.name}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-300 mb-2">Auto-Random 3D Rotation</label>
+                    <div className="flex items-center gap-4 flex-wrap">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPortfolioData(prev => ({
+                            ...prev,
+                            animationConfig: {
+                              ...(prev.animationConfig || {}),
+                              autoRandom: !(prev.animationConfig?.autoRandom)
+                            }
+                          }));
+                        }}
+                        className={`px-4 py-2.5 rounded-lg text-sm font-bold transition-all ${
+                          portfolioData.animationConfig?.autoRandom
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-gray-700 text-gray-400'
+                        }`}
+                      >
+                        {portfolioData.animationConfig?.autoRandom ? '⚡ Auto-Random: Enabled' : '⏸️ Fixed Preset'}
+                      </button>
+
+                      {portfolioData.animationConfig?.autoRandom && (
+                        <select
+                          value={portfolioData.animationConfig?.changeInterval || 20}
+                          onChange={(e) => {
+                            const val = parseInt(e.target.value);
+                            setPortfolioData(prev => ({
+                              ...prev,
+                              animationConfig: {
+                                ...(prev.animationConfig || {}),
+                                changeInterval: val
+                              }
+                            }));
+                          }}
+                          className="p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:outline-none"
+                        >
+                          <option value={10}>Every 10 seconds</option>
+                          <option value={20}>Every 20 seconds</option>
+                          <option value={30}>Every 30 seconds</option>
+                          <option value={60}>Every 1 minute</option>
+                        </select>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Live 3D Preview Window */}
+              <div className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden shadow-2xl">
+                <div className="p-4 bg-gray-900 border-b border-gray-700 flex justify-between items-center">
+                  <h3 className="font-bold text-white text-base flex items-center gap-2">
+                    <span>👁️</span> Live 3D Canvas Preview
+                  </h3>
+                  <span className="text-xs text-cyan-400 font-mono">
+                    Active: {THREE_PRESETS.find(p => p.id === (portfolioData.animationConfig?.preset || 'icosahedron'))?.name}
+                  </span>
+                </div>
+                <div className="relative w-full h-80 bg-black overflow-hidden flex items-center justify-center">
+                  <ThreeCanvas
+                    preset={portfolioData.animationConfig?.preset || 'icosahedron'}
+                    autoRandom={portfolioData.animationConfig?.autoRandom || false}
+                    changeInterval={portfolioData.animationConfig?.changeInterval || 20}
+                    className="absolute inset-0 z-0"
+                  />
+                  <div className="relative z-10 text-center pointer-events-none p-4 bg-black/40 backdrop-blur-sm rounded-xl border border-white/10">
+                    <h4 className="text-xl font-bold text-white">Live 3D Animation Preview</h4>
+                    <p className="text-xs text-gray-300 mt-1">This animation will render live behind your portfolio hero section!</p>
+                  </div>
                 </div>
               </div>
             </div>
