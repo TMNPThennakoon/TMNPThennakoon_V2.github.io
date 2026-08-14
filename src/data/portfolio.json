@@ -732,6 +732,27 @@
   ],
   "projects": [
     {
+      "id": 1786734938977,
+      "category": "automation",
+      "title": "VFD Motor Control System",
+      "description": "Developed a VFD Motor Control System using a Siemens S7-1200 PLC, Siemens VFD and SIMATIC Touch HMI through TIA Portal.\n\nThe application was designed as a simulated Rubber Rolling Mill system and included:\n\n• Manual and automatic operating modes\n• Forward / reverse motor control\n• Start / stop control\n• RPM setpoint input\n• Actual motor speed monitoring\n• VFD operating status monitoring\n• Fault status monitoring\n\nThe PLC communicated with the VFD through PROFINET. The speed reference was scaled and transmitted to the VFD, while operating and fault information was monitored through the HMI.\n\n",
+      "image": "https://drive.google.com/file/d/1K8gHSnYboYLrUXTHxzXFcHhHpESKkwhG/view?usp=sharing",
+      "tech": [
+        "Siemens S7-1500",
+        "TIA Portal",
+        "Siemens VFD",
+        "PROFINET",
+        "SIMATIC HMI",
+        "PLC Programming",
+        "Motor Control"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "June  2026",
+      "categoryLabel": "PLC Programming - VFD Controlling"
+    },
+    {
       "id": 1786728934090,
       "category": "automation",
       "title": "Servo Bed Controller – Allen-Bradley PLC",
