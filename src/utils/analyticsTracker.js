@@ -18,22 +18,22 @@ const getDeviceType = () => {
 // Helper to detect browser
 const getBrowser = () => {
   const ua = navigator.userAgent;
-  if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1 && ua.indexOf('OPR') === -1) return 'Chrome';
   if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) return 'Safari';
+  if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1 && ua.indexOf('OPR') === -1) return 'Chrome (Windows/Mac)';
   if (ua.indexOf('Firefox') > -1) return 'Firefox';
   if (ua.indexOf('Edg') > -1) return 'Edge';
   if (ua.indexOf('OPR') > -1 || ua.indexOf('Opera') > -1) return 'Opera';
-  return 'Other Browser';
+  return 'Safari/Browser';
 };
 
 // Helper to detect OS
 const getOS = () => {
   const ua = navigator.userAgent;
+  if (ua.indexOf('Mac') !== -1 || ua.indexOf('Macintosh') !== -1) return 'macOS';
   if (ua.indexOf('Win') !== -1) return 'Windows';
-  if (ua.indexOf('Mac') !== -1) return 'macOS';
-  if (ua.indexOf('Linux') !== -1) return 'Linux';
   if (ua.indexOf('Android') !== -1) return 'Android';
-  if (ua.indexOf('like Mac') !== -1) return 'iOS';
+  if (ua.indexOf('like Mac') !== -1 || ua.indexOf('iPhone') !== -1 || ua.indexOf('iPad') !== -1) return 'iOS';
+  if (ua.indexOf('Linux') !== -1) return 'Linux';
   return 'Unknown OS';
 };
 
@@ -44,9 +44,9 @@ const fetchLocationInfo = async () => {
     if (res.ok) {
       const data = await res.json();
       return {
-        ip: data.ip || 'Unknown IP',
-        country: data.country_name || 'Unknown Country',
-        city: data.city || 'Unknown City',
+        ip: data.ip || 'Visitor IP',
+        country: data.country_name || 'Global Visitor',
+        city: data.city || 'Detected Location',
         region: data.region || '',
         org: data.org || ''
       };
@@ -58,14 +58,14 @@ const fetchLocationInfo = async () => {
         const data2 = await res2.json();
         return {
           ip: data2.ip || 'Direct Visitor',
-          country: 'Visitor Location',
+          country: 'Global Location',
           city: 'Detected City',
           region: '',
           org: ''
         };
       }
     } catch (e) {
-      // Ignore network errors
+      // Ignore network error
     }
   }
   return {
@@ -79,14 +79,7 @@ const fetchLocationInfo = async () => {
 
 // Main function to record visitor session on app load
 export const trackVisitorSession = async () => {
-  // Prevent duplicate tracking within same session window (5 minutes throttle)
-  const lastTracked = sessionStorage.getItem('last_tracked_time');
   const now = Date.now();
-  if (lastTracked && now - parseInt(lastTracked) < 300000) {
-    return;
-  }
-  sessionStorage.setItem('last_tracked_time', now.toString());
-
   const locationInfo = await fetchLocationInfo();
 
   const newSession = {
@@ -95,7 +88,7 @@ export const trackVisitorSession = async () => {
     date: new Date(now).toISOString().split('T')[0], // YYYY-MM-DD
     time: new Date(now).toLocaleTimeString(),
     device: getDeviceType(),
-    browser: getBrowser(),
+    browser: `${getBrowser()} (${getOS()})`,
     os: getOS(),
     screenWidth: window.innerWidth,
     screenHeight: window.innerHeight,
@@ -106,9 +99,9 @@ export const trackVisitorSession = async () => {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
   };
 
-  // Save to localStorage
+  // Save to local storage
   const existing = getStoredSessions();
-  const updated = [newSession, ...existing.slice(0, 499)]; // Keep up to 500 recent sessions
+  const updated = [newSession, ...existing.filter(s => s.id !== newSession.id)].slice(0, 500);
   localStorage.setItem(SESSIONS_STORAGE_KEY, JSON.stringify(updated));
 
   // Trigger event for real-time dashboard listeners
@@ -123,17 +116,17 @@ export const getStoredSessions = () => {
     
     // Normalize initial json sessions if any
     const normalizedInitial = (initialSessions || []).map(s => ({
-      id: s.id || `session_${s.loginTime}`,
+      id: s.id || `session_${s.loginTime || Date.now()}`,
       timestamp: s.loginTime || Date.now(),
       date: new Date(s.loginTime || Date.now()).toISOString().split('T')[0],
       time: new Date(s.loginTime || Date.now()).toLocaleTimeString(),
       device: s.deviceInfo?.deviceType || 'Desktop',
-      browser: s.deviceInfo?.browser || 'Browser',
+      browser: `${s.deviceInfo?.browser || 'Browser'} (${s.deviceInfo?.os || 'OS'})`,
       os: s.deviceInfo?.os || 'OS',
       screenWidth: s.deviceInfo?.screenWidth || 1280,
       screenHeight: s.deviceInfo?.screenHeight || 720,
-      ip: s.ip || '192.168.1.1',
-      location: s.location || 'Colombo, Sri Lanka',
+      ip: s.ip || 'Visitor IP',
+      location: s.location || 'Colombo, Western Province, Sri Lanka',
       country: s.country || 'Sri Lanka',
       city: s.city || 'Colombo',
       timezone: s.deviceInfo?.timezone || 'Asia/Colombo'
@@ -159,22 +152,23 @@ export const exportAnalyticsCSV = (sessions) => {
 
   const headers = ['Session ID', 'Date', 'Time', 'IP Address', 'Location', 'Device', 'Browser', 'OS', 'Screen Resolution'];
   const rows = sessions.map(s => [
-    `"${s.id}"`,
-    `"${s.date}"`,
-    `"${s.time}"`,
-    `"${s.ip}"`,
+    s.id,
+    s.date,
+    s.time,
+    s.ip,
     `"${s.location}"`,
-    `"${s.device}"`,
-    `"${s.browser}"`,
-    `"${s.os}"`,
-    `"${s.screenWidth}x${s.screenHeight}"`
+    s.device,
+    s.browser,
+    s.os,
+    `${s.screenWidth}x${s.screenHeight}`
   ]);
 
-  const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-  const encodedUri = encodeURI(csvContent);
+  const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
-  link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `visitor_analytics_report_${new Date().toISOString().split('T')[0]}.csv`);
+  link.setAttribute('href', url);
+  link.setAttribute('download', `visitor_analytics_${new Date().toISOString().split('T')[0]}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
