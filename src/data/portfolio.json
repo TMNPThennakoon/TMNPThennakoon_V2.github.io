@@ -732,26 +732,6 @@
   ],
   "projects": [
     {
-      "id": 1786733477739,
-      "category": "automation",
-      "title": "Traffic Light Control System via AB PLC and HMI",
-      "description": "Developed a 3-Way Traffic Light Control System using an Allen-Bradley Compact GuardLogix L30ERMS PLC and Studio 5000 Logix Designer.\n\nThe system implemented sequential control of red, yellow and green traffic signals using timer-based ladder logic and internal control bits.\n\nAn Allen-Bradley PanelView Plus HMI was integrated to provide operator control, including system Start/Stop and Night Mode functionality.\n\nThe Night Mode logic was designed to stop the normal traffic sequence and operate the yellow lights with a continuous blinking pattern.\n\n",
-      "image": "https://drive.google.com/file/d/1iOdaBT3mXRato0YYlkKMVUuredJS5NS2/view?usp=sharing",
-      "tech": [
-        "Allen-Bradley L30ERMS",
-        "Studio 5000",
-        "PanelView Plus HMI",
-        "Ladder Logic",
-        "TON Timers",
-        "Sequential Control"
-      ],
-      "github": "",
-      "live": "#",
-      "video": "",
-      "date": "May  2026",
-      "categoryLabel": "PLC Programming "
-    },
-    {
       "id": 1786728934090,
       "category": "automation",
       "title": "Servo Bed Controller – Allen-Bradley PLC",
@@ -765,6 +745,26 @@
         "Motion Control",
         "Ignition SCADA",
         "OPC UA"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "May  2026",
+      "categoryLabel": "PLC Programming "
+    },
+    {
+      "id": 1786733477739,
+      "category": "automation",
+      "title": "Traffic Light Control System via AB PLC and HMI",
+      "description": "Developed a 3-Way Traffic Light Control System using an Allen-Bradley Compact GuardLogix L30ERMS PLC and Studio 5000 Logix Designer.\n\nThe system implemented sequential control of red, yellow and green traffic signals using timer-based ladder logic and internal control bits.\n\nAn Allen-Bradley PanelView Plus HMI was integrated to provide operator control, including system Start/Stop and Night Mode functionality.\n\nThe Night Mode logic was designed to stop the normal traffic sequence and operate the yellow lights with a continuous blinking pattern.\n\n",
+      "image": "https://drive.google.com/file/d/1iOdaBT3mXRato0YYlkKMVUuredJS5NS2/view?usp=sharing",
+      "tech": [
+        "Allen-Bradley L30ERMS",
+        "Studio 5000",
+        "PanelView Plus HMI",
+        "Ladder Logic",
+        "TON Timers",
+        "Sequential Control"
       ],
       "github": "",
       "live": "#",
@@ -790,7 +790,7 @@
       "live": "#",
       "video": "",
       "date": "April  2026",
-      "categoryLabel": "WEB APPLICATION"
+      "categoryLabel": "PLC Programming - PID control"
     },
     {
       "id": 1786727769361,
