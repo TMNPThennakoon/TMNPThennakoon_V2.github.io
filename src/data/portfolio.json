@@ -732,17 +732,110 @@
   ],
   "projects": [
     {
-      "id": 1786711624902,
-      "category": "web",
-      "title": "New Project",
-      "description": "",
-      "image": "",
-      "tech": [],
+      "id": 1786733477739,
+      "category": "automation",
+      "title": "Traffic Light Control System via AB PLC and HMI",
+      "description": "Developed a 3-Way Traffic Light Control System using an Allen-Bradley Compact GuardLogix L30ERMS PLC and Studio 5000 Logix Designer.\n\nThe system implemented sequential control of red, yellow and green traffic signals using timer-based ladder logic and internal control bits.\n\nAn Allen-Bradley PanelView Plus HMI was integrated to provide operator control, including system Start/Stop and Night Mode functionality.\n\nThe Night Mode logic was designed to stop the normal traffic sequence and operate the yellow lights with a continuous blinking pattern.\n\n",
+      "image": "https://drive.google.com/file/d/1iOdaBT3mXRato0YYlkKMVUuredJS5NS2/view?usp=sharing",
+      "tech": [
+        "Allen-Bradley L30ERMS",
+        "Studio 5000",
+        "PanelView Plus HMI",
+        "Ladder Logic",
+        "TON Timers",
+        "Sequential Control"
+      ],
       "github": "",
       "live": "#",
       "video": "",
-      "date": "",
+      "date": "May  2026",
+      "categoryLabel": "PLC Programming "
+    },
+    {
+      "id": 1786728934090,
+      "category": "automation",
+      "title": "Servo Bed Controller – Allen-Bradley PLC",
+      "description": "Developed a Servo Bed Controller using an Allen-Bradley CompactLogix L18ERM PLC and Studio 5000 Logix Designer for industrial motion control applications.\n\nThe system controlled a servo axis through a Kinetix 5500 Servo Drive and included:\n\n• Servo enable / disable\n• Forward and reverse jogging\n• Axis stop\n• Fault reset\n• Servo status monitoring\n• Operator control through HMI\n\nMotion control instructions including MSO, MSF, MAM, MAS and MAJ were used in the PLC program.\n\nI also developed an Ignition HMI interface connected to the real Allen-Bradley CompactLogix L18ERM PLC through an OPC UA communication architecture. The PLC controlled a Kinetix 5500 servo drive and servo motor.\n\nThe Ignition interface provided real-time control and monitoring of system start/stop, forward/reverse movement, axis stop, fault reset, and servo operating/fault status.\n\n",
+      "image": "https://drive.google.com/file/d/1OIRnRE8E_8nDgZOzHiFHFLjm80Hs6lQf/view?usp=sharing",
+      "tech": [
+        "Allen-Bradley CompactLogix L18ERM",
+        "Studio 5000",
+        "Kinetix 5500",
+        "EtherNet/IP",
+        "Motion Control",
+        "Ignition SCADA",
+        "OPC UA"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "May  2026",
+      "categoryLabel": "PLC Programming "
+    },
+    {
+      "id": 1786728295129,
+      "category": "automation",
+      "title": "PID Control & Fine-Tuning of a Physical Ball-and-Fan System",
+      "description": "Developed and tested a physical PID control system using Siemens TIA Portal to study closed-loop control and real-time PID parameter tuning.\n\nThe project used a ball-and-fan mechanism as a nonlinear physical plant. A distance sensor continuously measured the ball position and provided real-time process feedback to the Siemens S7-1200 PLC. The PLC calculated the control response and adjusted the DC motor speed through PWM control to maintain the desired setpoint.\n\nThe system was used to study the effect of PID parameters (Kp, Ki, Kd) on the physical process response, including transient response, settling behavior, overshoot, oscillation, closed-loop stability, and tracking accuracy.\n\nHardware Configuration:\n• PLC: Siemens SIMATIC S7-1200 (DC/DC/DC)\n• HMI: Siemens SIMATIC KTP700 Comfort Panel\n• Sensor: DT20 Distance Sensor\n• Actuator: DC Motor with Fan/Ball Lift Mechanism\n• Motor Driver: PWM-enabled control stage\n• Power Supply: DC Buck Converter\n\nThe HMI was used to monitor and adjust the control parameters while observing the real-time PV, SP, and CV behavior. Fine-tuning the PID parameters allowed the controller response to be evaluated directly on the physical plant rather than only through simulation.\n\nThis project provided practical experience in PID control, PLC programming, process control, PWM motor control, sensor feedback, HMI visualization, system tuning, and closed-loop automation.",
+      "image": "https://drive.google.com/file/d/1BE2sEcGbz2ZZgheNSZhWcnno-u4umTv9/view?usp=sharing",
+      "tech": [
+        "Siemens S7-1200",
+        "TIA Portal",
+        "Siemens HMI",
+        "SICK Laser",
+        "DC Cooling Fan",
+        "Motor Control"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "April  2026",
       "categoryLabel": "WEB APPLICATION"
+    },
+    {
+      "id": 1786727769361,
+      "category": "iot",
+      "title": "Flash Reduction and Optimization System",
+      "description": "Contributed to the development of a Flash Reduction and Optimization System for the tyre trimming process at Michelin Lanka (Pvt) Ltd – Ekala Tyre Division 01.\n\nThe system was developed to digitally collect tyre weight data before and after trimming, calculate flash generation, maintain production traceability, and provide a platform for monitoring and analysis.\n\nThe system integrated:\n• Load cell-based industrial weighing system\n• Mettler Toledo IND131/IND331 weighing transmitter\n• Barcode scanner for tyre identification\n• Node-RED data processing and dashboard\n• Production database\n• Digital data logging and visualization\n\nFlash generation was calculated by comparing the cured tyre weight with the finished tyre weight:\n\nFlash Weight = Cured Tyre Weight − Finished Tyre Weight\n\nThe Node-RED dashboard provided real-time tyre measurement information, filtering, production data monitoring, and data export capabilities.\n\nMy contribution included studying the industrial weighing system, understanding load cell and weighing transmitter integration, analysing Node-RED dashboard functions, testing data visualization and logging functions, and understanding industrial data acquisition methods.\n\n\n",
+      "image": "https://drive.google.com/file/d/15so3LdLJ38UUQFvetIDmopdbeW0o4QFw/view?usp=sharing",
+      "tech": [
+        "Load Cell",
+        "Mettler Toledo Weighing Transmitter",
+        "Barcode Scanner",
+        "Node-RED",
+        "Database",
+        "Industrial Data Acquisition"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "March  2026",
+      "categoryLabel": "IIOT APPLICATION"
+    },
+    {
+      "id": 1786711624902,
+      "category": "iot",
+      "title": "Andon Calling System V2",
+      "description": "Developed and contributed to the implementation of an Industrial Andon Calling System V2 during my industrial training at Michelin Lanka (Pvt) Ltd – Ekala Tyre Division 01, together with a colleague under the guidance of our supervisor.\n\nThe system allows operators to create machine-specific assistance requests through a Node-RED dashboard. Requests are processed and the relevant industrial alarm is activated through an Advantech ADAM-6060 Remote I/O module using Modbus TCP. Event information is stored in Microsoft SQL Server for monitoring and historical analysis.\n\nThe system also provides real-time notifications through Microsoft Teams, automatically pushing alerts to a dedicated Teams group and relevant responsible personnel when a ticket is created, acknowledged, attended, completed, or transferred between departments.\n\nAs part of the development and testing, I designed and implemented a test circuit for the ADAM-6060 module. I also configured and programmed a Siemens SIMATIC S7-1200 PLC and connected it with a Siemens HMI panel for real-time monitoring and visualization. This allowed me to test the communication and interaction between the PLC, HMI, ADAM-6060 and Node-RED monitoring system.\n\nKey features:\n• Machine and fault selection\n• Real-time ticket monitoring\n• Siemens S7-1200 PLC and HMI integration\n• Modbus TCP communication\n• Industrial alarm control\n• MSSQL database integration\n• Real-time Microsoft Teams notifications\n• Ticket status and event tracking\n• Factory deployment and testing\n\nMy contribution included developing and testing Node-RED flows, PLC and HMI configuration, ADAM-6060 integration, industrial communication, MSSQL operations, monitoring interfaces, and alarm/reset testing.\n\n",
+      "image": "https://drive.google.com/file/d/1P3tpqHgozS_hv8JLLFrhAudNxUYYYkA8/view?usp=sharing",
+      "tech": [
+        "Siemens S7-1200",
+        "TIA Portal",
+        "Siemens HMI",
+        "Node-RED",
+        "Modbus TCP",
+        "ADAM-6060",
+        "Microsoft SQL Server",
+        "Microsoft Teams",
+        "Power Automate",
+        "Industrial IoT",
+        "Industrial Networking"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "February 2026",
+      "categoryLabel": "IIOT Application"
     },
     {
       "id": 1768713545726,
@@ -1359,6 +1452,6 @@
   "aiConfig": {},
   "animationConfig": {
     "autoRandom": true,
-    "preset": "stellarConstellationGlobe"
+    "preset": "cosmicConstellation"
   }
 }
