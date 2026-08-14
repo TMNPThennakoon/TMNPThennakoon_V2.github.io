@@ -35,7 +35,7 @@ function App() {
   const [showDashboard, setShowDashboard] = useState(false);
   const [currentRoute, setCurrentRoute] = useState(null);
   const [portfolioData, setPortfolioData] = useState(getPortfolioData());
-  const [initials, setInitials] = useState(generateInitials(portfolioData.profile.name));
+  const [initials, setInitials] = useState(generateInitials(portfolioData?.profile?.name));
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [mobileAboutDropdownOpen, setMobileAboutDropdownOpen] = useState(false);
 
@@ -72,15 +72,19 @@ function App() {
     // Always load from JSON file on mount (source of truth)
     const loadData = () => {
       const latest = getPortfolioData();
-      setPortfolioData(latest);
-      setInitials(generateInitials(latest.profile.name));
+      if (latest) {
+        setPortfolioData(latest);
+        setInitials(generateInitials(latest?.profile?.name));
+      }
     };
     loadData();
     
     // Listen for portfolio data updates (only for real-time preview in current session)
     const handleUpdate = (event) => {
-      setPortfolioData(event.detail);
-      setInitials(generateInitials(event.detail.profile.name));
+      if (event?.detail) {
+        setPortfolioData(event.detail);
+        setInitials(generateInitials(event.detail?.profile?.name));
+      }
     };
     
     window.addEventListener('portfolioDataUpdated', handleUpdate);
