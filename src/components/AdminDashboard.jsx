@@ -106,6 +106,32 @@ function AdminDashboard() {
     });
   };
 
+  const moveArrayItemUp = (section, index) => {
+    if (index <= 0) return;
+    setPortfolioData(prev => {
+      const newData = { ...prev };
+      const arr = [...(newData[section] || [])];
+      const temp = arr[index];
+      arr[index] = arr[index - 1];
+      arr[index - 1] = temp;
+      newData[section] = arr;
+      return newData;
+    });
+  };
+
+  const moveArrayItemDown = (section, index) => {
+    setPortfolioData(prev => {
+      const newData = { ...prev };
+      const arr = [...(newData[section] || [])];
+      if (index >= arr.length - 1) return prev;
+      const temp = arr[index];
+      arr[index] = arr[index + 1];
+      arr[index + 1] = temp;
+      newData[section] = arr;
+      return newData;
+    });
+  };
+
   // Debounce save function to prevent rapid saves
   const [saveTimeout, setSaveTimeout] = useState(null);
   
@@ -704,12 +730,30 @@ function AdminDashboard() {
                 <div key={cert.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
                     <h3 className="text-xl md:text-xl font-semibold">Certification {index + 1}</h3>
-                    <button
-                      onClick={() => removeArrayItem('certifications', index)}
-                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
-                    >
-                      Remove
-                    </button>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <button
+                        onClick={() => moveArrayItemUp('certifications', index)}
+                        disabled={index === 0}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-sm font-semibold"
+                        title="Move Up"
+                      >
+                        ⬆️ Up
+                      </button>
+                      <button
+                        onClick={() => moveArrayItemDown('certifications', index)}
+                        disabled={index === portfolioData.certifications.length - 1}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-sm font-semibold"
+                        title="Move Down"
+                      >
+                        ⬇️ Down
+                      </button>
+                      <button
+                        onClick={() => removeArrayItem('certifications', index)}
+                        className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="md:col-span-1">
@@ -826,12 +870,30 @@ function AdminDashboard() {
                 <div key={edu.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
                     <h3 className="text-xl md:text-xl font-semibold">Education {index + 1}</h3>
-                    <button
-                      onClick={() => removeArrayItem('education', index)}
-                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
-                    >
-                      Remove
-                    </button>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <button
+                        onClick={() => moveArrayItemUp('education', index)}
+                        disabled={index === 0}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-sm font-semibold"
+                        title="Move Up"
+                      >
+                        ⬆️ Up
+                      </button>
+                      <button
+                        onClick={() => moveArrayItemDown('education', index)}
+                        disabled={index === portfolioData.education.length - 1}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-sm font-semibold"
+                        title="Move Down"
+                      >
+                        ⬇️ Down
+                      </button>
+                      <button
+                        onClick={() => removeArrayItem('education', index)}
+                        className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -903,12 +965,30 @@ function AdminDashboard() {
                 <div key={exp.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
                     <h3 className="text-xl md:text-xl font-semibold">Experience {index + 1}</h3>
-                    <button
-                      onClick={() => removeArrayItem('experience', index)}
-                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
-                    >
-                      Remove
-                    </button>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <button
+                        onClick={() => moveArrayItemUp('experience', index)}
+                        disabled={index === 0}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-sm font-semibold"
+                        title="Move Up"
+                      >
+                        ⬆️ Up
+                      </button>
+                      <button
+                        onClick={() => moveArrayItemDown('experience', index)}
+                        disabled={index === portfolioData.experience.length - 1}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-sm font-semibold"
+                        title="Move Down"
+                      >
+                        ⬇️ Down
+                      </button>
+                      <button
+                        onClick={() => removeArrayItem('experience', index)}
+                        className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -994,12 +1074,30 @@ function AdminDashboard() {
                 <div key={project.id} className="border border-gray-700 rounded-lg p-3 md:p-4 bg-gray-800">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
                     <h3 className="text-xl md:text-xl font-semibold">Project {index + 1}</h3>
-                    <button
-                      onClick={() => removeArrayItem('projects', index)}
-                      className="w-full sm:w-auto px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
-                    >
-                      Remove
-                    </button>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <button
+                        onClick={() => moveArrayItemUp('projects', index)}
+                        disabled={index === 0}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-sm font-semibold"
+                        title="Move Up"
+                      >
+                        ⬆️ Up
+                      </button>
+                      <button
+                        onClick={() => moveArrayItemDown('projects', index)}
+                        disabled={index === portfolioData.projects.length - 1}
+                        className="px-3 py-1 bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg text-sm font-semibold"
+                        title="Move Down"
+                      >
+                        ⬇️ Down
+                      </button>
+                      <button
+                        onClick={() => removeArrayItem('projects', index)}
+                        className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
