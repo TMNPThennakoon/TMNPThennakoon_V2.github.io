@@ -194,11 +194,11 @@ function Experience() {
                 {/* Logo/Icon */}
                 <div className="flex-shrink-0 relative">
                   {exp.logo ? (
-                    <div className="w-16 h-16 rounded-full bg-white p-2 flex items-center justify-center shadow-lg relative">
+                    <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 p-2 flex items-center justify-center backdrop-blur-md shadow-lg group-hover:border-cyan-400/50 group-hover:scale-105 transition-all">
                       <img
                         src={convertGoogleDriveLink(exp.logo)}
                         alt={`${exp.company || 'Company'} logo`}
-                        className="w-full h-full object-contain rounded-full"
+                        className="w-full h-full object-contain rounded-xl"
                         loading="lazy"
                         referrerPolicy="no-referrer"
                         onError={(e) => {
