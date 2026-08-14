@@ -1356,5 +1356,8 @@
     "location": "Colombo, Sri Lanka"
   },
   "customSections": [],
-  "aiConfig": {}
+  "aiConfig": {},
+  "animationConfig": {
+    "autoRandom": true
+  }
 }
