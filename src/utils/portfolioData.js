@@ -151,8 +151,16 @@ async function updatePortfolioJsonOnGitHub(data, token) {
         const currentFile = getFileResponse.status === 404 ? null : await getFileResponse.json();
         const sha = currentFile?.sha;
         
+        // Clean secrets (GitHub tokens, API keys) from data before committing to GitHub
+        // This prevents GitHub Secret Scanning / Push Protection rule violations
+        const cleanData = JSON.parse(JSON.stringify(data));
+        if (cleanData.aiConfig) {
+          delete cleanData.aiConfig.githubToken;
+          delete cleanData.aiConfig.geminiApiKey;
+        }
+        
         // Prepare file content
-        const jsonString = JSON.stringify(data, null, 2);
+        const jsonString = JSON.stringify(cleanData, null, 2);
         const content = btoa(unescape(encodeURIComponent(jsonString)));
         
         // Wait before update call (increased delay to prevent rate limiting)
