@@ -1,6 +1,57 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getPortfolioData } from '../utils/portfolioData';
 
+// Function to convert Wikipedia URLs to direct image URLs
+const convertWikipediaUrl = (url) => {
+  if (!url) return url;
+  if (!url.includes('wikipedia.org')) return url;
+  if (url.includes('upload.wikimedia.org')) return url;
+  
+  const mediaMatch = url.match(/[#\/]media\/File:([^\/?#]+)/i);
+  if (mediaMatch) {
+    const filename = decodeURIComponent(mediaMatch[1]);
+    const firstChar = filename.charAt(0).toUpperCase();
+    const firstTwoChars = filename.substring(0, 2).replace(/\s/g, '_');
+    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${filename}/500px-${filename}`;
+  }
+  return url;
+};
+
+// Function to convert Google Drive links to direct image URLs
+const convertGoogleDriveLink = (url) => {
+  if (!url) return url;
+  
+  if (url.includes('wikipedia.org')) {
+    return convertWikipediaUrl(url);
+  }
+  
+  let fileId = null;
+  const driveMatch1 = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch1) {
+    fileId = driveMatch1[1];
+  }
+  
+  const driveMatch2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (driveMatch2 && !fileId) {
+    fileId = driveMatch2[1];
+  }
+  
+  const driveMatch3 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch3 && !fileId) {
+    fileId = driveMatch3[1];
+  }
+  
+  if (fileId) {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  }
+  
+  if (url.includes('uc?export=view') || url.includes('thumbnail?id=')) {
+    return url;
+  }
+  
+  return url;
+};
+
 function Experience() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -140,22 +191,45 @@ function Experience() {
                   {exp.logo ? (
                     <div className="w-16 h-16 rounded-full bg-white p-2 flex items-center justify-center shadow-lg relative">
                       <img
-                        src={exp.logo}
+                        src={convertGoogleDriveLink(exp.logo)}
                         alt={`${exp.company} logo`}
                         className="w-full h-full object-contain rounded-full"
+                        loading="lazy"
+                        crossOrigin={exp.logo && exp.logo.includes('wikimedia.org') ? 'anonymous' : undefined}
+                        referrerPolicy="no-referrer"
                         onError={(e) => {
-                          e.target.style.display = 'none';
-                          const fallback = e.target.parentElement.querySelector('.icon-fallback');
+                          const imgElement = e.target;
+                          let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
+                          attemptCount++;
+                          imgElement.dataset.attemptCount = attemptCount.toString();
+
+                          // Try alternative Google Drive formats if it's a Drive link
+                          if (exp.logo && exp.logo.includes('drive.google.com') && attemptCount <= 3) {
+                            const fileIdMatch = exp.logo.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) || exp.logo.match(/[?&]id=([a-zA-Z0-9_-]+)/) || exp.logo.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                            if (fileIdMatch) {
+                              const fileId = fileIdMatch[1];
+                              if (attemptCount === 1) {
+                                imgElement.src = `https://drive.google.com/uc?export=view&id=${fileId}`;
+                                return;
+                              } else if (attemptCount === 2) {
+                                imgElement.src = `https://drive.google.com/uc?export=download&id=${fileId}`;
+                                return;
+                              }
+                            }
+                          }
+
+                          imgElement.style.display = 'none';
+                          const fallback = imgElement.parentElement.querySelector('.icon-fallback');
                           if (fallback) fallback.style.display = 'flex';
                         }}
                       />
                       <div className="icon-fallback hidden absolute inset-0 items-center justify-center bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full shadow-lg shadow-cyan-500/50">
-                        <i className={`${exp.icon} text-2xl text-white`}></i>
+                        <i className={`${exp.icon || 'fa-solid fa-briefcase'} text-2xl text-white`}></i>
                       </div>
                     </div>
                   ) : (
                     <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-500/50">
-                      <i className={`${exp.icon} text-2xl text-white`}></i>
+                      <i className={`${exp.icon || 'fa-solid fa-briefcase'} text-2xl text-white`}></i>
                     </div>
                   )}
                 </div>
@@ -185,4 +259,3 @@ function Experience() {
 }
 
 export default Experience;
-
