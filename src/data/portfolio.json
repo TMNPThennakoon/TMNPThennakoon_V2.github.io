@@ -25,7 +25,7 @@
       {
         "id": 1,
         "url": "/pro.png",
-        "enabled": true
+        "enabled": false
       },
       {
         "id": 1786710833500,
@@ -731,6 +731,19 @@
     }
   ],
   "projects": [
+    {
+      "id": 1786711624902,
+      "category": "web",
+      "title": "New Project",
+      "description": "",
+      "image": "",
+      "tech": [],
+      "github": "",
+      "live": "#",
+      "video": "",
+      "date": "",
+      "categoryLabel": "WEB APPLICATION"
+    },
     {
       "id": 1768713545726,
       "category": "mechanical",
