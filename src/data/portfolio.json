@@ -20,7 +20,19 @@
       "linkedin": "https://www.linkedin.com/in/napi-9046392b3/",
       "email": "nayanapabasara1@gmail.com",
       "cv": "https://www.canva.com/design/DAGkKTADWIA/MJ_Lgp30GQFZgyya-XSr6w/view?utm_content=DAGkKTADWIA&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton"
-    }
+    },
+    "profileImages": [
+      {
+        "id": 1,
+        "url": "/pro.png",
+        "enabled": true
+      },
+      {
+        "id": 1786709467455,
+        "url": "https://drive.google.com/file/d/1mJh08x75e7pkVEYfDpM643Y8bbGtHDGm/view?usp=drivesdk",
+        "enabled": true
+      }
+    ]
   },
   "about": {
     "title": "About Me",
