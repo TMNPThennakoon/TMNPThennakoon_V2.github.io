@@ -2,7 +2,6 @@ Viewed AdminDashboard.jsx:940-955
 Viewed AdminDashboard.jsx:1-600
 Viewed AdminDashboard.jsx:601-1182
 
-මෙන්න **`src/components/AdminDashboard.jsx`** හි අලුත් වු සම්පූර්ණ (Full Final) Code එක:
 
 ```jsx
 import React, { useState, useEffect } from 'react';
@@ -947,17 +946,17 @@ function AdminDashboard() {
                       />
                     </div>
                     <div>
-                      <label className="block mb-2 text-sm md:text-base font-medium">Company Logo URL</label>
-                      <input
-                        type="text"
-                        value={exp.logo}
-                        onChange={(e) => handleArrayItemChange('experience', index, 'logo', e.target.value)}
-                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
-                        placeholder="/logo.png or Google Drive link"
-                      />
-                      <p className="text-xs text-gray-500 mt-1">
-                        Supports local paths (/logo.png), external URLs, Google Drive links, and Wikipedia URLs (auto-converted)
-                      </p>
+                        <label className="block mb-2 text-sm md:text-base font-medium">Company Logo URL</label>
+                        <input
+                          type="text"
+                          value={exp.logo}
+                          onChange={(e) => handleArrayItemChange('experience', index, 'logo', e.target.value)}
+                          className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                          placeholder="/logo.png or Google Drive link"
+                          />
+                        <p className="text-xs text-gray-500 mt-1">
+                          Supports local paths (/logo.png), external URLs, Google Drive links, and Wikipedia URLs (auto-converted)
+                        </p>
                     </div>
                     <div className="col-span-2">
                       <label className="block mb-2 text-sm md:text-base font-medium">Description</label>
