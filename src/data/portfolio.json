@@ -1355,5 +1355,6 @@
     "phone": "Available on request",
     "location": "Colombo, Sri Lanka"
   },
-  "customSections": []
+  "customSections": [],
+  "aiConfig": {}
 }
