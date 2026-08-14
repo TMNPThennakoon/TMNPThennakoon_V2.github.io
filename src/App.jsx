@@ -262,20 +262,20 @@ function App() {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <ul className="md:hidden flex flex-col items-center space-y-4 mt-4 pb-4 border-t border-gray-800 bg-black/80 backdrop-blur-md" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+            <ul className={`md:hidden flex flex-col items-center space-y-4 mt-4 pb-4 border-t ${theme === 'light' ? 'bg-white/95 text-gray-900 border-gray-200 shadow-lg' : 'bg-gray-900/95 text-white border-gray-800'} backdrop-blur-md`} style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
               <li>
                 <a
                   href="#profile"
-                  className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-lg"
+                  className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-lg`}
                   onClick={() => setMobileMenuOpen(false)}
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
                   Profile
                 </a>
               </li>
-              <li className="w-full">
+              <li className="w-full text-center">
                 <button
-                  className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-lg flex items-center justify-center gap-2 w-full"
+                  className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-lg flex items-center justify-center gap-2 w-full`}
                   onClick={() => setMobileAboutDropdownOpen(!mobileAboutDropdownOpen)}
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
@@ -283,10 +283,10 @@ function App() {
                   <FaChevronDown className={`transition-transform duration-300 ${mobileAboutDropdownOpen ? 'rotate-180' : ''}`} size={14} />
                 </button>
                 {mobileAboutDropdownOpen && (
-                  <div className="mt-2 space-y-2 w-full">
+                  <div className="mt-2 space-y-2 w-full text-center">
                     <a
                       href="#about"
-                      className="block text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-base pl-4"
+                      className={`block ${theme === 'light' ? 'text-gray-800 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-base`}
                       onClick={() => setMobileMenuOpen(false)}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
@@ -294,7 +294,7 @@ function App() {
                     </a>
                     <a
                       href="#education"
-                      className="block text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-base pl-4"
+                      className={`block ${theme === 'light' ? 'text-gray-800 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-base`}
                       onClick={() => setMobileMenuOpen(false)}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
@@ -302,7 +302,7 @@ function App() {
                     </a>
                     <a
                       href="#experience"
-                      className="block text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-base pl-4"
+                      className={`block ${theme === 'light' ? 'text-gray-800 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-base`}
                       onClick={() => setMobileMenuOpen(false)}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
@@ -315,7 +315,7 @@ function App() {
                 <li key={item}>
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-lg"
+                    className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-lg`}
                     onClick={() => setMobileMenuOpen(false)}
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
@@ -465,14 +465,14 @@ function App() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <ul className="md:hidden flex flex-col items-center space-y-4 mt-4 pb-4 border-t border-gray-800 bg-black/80 backdrop-blur-md" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+          <ul className={`md:hidden flex flex-col items-center space-y-4 mt-4 pb-4 border-t ${theme === 'light' ? 'bg-white/95 text-gray-900 border-gray-200 shadow-lg' : 'bg-gray-900/95 text-white border-gray-800'} backdrop-blur-md`} style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             <li>
               <button
                 onClick={() => {
                   toggleTheme();
                   setMobileMenuOpen(false);
                 }}
-                className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 flex items-center justify-center"
+                className={`p-3 rounded-full ${theme === 'light' ? 'bg-gray-100 hover:bg-gray-200 text-gray-900' : 'bg-white/10 hover:bg-white/20 text-white'} transition-all duration-300 flex items-center justify-center`}
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? <FaSun size={20} /> : <FaMoon size={20} />}
@@ -481,16 +481,16 @@ function App() {
             <li>
               <a
                 href="#profile"
-                className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-lg"
+                className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-lg`}
                 onClick={() => setMobileMenuOpen(false)}
                 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
               >
                 Profile
               </a>
             </li>
-            <li className="w-full">
+            <li className="w-full text-center">
               <button
-                className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-lg flex items-center justify-center gap-2 w-full"
+                className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-lg flex items-center justify-center gap-2 w-full`}
                 onClick={() => setMobileAboutDropdownOpen(!mobileAboutDropdownOpen)}
                 style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
               >
@@ -498,10 +498,10 @@ function App() {
                 <FaChevronDown className={`transition-transform duration-300 ${mobileAboutDropdownOpen ? 'rotate-180' : ''}`} size={14} />
               </button>
               {mobileAboutDropdownOpen && (
-                <div className="mt-2 space-y-2 w-full">
+                <div className="mt-2 space-y-2 w-full text-center">
                   <a
                     href="#about"
-                    className="block text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-base pl-4"
+                    className={`block ${theme === 'light' ? 'text-gray-800 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-base`}
                     onClick={() => setMobileMenuOpen(false)}
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
@@ -509,7 +509,7 @@ function App() {
                   </a>
                   <a
                     href="#education"
-                    className="block text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-base pl-4"
+                    className={`block ${theme === 'light' ? 'text-gray-800 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-base`}
                     onClick={() => setMobileMenuOpen(false)}
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
@@ -517,7 +517,7 @@ function App() {
                   </a>
                   <a
                     href="#experience"
-                    className="block text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-base pl-4"
+                    className={`block ${theme === 'light' ? 'text-gray-800 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-base`}
                     onClick={() => setMobileMenuOpen(false)}
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
@@ -530,7 +530,7 @@ function App() {
               <li key={item}>
                 <a
                   href={`#${item.toLowerCase()}`}
-                  className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold text-lg"
+                  className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-lg`}
                   onClick={() => setMobileMenuOpen(false)}
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
@@ -577,7 +577,7 @@ function App() {
           ></div>
         </div>
         <div className="relative z-10 space-y-4">
-          <p className="text-gray-400 font-extrabold">&copy; 2025 Nayana Pabasara. All rights reserved.</p>
+          <p className="text-gray-400 font-extrabold">&copy; {new Date().getFullYear()} Nayana Pabasara. All rights reserved.</p>
         </div>
       </footer>
 
