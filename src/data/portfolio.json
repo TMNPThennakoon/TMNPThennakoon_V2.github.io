@@ -28,11 +28,6 @@
         "enabled": true
       },
       {
-        "id": 1786709467455,
-        "url": "https://drive.google.com/file/d/1mJh08x75e7pkVEYfDpM643Y8bbGtHDGm/view?usp=drivesdk",
-        "enabled": true
-      },
-      {
         "id": 1786710833500,
         "url": "https://drive.google.com/file/d/1AdgX2dvAKrCx0_v8fL0bIqy3KT6t-SoY/view?usp=drivesdk",
         "enabled": true
@@ -1346,5 +1341,14 @@
     "email": "nayanapabasara1@gmail.com",
     "phone": "Available on request",
     "location": "Colombo, Sri Lanka"
-  }
+  },
+  "customSections": [
+    {
+      "id": 1786710940069,
+      "title": "Research",
+      "subtitle": "",
+      "content": "",
+      "enabled": true
+    }
+  ]
 }
