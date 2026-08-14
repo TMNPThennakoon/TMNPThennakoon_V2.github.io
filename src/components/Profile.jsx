@@ -243,7 +243,7 @@ function Profile() {
         className="pointer-events-none absolute inset-0 z-[1] opacity-90"
         style={{
           background:
-            'radial-gradient(1200px 600px at 10% 10%, rgba(99, 179, 237, 0.15), transparent 60%), radial-gradient(1000px 500px at 90% 90%, rgba(45, 212, 191, 0.12), transparent 60%)',
+            'radial-gradient(1200px 600px at 20% 30%, rgba(14, 165, 233, 0.25), transparent 60%), radial-gradient(1000px 500px at 80% 70%, rgba(16, 185, 129, 0.22), transparent 60%)',
         }}
       />
 
@@ -258,7 +258,7 @@ function Profile() {
             key={activeSrc}
             src={activeSrc}
             alt={profile.name || 'Profile'}
-            className="w-64 h-64 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full border-8 border-white/20 object-cover shadow-2xl transition-all duration-700 animate-fadeIn"
+            className="w-64 h-64 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full border-8 border-cyan-400/30 object-cover shadow-[0_0_50px_rgba(14,165,233,0.3)] transition-all duration-700 animate-fadeIn"
             loading="lazy"
             referrerPolicy="no-referrer"
             onError={(e) => {
@@ -268,23 +268,19 @@ function Profile() {
               imgElement.dataset.attemptCount = attemptCount.toString();
               
               if (rawCurrentSrc && rawCurrentSrc.includes('drive.google.com') && attemptCount <= 2) {
-                const fileIdMatch = rawCurrentSrc.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) ||
-                  rawCurrentSrc.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
-                  rawCurrentSrc.match(/\/d\/([a-zA-Z0-9_-]+)/);
-                if (fileIdMatch) {
-                  imgElement.src = `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
-                  return;
-                }
+                const proxyUrl = `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=${encodeURIComponent(rawCurrentSrc)}`;
+                imgElement.src = proxyUrl;
+              } else {
+                imgElement.src = '/pro.png';
               }
-              imgElement.src = '/pro.png';
             }}
           />
         </div>
 
-        <div className="text-center lg:text-left space-y-6 max-w-2xl drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+        <div className="text-center lg:text-left space-y-6 max-w-2xl drop-shadow-md">
           {/* Name with animation */}
           <motion.h1
-            className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent pb-3 drop-shadow-lg"
+            className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter bg-gradient-to-r from-white via-cyan-100 to-gray-200 bg-clip-text text-transparent pb-3 drop-shadow-md"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -293,7 +289,7 @@ function Profile() {
           </motion.h1>
 
           <motion.div
-            className="h-1 w-24 bg-gradient-to-r from-sky-400 to-emerald-400 mx-auto lg:mx-0 shadow-lg"
+            className="h-1 w-24 bg-gradient-to-r from-sky-400 to-emerald-400 mx-auto lg:mx-0 shadow-[0_0_15px_rgba(56,189,248,0.6)]"
             initial={{ width: 0, opacity: 0 }}
             animate={isInView ? { width: 96, opacity: 1 } : { width: 0, opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -301,7 +297,7 @@ function Profile() {
 
           {/* Typing animation title */}
           <motion.h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold drop-shadow-md"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold drop-shadow-sm"
             style={{ minHeight: '90px' }}
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -315,7 +311,7 @@ function Profile() {
 
           {/* Description */}
           <motion.p
-            className="text-lg sm:text-xl text-gray-200 font-medium leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
+            className="text-lg sm:text-xl text-gray-200 font-normal leading-relaxed drop-shadow-sm"
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}

@@ -24,6 +24,8 @@ function AdminDashboard() {
   const [githubToken, setGithubToken] = useState(localStorage.getItem('githubToken') || '');
   const [geminiApiKey, setGeminiApiKey] = useState(localStorage.getItem('geminiApiKey') || '');
   const [openaiApiKey, setOpenaiApiKey] = useState(localStorage.getItem('openaiApiKey') || '');
+  const [apiTestStatus, setApiTestStatus] = useState('');
+  const [isTestingApi, setIsTestingApi] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visitorSessions, setVisitorSessions] = useState(getStoredSessions());
   const [analyticsFilter, setAnalyticsFilter] = useState('all');
@@ -818,6 +820,96 @@ function AdminDashboard() {
                       Free Google Gemini API Key from AI Studio.
                     </p>
                   </div>
+                </div>
+
+                {/* API Test Trigger Button & Status Output */}
+                <div className="pt-2 border-t border-gray-700/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <button
+                    type="button"
+                    disabled={isTestingApi}
+                    onClick={async () => {
+                      setIsTestingApi(true);
+                      setApiTestStatus('⏳ Testing live API connection...');
+
+                      const openaiKey = (openaiApiKey || localStorage.getItem('openaiApiKey') || '').trim();
+                      const geminiKey = (geminiApiKey || localStorage.getItem('geminiApiKey') || '').trim();
+
+                      if (!openaiKey && !geminiKey) {
+                        setApiTestStatus('⚠️ No API Key entered! Please paste an OpenAI key (sk-proj-...) or Gemini key (AQ...) above.');
+                        setIsTestingApi(false);
+                        return;
+                      }
+
+                      if (openaiKey) {
+                        try {
+                          const res = await fetch('https://api.openai.com/v1/chat/completions', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                              'Authorization': `Bearer ${openaiKey}`
+                            },
+                            body: JSON.stringify({
+                              model: 'gpt-4o-mini',
+                              messages: [{ role: 'user', content: 'Say hello in 3 words' }]
+                            })
+                          });
+                          const data = await res.json();
+                          if (data.choices && data.choices[0]?.message?.content) {
+                            setApiTestStatus(`✅ OpenAI ChatGPT API Connected & Working! Response: "${data.choices[0].message.content}"`);
+                            setIsTestingApi(false);
+                            return;
+                          } else if (data.error) {
+                            setApiTestStatus(`❌ OpenAI API Error (${data.error.type || 'Error'}): ${data.error.message}`);
+                            setIsTestingApi(false);
+                            return;
+                          }
+                        } catch (err) {
+                          setApiTestStatus(`❌ OpenAI Network Error: ${err.message}`);
+                          setIsTestingApi(false);
+                          return;
+                        }
+                      }
+
+                      if (geminiKey) {
+                        try {
+                          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'Say hello in 3 words' }] }] })
+                          });
+                          const data = await res.json();
+                          if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                            setApiTestStatus(`✅ Gemini API Connected & Working! Response: "${data.candidates[0].content.parts[0].text}"`);
+                            setIsTestingApi(false);
+                            return;
+                          } else if (data.error) {
+                            setApiTestStatus(`❌ Gemini API Error (${data.error.code}): ${data.error.message}`);
+                            setIsTestingApi(false);
+                            return;
+                          }
+                        } catch (err) {
+                          setApiTestStatus(`❌ Gemini Network Error: ${err.message}`);
+                          setIsTestingApi(false);
+                          return;
+                        }
+                      }
+                    }}
+                    className="px-4 py-2 bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-black font-extrabold text-xs sm:text-sm rounded-lg shadow-lg disabled:opacity-50 transition-all"
+                  >
+                    {isTestingApi ? '⏳ Testing Live API Connection...' : '⚡ Test Live API Connection'}
+                  </button>
+
+                  {apiTestStatus && (
+                    <div className={`p-2.5 rounded-lg text-xs font-semibold flex-1 ${
+                      apiTestStatus.includes('✅') 
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' 
+                        : apiTestStatus.includes('⏳') 
+                        ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40 animate-pulse' 
+                        : 'bg-red-500/20 text-red-300 border border-red-500/40'
+                    }`}>
+                      {apiTestStatus}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
