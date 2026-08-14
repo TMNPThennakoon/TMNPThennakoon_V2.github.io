@@ -12,6 +12,7 @@ import ProjectDetail from './components/ProjectDetail';
 import { FaBars, FaTimes, FaChevronDown, FaSun, FaMoon } from 'react-icons/fa';
 import { getPortfolioData } from './utils/portfolioData';
 import { useTheme } from './contexts/ThemeContext';
+import { trackVisitorSession } from './utils/analyticsTracker';
 
 // Function to generate initials from name
 const generateInitials = (name) => {
@@ -38,6 +39,11 @@ function App() {
   const [initials, setInitials] = useState(generateInitials(portfolioData?.profile?.name));
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [mobileAboutDropdownOpen, setMobileAboutDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    // Track visitor analytics session on page visit
+    trackVisitorSession().catch(console.error);
+  }, []);
 
   useEffect(() => {
     // Check current route
@@ -189,7 +195,7 @@ function App() {
                   className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold"
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
-                  Profile
+                  {portfolioData?.navLabels?.profile || 'Profile'}
                 </a>
               </li>
               <li 
@@ -201,7 +207,7 @@ function App() {
                   className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold flex items-center gap-1"
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
-                  About
+                  {portfolioData?.navLabels?.about || 'About'}
                   <FaChevronDown className={`transition-transform duration-300 ${aboutDropdownOpen ? 'rotate-180' : ''}`} size={12} />
                 </button>
                 {aboutDropdownOpen && (
@@ -211,33 +217,48 @@ function App() {
                       className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
-                      About
+                      {portfolioData?.navLabels?.about || 'About'}
                     </a>
                     <a
                       href="#education"
                       className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
-                      Education
+                      {portfolioData?.navLabels?.education || 'Education'}
                     </a>
                     <a
                       href="#experience"
                       className="block px-4 py-2 text-white hover:bg-gray-800 transition-colors duration-300 font-extrabold"
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
-                      Experience
+                      {portfolioData?.navLabels?.experience || 'Experience'}
                     </a>
                   </div>
                 )}
               </li>
-              {['Skills', 'Certifications', 'Projects'].map((item) => (
-                <li key={item}>
+              {[
+                { id: 'skills', label: portfolioData?.navLabels?.skills || 'Skills' },
+                { id: 'certifications', label: portfolioData?.navLabels?.certifications || 'Certifications' },
+                { id: 'projects', label: portfolioData?.navLabels?.projects || 'Projects' },
+              ].map((item) => (
+                <li key={item.id}>
                   <a
-                    href={`#${item.toLowerCase()}`}
+                    href={`#${item.id}`}
                     className="text-white hover:text-gray-300 transition-colors duration-300 font-extrabold"
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
-                    {item}
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              {(portfolioData?.customSections || []).filter(sec => sec.enabled !== false).map(sec => (
+                <li key={sec.id}>
+                  <a
+                    href={`#custom-${sec.id}`}
+                    className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 font-extrabold"
+                    style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
+                  >
+                    {sec.title}
                   </a>
                 </li>
               ))}
@@ -247,7 +268,7 @@ function App() {
                   className="btn-outline-gradient px-6 py-2 rounded-full font-black transition-all duration-300 transform hover:scale-105"
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
-                  Contact
+                  {portfolioData?.navLabels?.contact || 'Contact'}
                 </a>
               </li>
             </ul>
@@ -258,9 +279,7 @@ function App() {
                 {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
               </button>
             </div>
-          </nav>
-
-          {/* Mobile Menu */}
+          </nav>          {/* Mobile Menu */}
           {mobileMenuOpen && (
             <ul className={`md:hidden flex flex-col items-center space-y-4 mt-4 pb-4 border-t ${theme === 'light' ? 'bg-white/95 text-gray-900 border-gray-200 shadow-lg' : 'bg-gray-900/95 text-white border-gray-800'} backdrop-blur-md`} style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
               <li>
@@ -270,7 +289,7 @@ function App() {
                   onClick={() => setMobileMenuOpen(false)}
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
-                  Profile
+                  {portfolioData?.navLabels?.profile || 'Profile'}
                 </a>
               </li>
               <li className="w-full text-center">
@@ -279,7 +298,7 @@ function App() {
                   onClick={() => setMobileAboutDropdownOpen(!mobileAboutDropdownOpen)}
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
-                  About
+                  {portfolioData?.navLabels?.about || 'About'}
                   <FaChevronDown className={`transition-transform duration-300 ${mobileAboutDropdownOpen ? 'rotate-180' : ''}`} size={14} />
                 </button>
                 {mobileAboutDropdownOpen && (
@@ -290,7 +309,7 @@ function App() {
                       onClick={() => setMobileMenuOpen(false)}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
-                      About
+                      {portfolioData?.navLabels?.about || 'About'}
                     </a>
                     <a
                       href="#education"
@@ -298,7 +317,7 @@ function App() {
                       onClick={() => setMobileMenuOpen(false)}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
-                      Education
+                      {portfolioData?.navLabels?.education || 'Education'}
                     </a>
                     <a
                       href="#experience"
@@ -306,20 +325,36 @@ function App() {
                       onClick={() => setMobileMenuOpen(false)}
                       style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                     >
-                      Experience
+                      {portfolioData?.navLabels?.experience || 'Experience'}
                     </a>
                   </div>
                 )}
               </li>
-              {['Skills', 'Certifications', 'Projects'].map((item) => (
-                <li key={item}>
+              {[
+                { id: 'skills', label: portfolioData?.navLabels?.skills || 'Skills' },
+                { id: 'certifications', label: portfolioData?.navLabels?.certifications || 'Certifications' },
+                { id: 'projects', label: portfolioData?.navLabels?.projects || 'Projects' },
+              ].map((item) => (
+                <li key={item.id}>
                   <a
-                    href={`#${item.toLowerCase()}`}
+                    href={`#${item.id}`}
                     className={`${theme === 'light' ? 'text-gray-900 hover:text-cyan-600' : 'text-white hover:text-gray-300'} transition-colors duration-300 font-extrabold text-lg`}
                     onClick={() => setMobileMenuOpen(false)}
                     style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                   >
-                    {item}
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              {(portfolioData?.customSections || []).filter(sec => sec.enabled !== false).map(sec => (
+                <li key={sec.id}>
+                  <a
+                    href={`#custom-${sec.id}`}
+                    className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 font-extrabold text-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                    style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
+                  >
+                    {sec.title}
                   </a>
                 </li>
               ))}
@@ -330,7 +365,7 @@ function App() {
                   onClick={() => setMobileMenuOpen(false)}
                   style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700 }}
                 >
-                  Contact
+                  {portfolioData?.navLabels?.contact || 'Contact'}
                 </a>
               </li>
             </ul>
