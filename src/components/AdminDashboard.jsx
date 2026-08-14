@@ -22,6 +22,7 @@ function AdminDashboard() {
   const [loginError, setLoginError] = useState('');
   const [showGitHubSettings, setShowGitHubSettings] = useState(false);
   const [githubToken, setGithubToken] = useState(localStorage.getItem('githubToken') || '');
+  const [geminiApiKey, setGeminiApiKey] = useState(localStorage.getItem('geminiApiKey') || '');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visitorSessions, setVisitorSessions] = useState(getStoredSessions());
   const [analyticsFilter, setAnalyticsFilter] = useState('all');
@@ -773,23 +774,21 @@ function AdminDashboard() {
                   <label className="block text-xs font-bold text-gray-300 mb-1.5">Google Gemini API Key</label>
                   <input
                     type="password"
-                    value={portfolioData.aiConfig?.geminiApiKey || ''}
+                    value={geminiApiKey}
                     onChange={(e) => {
                       const val = e.target.value;
-                      localStorage.setItem('geminiApiKey', val);
-                      setPortfolioData(prev => ({
-                        ...prev,
-                        aiConfig: {
-                          ...(prev.aiConfig || {}),
-                          geminiApiKey: val
-                        }
-                      }));
+                      setGeminiApiKey(val);
+                      if (val.trim()) {
+                        localStorage.setItem('geminiApiKey', val.trim());
+                      } else {
+                        localStorage.removeItem('geminiApiKey');
+                      }
                     }}
-                    placeholder="Paste your Gemini API Key here..."
+                    placeholder="AQ.Ab8RN6JgjL..."
                     className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
                   />
                   <p className="text-[11px] text-gray-500 mt-1">
-                    Free API key from Google AI Studio. Stored securely in your admin portfolio configuration.
+                    Stored securely in your browser session. Never committed to public GitHub files.
                   </p>
                 </div>
               </div>
