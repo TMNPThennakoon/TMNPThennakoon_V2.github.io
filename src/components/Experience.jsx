@@ -49,6 +49,11 @@ const convertGoogleDriveLink = (url) => {
     return url;
   }
   
+  // If local relative path without leading slash, add slash
+  if (!url.startsWith('/') && !url.startsWith('http://') && !url.startsWith('https://')) {
+    return `/${url}`;
+  }
+  
   return url;
 };
 
@@ -60,7 +65,7 @@ function Experience() {
 
   useEffect(() => {
     const handleUpdate = (event) => {
-      setPortfolioData(event.detail);
+      if (event.detail) setPortfolioData(event.detail);
     };
     
     window.addEventListener('portfolioDataUpdated', handleUpdate);
@@ -89,7 +94,7 @@ function Experience() {
     
     const checkForUpdates = () => {
       const latest = getPortfolioData();
-      setPortfolioData(latest);
+      if (latest) setPortfolioData(latest);
     };
     checkForUpdates();
     
@@ -179,7 +184,7 @@ function Experience() {
         <div className="max-w-4xl mx-auto">
           {experiences.map((exp, index) => (
             <div
-              key={exp.id}
+              key={exp.id || index}
               className={`group relative bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-cyan-500/30 hover:border-cyan-400 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20 overflow-hidden mb-6 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
@@ -192,34 +197,45 @@ function Experience() {
                     <div className="w-16 h-16 rounded-full bg-white p-2 flex items-center justify-center shadow-lg relative">
                       <img
                         src={convertGoogleDriveLink(exp.logo)}
-                        alt={`${exp.company} logo`}
+                        alt={`${exp.company || 'Company'} logo`}
                         className="w-full h-full object-contain rounded-full"
                         loading="lazy"
-                        crossOrigin={exp.logo && exp.logo.includes('wikimedia.org') ? 'anonymous' : undefined}
                         referrerPolicy="no-referrer"
                         onError={(e) => {
                           const imgElement = e.target;
                           let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
                           attemptCount++;
                           imgElement.dataset.attemptCount = attemptCount.toString();
-
-                          // Try alternative Google Drive formats if it's a Drive link
+                          
+                          // Retry alternative Drive link formats
                           if (exp.logo && exp.logo.includes('drive.google.com') && attemptCount <= 3) {
-                            const fileIdMatch = exp.logo.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) || exp.logo.match(/[?&]id=([a-zA-Z0-9_-]+)/) || exp.logo.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                            const fileIdMatch = exp.logo.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) ||
+                              exp.logo.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
+                              exp.logo.match(/\/d\/([a-zA-Z0-9_-]+)/);
                             if (fileIdMatch) {
                               const fileId = fileIdMatch[1];
                               if (attemptCount === 1) {
                                 imgElement.src = `https://drive.google.com/uc?export=view&id=${fileId}`;
                                 return;
                               } else if (attemptCount === 2) {
-                                imgElement.src = `https://drive.google.com/uc?export=download&id=${fileId}`;
+                                imgElement.src = `https://drive.google.com/thumbnail?id=${fileId}&sz=w500`;
                                 return;
                               }
                             }
                           }
-
+                          
+                          // Fallback to local path if relative
+                          if (attemptCount <= 4 && exp.logo && !exp.logo.startsWith('http')) {
+                            const localPath = exp.logo.startsWith('/') ? exp.logo : `/${exp.logo}`;
+                            if (imgElement.src !== localPath) {
+                              imgElement.src = localPath;
+                              return;
+                            }
+                          }
+                          
+                          // Hide image and display fallback icon
                           imgElement.style.display = 'none';
-                          const fallback = imgElement.parentElement.querySelector('.icon-fallback');
+                          const fallback = imgElement.parentElement?.querySelector('.icon-fallback');
                           if (fallback) fallback.style.display = 'flex';
                         }}
                       />

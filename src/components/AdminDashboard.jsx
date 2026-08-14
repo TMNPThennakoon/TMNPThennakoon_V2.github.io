@@ -940,17 +940,17 @@ function AdminDashboard() {
                       />
                     </div>
                     <div>
-                        <label className="block mb-2 text-sm md:text-base font-medium">Company Logo URL</label>
-                        <input
-                          type="text"
-                          value={exp.logo}
-                          onChange={(e) => handleArrayItemChange('experience', index, 'logo', e.target.value)}
-                          className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
-                          placeholder="/logo.png or Google Drive link"
-                          />
-                        <p className="text-xs text-gray-500 mt-1">
-                          Supports local paths (/logo.png), external URLs, Google Drive links, and Wikipedia URLs (auto-converted)
-                        </p>
+                      <label className="block mb-2 text-sm md:text-base font-medium">Company Logo URL</label>
+                      <input
+                        type="text"
+                        value={exp.logo}
+                        onChange={(e) => handleArrayItemChange('experience', index, 'logo', e.target.value)}
+                        className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none"
+                        placeholder="/logo.png or Google Drive link"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Supports local paths (/logo.png), external URLs, Google Drive links, and Wikipedia URLs (auto-converted)
+                      </p>
                     </div>
                     <div className="col-span-2">
                       <label className="block mb-2 text-sm md:text-base font-medium">Description</label>
@@ -1178,3 +1178,4 @@ function AdminDashboard() {
   );
 }
 
+export default AdminDashboard;
