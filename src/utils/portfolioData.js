@@ -31,7 +31,7 @@ export const savePortfolioData = async (data) => {
     window.dispatchEvent(new CustomEvent('portfolioDataUpdated', { detail: data }));
     
     // Try to save via GitHub API if credentials are available
-    const githubToken = localStorage.getItem('githubToken');
+    const githubToken = (localStorage.getItem('githubToken') || data?.aiConfig?.githubToken || '').trim();
     if (githubToken) {
       try {
         const result = await updatePortfolioJsonOnGitHub(data, githubToken);
@@ -43,14 +43,19 @@ export const savePortfolioData = async (data) => {
         }
       } catch (error) {
         console.error('GitHub API error:', error);
-        // Fall through to export/download option
+        return {
+          success: false,
+          message: '❌ GitHub Sync Error: ' + (error.message || 'Token invalid or expired. Please re-enter your GitHub Token in GitHub Sync Settings.'),
+          requiresManualUpdate: true,
+          data: data
+        };
       }
     }
     
     // If no GitHub token, provide download option
     return { 
       success: true, 
-      message: '⚠️ Changes saved locally. Please export JSON and manually update portfolio.json in GitHub, or set up GitHub API token for automatic sync.',
+      message: '⚠️ Changes saved locally. Please click "✓ GitHub Sync" button on left sidebar to paste your token, or manually upload portfolio.json to GitHub.',
       requiresManualUpdate: true,
       data: data
     };
