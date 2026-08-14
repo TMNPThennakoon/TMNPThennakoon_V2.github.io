@@ -6,7 +6,7 @@
   "homepage": "nayanapabasara.com",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp CNAME dist/CNAME 2>/dev/null || true",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
