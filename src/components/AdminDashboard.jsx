@@ -23,6 +23,7 @@ function AdminDashboard() {
   const [showGitHubSettings, setShowGitHubSettings] = useState(false);
   const [githubToken, setGithubToken] = useState(localStorage.getItem('githubToken') || '');
   const [geminiApiKey, setGeminiApiKey] = useState(localStorage.getItem('geminiApiKey') || '');
+  const [groqApiKey, setGroqApiKey] = useState(localStorage.getItem('groqApiKey') || '');
   const [openaiApiKey, setOpenaiApiKey] = useState(localStorage.getItem('openaiApiKey') || '');
   const [apiTestStatus, setApiTestStatus] = useState('');
   const [isTestingApi, setIsTestingApi] = useState(false);
@@ -759,48 +760,27 @@ function AdminDashboard() {
                   </div>
                 </div>
               </div>
-
-              {/* Universal AI API Key Manager (OpenAI ChatGPT & Google Gemini) */}
+              {/* Universal AI API Key Manager (Gemini, Groq & ChatGPT) */}
               <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl space-y-5">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-bold text-cyan-400 flex items-center gap-2">
-                    <span>🤖</span> AI Assistant API Manager (ChatGPT & Gemini)
+                    <span>🤖</span> AI Assistant API Manager (Gemini, Groq & ChatGPT)
                   </h3>
                   <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-xs font-semibold">
-                    Admin Security Managed
+                    Multi-AI Auto Fallback
                   </span>
                 </div>
                 <p className="text-xs text-gray-400">
-                  Configure your OpenAI ChatGPT API Key or Google Gemini API Key below. The chatbot automatically uses your active key to deliver friendly, 100% accurate AI responses to all site visitors!
+                  Configure your 100% FREE API keys below. The chatbot automatically tries your working keys in order (Gemini → Groq → ChatGPT) so visitors ALWAYS receive fast, 100% accurate AI responses!
                 </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* OpenAI ChatGPT Key Input */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Google Gemini Key Input (100% FREE FOREVER) */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-300 mb-1.5">OpenAI ChatGPT API Key</label>
-                    <input
-                      type="password"
-                      value={openaiApiKey}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        setOpenaiApiKey(val);
-                        if (val.trim()) {
-                          localStorage.setItem('openaiApiKey', val.trim());
-                        } else {
-                          localStorage.removeItem('openaiApiKey');
-                        }
-                      }}
-                      placeholder="sk-proj-e16AJcBD..."
-                      className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
-                    />
-                    <p className="text-[11px] text-gray-500 mt-1">
-                      OpenAI key (starts with sk-proj-...). Friendly ChatGPT engine.
-                    </p>
-                  </div>
-
-                  {/* Google Gemini Key Input */}
-                  <div>
-                    <label className="block text-xs font-bold text-gray-300 mb-1.5">Google Gemini API Key</label>
+                    <div className="flex justify-between items-center mb-1.5">
+                      <label className="block text-xs font-bold text-emerald-400">1. Google Gemini (100% FREE)</label>
+                      <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-[11px] text-sky-400 hover:underline">Get Free Key ↗</a>
+                    </div>
                     <input
                       type="password"
                       value={geminiApiKey}
@@ -814,32 +794,123 @@ function AdminDashboard() {
                         }
                       }}
                       placeholder="AQ.Ab8RN6JgjL..."
-                      className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
+                      className="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-xs text-white focus:border-cyan-400 focus:outline-none"
                     />
-                    <p className="text-[11px] text-gray-500 mt-1">
-                      Free Google Gemini API Key from AI Studio.
-                    </p>
+                    <p className="text-[10px] text-gray-500 mt-1">Google AI Studio key. 100% Free Forever, No Credit Card.</p>
+                  </div>
+
+                  {/* Groq Cloud Key Input (100% FREE FOREVER) */}
+                  <div>
+                    <div className="flex justify-between items-center mb-1.5">
+                      <label className="block text-xs font-bold text-cyan-400">2. Groq Cloud (100% FREE)</label>
+                      <a href="https://console.groq.com/keys" target="_blank" rel="noreferrer" className="text-[11px] text-sky-400 hover:underline">Get Free Key ↗</a>
+                    </div>
+                    <input
+                      type="password"
+                      value={groqApiKey}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setGroqApiKey(val);
+                        if (val.trim()) {
+                          localStorage.setItem('groqApiKey', val.trim());
+                        } else {
+                          localStorage.removeItem('groqApiKey');
+                        }
+                      }}
+                      placeholder="gsk_xxxxxxxx..."
+                      className="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-xs text-white focus:border-cyan-400 focus:outline-none"
+                    />
+                    <p className="text-[10px] text-gray-500 mt-1">Groq Llama 3.3 70B & DeepSeek. Lightning Fast, 100% Free.</p>
+                  </div>
+
+                  {/* OpenAI ChatGPT Key Input */}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1.5">3. OpenAI ChatGPT API</label>
+                    <input
+                      type="password"
+                      value={openaiApiKey}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setOpenaiApiKey(val);
+                        if (val.trim()) {
+                          localStorage.setItem('openaiApiKey', val.trim());
+                        } else {
+                          localStorage.removeItem('openaiApiKey');
+                        }
+                      }}
+                      placeholder="sk-proj-e16AJcBD..."
+                      className="w-full p-2.5 bg-gray-900 border border-gray-700 rounded-lg text-xs text-white focus:border-cyan-400 focus:outline-none"
+                    />
+                    <p className="text-[10px] text-gray-500 mt-1">OpenAI Key (starts with sk-proj-...). Requires active quota.</p>
                   </div>
                 </div>
 
-                {/* API Test Trigger Button & Status Output */}
+                {/* API Multi-Tester Button & Output */}
                 <div className="pt-2 border-t border-gray-700/80 flex flex-col sm:flex-row items-center justify-between gap-3">
                   <button
                     type="button"
                     disabled={isTestingApi}
                     onClick={async () => {
                       setIsTestingApi(true);
-                      setApiTestStatus('⏳ Testing live API connection...');
+                      setApiTestStatus('⏳ Testing all configured AI API connections...');
 
-                      const openaiKey = (openaiApiKey || localStorage.getItem('openaiApiKey') || '').trim();
                       const geminiKey = (geminiApiKey || localStorage.getItem('geminiApiKey') || '').trim();
+                      const groqKey = (groqApiKey || localStorage.getItem('groqApiKey') || '').trim();
+                      const openaiKey = (openaiApiKey || localStorage.getItem('openaiApiKey') || '').trim();
 
-                      if (!openaiKey && !geminiKey) {
-                        setApiTestStatus('⚠️ No API Key entered! Please paste an OpenAI key (sk-proj-...) or Gemini key (AQ...) above.');
+                      if (!geminiKey && !groqKey && !openaiKey) {
+                        setApiTestStatus('⚠️ No API Key entered! Get a 100% Free Gemini Key at aistudio.google.com or Groq Key at console.groq.com');
                         setIsTestingApi(false);
                         return;
                       }
 
+                      let statusResults = [];
+
+                      // Test Gemini
+                      if (geminiKey) {
+                        try {
+                          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'Hi' }] }] })
+                          });
+                          const data = await res.json();
+                          if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                            statusResults.push('✅ Google Gemini API: ACTIVE & WORKING');
+                          } else {
+                            statusResults.push(`❌ Gemini Error: ${data.error?.message || 'Invalid key'}`);
+                          }
+                        } catch (e) {
+                          statusResults.push(`❌ Gemini Network Error`);
+                        }
+                      }
+
+                      // Test Groq
+                      if (groqKey) {
+                        try {
+                          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                              'Authorization': `Bearer ${groqKey}`
+                            },
+                            body: JSON.stringify({
+                              model: 'llama-3.3-70b-versatile',
+                              messages: [{ role: 'user', content: 'Hi' }]
+                            })
+                          });
+                          const data = await res.json();
+                          if (data.choices && data.choices[0]?.message?.content) {
+                            statusResults.push('✅ Groq Llama 3.3 API: ACTIVE & WORKING');
+                          } else {
+                            statusResults.push(`❌ Groq Error: ${data.error?.message || 'Invalid key'}`);
+                          }
+                        } catch (e) {
+                          statusResults.push(`❌ Groq Network Error`);
+                        }
+                      }
+
+                      // Test OpenAI
                       if (openaiKey) {
                         try {
                           const res = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -850,53 +921,26 @@ function AdminDashboard() {
                             },
                             body: JSON.stringify({
                               model: 'gpt-4o-mini',
-                              messages: [{ role: 'user', content: 'Say hello in 3 words' }]
+                              messages: [{ role: 'user', content: 'Hi' }]
                             })
                           });
                           const data = await res.json();
                           if (data.choices && data.choices[0]?.message?.content) {
-                            setApiTestStatus(`✅ OpenAI ChatGPT API Connected & Working! Response: "${data.choices[0].message.content}"`);
-                            setIsTestingApi(false);
-                            return;
-                          } else if (data.error) {
-                            setApiTestStatus(`❌ OpenAI API Error (${data.error.type || 'Error'}): ${data.error.message}`);
-                            setIsTestingApi(false);
-                            return;
+                            statusResults.push('✅ OpenAI ChatGPT API: ACTIVE & WORKING');
+                          } else {
+                            statusResults.push(`❌ OpenAI Error (${data.error?.code || 'Error'}): ${data.error?.message}`);
                           }
-                        } catch (err) {
-                          setApiTestStatus(`❌ OpenAI Network Error: ${err.message}`);
-                          setIsTestingApi(false);
-                          return;
+                        } catch (e) {
+                          statusResults.push(`❌ OpenAI Network Error`);
                         }
                       }
 
-                      if (geminiKey) {
-                        try {
-                          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'Say hello in 3 words' }] }] })
-                          });
-                          const data = await res.json();
-                          if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-                            setApiTestStatus(`✅ Gemini API Connected & Working! Response: "${data.candidates[0].content.parts[0].text}"`);
-                            setIsTestingApi(false);
-                            return;
-                          } else if (data.error) {
-                            setApiTestStatus(`❌ Gemini API Error (${data.error.code}): ${data.error.message}`);
-                            setIsTestingApi(false);
-                            return;
-                          }
-                        } catch (err) {
-                          setApiTestStatus(`❌ Gemini Network Error: ${err.message}`);
-                          setIsTestingApi(false);
-                          return;
-                        }
-                      }
+                      setApiTestStatus(statusResults.join(' | '));
+                      setIsTestingApi(false);
                     }}
                     className="px-4 py-2 bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-black font-extrabold text-xs sm:text-sm rounded-lg shadow-lg disabled:opacity-50 transition-all"
                   >
-                    {isTestingApi ? '⏳ Testing Live API Connection...' : '⚡ Test Live API Connection'}
+                    {isTestingApi ? '⏳ Testing All API Keys...' : '⚡ Test All API Connections'}
                   </button>
 
                   {apiTestStatus && (

@@ -38,7 +38,7 @@ function Chatbot() {
     "📧 How to contact Nayana?"
   ];
 
-  // API-FIRST AI Engine supporting OpenAI ChatGPT, Gemini, and local fallback
+  // Universal Multi-API Engine supporting Gemini (Free), Groq (Free), OpenAI, and local fallback
   const fetchAIResponse = async (userQuery) => {
     const rawQuery = userQuery.trim();
     const query = rawQuery.toLowerCase();
@@ -47,46 +47,11 @@ function Chatbot() {
     const education = portfolioData?.education || [];
     const projects = portfolioData?.projects || [];
 
-    const openaiApiKey = (localStorage.getItem('openaiApiKey') || portfolioData?.aiConfig?.openaiApiKey || '').trim();
     const geminiApiKey = (localStorage.getItem('geminiApiKey') || portfolioData?.aiConfig?.geminiApiKey || '').trim();
+    const groqApiKey = (localStorage.getItem('groqApiKey') || portfolioData?.aiConfig?.groqApiKey || '').trim();
+    const openaiApiKey = (localStorage.getItem('openaiApiKey') || portfolioData?.aiConfig?.openaiApiKey || '').trim();
 
-    // 1. OpenAI ChatGPT API Call (API FIRST!)
-    if (openaiApiKey && (openaiApiKey.startsWith('sk-') || openaiApiKey.length > 20)) {
-      try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${openaiApiKey}`
-          },
-          body: JSON.stringify({
-            model: 'gpt-4o-mini',
-            messages: [
-              {
-                role: 'system',
-                content: `You are Nayana Pabasara's friendly AI Assistant and Automation Engineering Specialist.
-Be warm, polite, and conversational like a helpful friend.
-Answer questions about Nayana Pabasara's background, Michelin internship, University of Colombo degree, skills, and projects accurately.
-Answer ANY technical engineering, PLC, SCADA, Ladder Logic, coding, physics, electronics, or web development question with high precision.
-If asked non-technical off-topic questions (e.g. movies, gossip, food recipes), politely decline and state that you are specialized strictly in Engineering and Portfolio topics.`
-              },
-              { role: 'user', content: rawQuery }
-            ],
-            temperature: 0.7
-          })
-        });
-        const data = await response.json();
-        if (data.choices && data.choices[0]?.message?.content) {
-          return data.choices[0].message.content;
-        } else if (data.error) {
-          console.error('OpenAI API Error details:', data.error);
-        }
-      } catch (err) {
-        console.error('OpenAI API Exception:', err);
-      }
-    }
-
-    // 2. Google Gemini API Call (API SECOND!)
+    // 1. Google Gemini API Call (100% FREE FOREVER)
     if (geminiApiKey) {
       try {
         const response = await fetch(
@@ -100,7 +65,7 @@ If asked non-technical off-topic questions (e.g. movies, gossip, food recipes), 
                   role: 'user',
                   parts: [
                     {
-                      text: `You are Nayana Pabasara's friendly AI Assistant and Automation Engineering Specialist. Answer warmly and technically. User Query: ${rawQuery}`
+                      text: `You are Nayana Pabasara's friendly AI Assistant and Automation Engineering Specialist. Be warm, enthusiastic, polite, and technical. Answer questions about Nayana's background, Michelin internship, University of Colombo degree, PLC automation, SCADA, Web Dev, and technical engineering topics accurately. User Query: ${rawQuery}`
                     }
                   ]
                 }
@@ -113,19 +78,74 @@ If asked non-technical off-topic questions (e.g. movies, gossip, food recipes), 
           return data.candidates[0].content.parts[0].text;
         }
       } catch (err) {
-        console.error('Gemini API Error:', err);
+        console.error('Gemini API Exception:', err);
       }
     }
 
-    // 3. Fallback to Local Knowledge Base ONLY if no API Key or API call fails!
+    // 2. Groq Cloud API Call (100% FREE FOREVER - Llama 3.3 70B)
+    if (groqApiKey) {
+      try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${groqApiKey}`
+          },
+          body: JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+              {
+                role: 'system',
+                content: `You are Nayana Pabasara's friendly AI Assistant and Automation Engineering Specialist. Be warm, polite, and technical. Answer questions about Nayana's background, Michelin internship, University of Colombo degree, PLC automation, SCADA, Web Dev, and engineering topics accurately.`
+              },
+              { role: 'user', content: rawQuery }
+            ],
+            temperature: 0.7
+          })
+        });
+        const data = await response.json();
+        if (data.choices && data.choices[0]?.message?.content) {
+          return data.choices[0].message.content;
+        }
+      } catch (err) {
+        console.error('Groq API Exception:', err);
+      }
+    }
+
+    // 3. OpenAI ChatGPT API Call
+    if (openaiApiKey && (openaiApiKey.startsWith('sk-') || openaiApiKey.length > 20)) {
+      try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${openaiApiKey}`
+          },
+          body: JSON.stringify({
+            model: 'gpt-4o-mini',
+            messages: [
+              {
+                role: 'system',
+                content: `You are Nayana Pabasara's friendly AI Assistant and Automation Engineering Specialist. Answer warmly and technically.`
+              },
+              { role: 'user', content: rawQuery }
+            ],
+            temperature: 0.7
+          })
+        });
+        const data = await response.json();
+        if (data.choices && data.choices[0]?.message?.content) {
+          return data.choices[0].message.content;
+        }
+      } catch (err) {
+        console.error('OpenAI API Exception:', err);
+      }
+    }
+
+    // 4. Fallback to Local Knowledge Base ONLY if no API Key or API calls fail
     const greetingRegex = /^(hi|hii|hiii|hello|hey|heyy|bro|mchn|machan|ayubowan|good morning|good evening|kohomada|hlo|hola)(\s+.*)?$/i;
     if (greetingRegex.test(query) && query.split(' ').length <= 4) {
       return `Hey there! 👋 Great to meet you! I'm Nayana's AI Assistant.\nHow can I help you today with Nayana's engineering background, Michelin internship, PLC automation, SCADA, or web dev projects?`;
-    }
-
-    const offTopicRegex = /(movie|film|actress|actor|cricket|song|music|recipe|food|cooking|gossip|politics|election|president)/i;
-    if (offTopicRegex.test(query)) {
-      return `I am specialized as Nayana's Engineering & Portfolio Assistant! 😊\nI can help you with questions about Nayana's background, PLC programming, SCADA, Web Development, Electronics, or technical topics. Feel free to ask any technical question!`;
     }
 
     if (query.includes('contact') || query.includes('email') || query.includes('phone') || query.includes('linkedin') || query.includes('github') || query.includes('reach')) {
@@ -156,14 +176,6 @@ If asked non-technical off-topic questions (e.g. movies, gossip, food recipes), 
 
     if (query.includes('plc') || query.includes('ladder') || query.includes('siemens') || query.includes('scada')) {
       return `⚙️ **PLC & Automation Engineering**:\nNayana works with Siemens S7-1200/1500 PLCs, Ladder Logic (LAD), Function Block Diagrams (FBD), Structured Text (ST), Ignition SCADA, Modbus TCP/IP, and SQL database integration for industrial telemetry and equipment automation.`;
-    }
-
-    if (query.includes('fpga') || query.includes('verilog') || query.includes('vhdl')) {
-      return `🔬 **FPGA & Digital Logic**:\nNayana designs hardware digital logic circuits using Verilog/VHDL, Xilinx Vivado, state machines, logic gates, and hardware description languages.`;
-    }
-
-    if (query.includes('react') || query.includes('web') || query.includes('javascript') || query.includes('node') || query.includes('frontend')) {
-      return `💻 **Full-Stack Development**:\nNayana builds responsive web apps using React 19, JavaScript ES6+, Vite, Tailwind CSS, Node.js, Express, and MySQL/MongoDB databases.`;
     }
 
     return `Hey! 👋 I can help you with Nayana's portfolio, PLC automation, SCADA, Web Dev, and any technical engineering questions!`;
