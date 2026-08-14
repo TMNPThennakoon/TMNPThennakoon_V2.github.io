@@ -25,6 +25,40 @@ import {
 import * as THREE from 'three';
 import { getPortfolioData } from '../utils/portfolioData';
 
+// Helper to convert Google Drive links to direct image URLs
+const convertGoogleDriveLink = (url) => {
+  if (!url) return url;
+  if (url.includes('wikipedia.org')) {
+    const mediaMatch = url.match(/[#\/]media\/File:([^\/?#]+)/i);
+    if (mediaMatch) {
+      const filename = decodeURIComponent(mediaMatch[1]);
+      const firstChar = filename.charAt(0).toUpperCase();
+      const firstTwoChars = filename.substring(0, 2).replace(/\s/g, '_');
+      return `https://upload.wikimedia.org/wikipedia/commons/thumb/${firstChar}/${firstTwoChars}/${filename}/500px-${filename}`;
+    }
+    return url;
+  }
+  
+  let fileId = null;
+  const driveMatch1 = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch1) fileId = driveMatch1[1];
+  const driveMatch2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (driveMatch2 && !fileId) fileId = driveMatch2[1];
+  const driveMatch3 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch3 && !fileId) fileId = driveMatch3[1];
+  
+  if (fileId) {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  }
+  if (url.includes('uc?export=view') || url.includes('thumbnail?id=')) {
+    return url;
+  }
+  if (!url.startsWith('/') && !url.startsWith('http://') && !url.startsWith('https://')) {
+    return `/${url}`;
+  }
+  return url;
+};
+
 function Profile() {
   const threeRef = useRef(null);
   const containerRef = useRef(null);
@@ -36,12 +70,30 @@ function Profile() {
   const [typingSpeed, setTypingSpeed] = useState(150);
   const [isInView, setIsInView] = useState(false);
   const [portfolioData, setPortfolioData] = useState(getPortfolioData());
-  const profile = portfolioData.profile;
+  const profile = portfolioData?.profile || {};
   const wordsToAnimate = profile.typingWords || ['Engineering Technology Student', 'Web Developer', 'UI/UX Designer'];
+
+  // Calculate active profile images for slideshow
+  const activeImages = (profile?.profileImages && profile.profileImages.length > 0)
+    ? profile.profileImages.filter(img => (typeof img === 'object' ? img.enabled !== false : true)).map(img => typeof img === 'object' ? img.url : img)
+    : [profile?.profileImage || '/pro.png'];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (activeImages.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % activeImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [activeImages.length]);
+
+  const rawCurrentSrc = activeImages[currentImageIndex] || profile?.profileImage || '/pro.png';
+  const activeSrc = convertGoogleDriveLink(rawCurrentSrc);
 
   useEffect(() => {
     const handleUpdate = (event) => {
-      setPortfolioData(event.detail);
+      if (event.detail) setPortfolioData(event.detail);
     };
     
     window.addEventListener('portfolioDataUpdated', handleUpdate);
@@ -70,7 +122,7 @@ function Profile() {
     
     const checkForUpdates = () => {
       const latest = getPortfolioData();
-      setPortfolioData(latest);
+      if (latest) setPortfolioData(latest);
     };
     checkForUpdates();
     
@@ -103,25 +155,25 @@ function Profile() {
     };
   }, []);
 
-  // Typing animation
+  // Typing effect
   useEffect(() => {
     const handleTyping = () => {
       const i = loopNum % wordsToAnimate.length;
       const fullText = wordsToAnimate[i];
-      const speed = isDeleting ? 80 : Math.random() * 100 + 100;
 
-      setTypingSpeed(speed);
       setText(
         isDeleting
           ? fullText.substring(0, text.length - 1)
           : fullText.substring(0, text.length + 1)
       );
 
+      setTypingSpeed(isDeleting ? 50 : 150);
+
       if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 1000);
+        setTimeout(() => setIsDeleting(true), 2000);
       } else if (isDeleting && text === '') {
         setIsDeleting(false);
-        setLoopNum((n) => n + 1);
+        setLoopNum(loopNum + 1);
       }
     };
 
@@ -129,174 +181,126 @@ function Profile() {
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, typingSpeed, wordsToAnimate]);
 
-  // --- 3D Background (Three.js) ---
+  // Three.js background animation
   useEffect(() => {
-    const mount = threeRef.current;
-    const host = containerRef.current;
-    if (!mount || !host) return;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(host.clientWidth, host.clientHeight);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    mount.appendChild(renderer.domElement);
+    if (!threeRef.current) return;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x03111a, 0.015);
-
     const camera = new THREE.PerspectiveCamera(
-      60,
-      host.clientWidth / host.clientHeight,
+      75,
+      window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
-    camera.position.set(0, 0, 80);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
-    const light = new THREE.DirectionalLight(0x88ccff, 0.8);
-    light.position.set(5, 10, 7);
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0x226677, 0.6));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    const particleCount = 2200;
-    const radius = 120;
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
+    const currentRef = threeRef.current;
+    currentRef.appendChild(renderer.domElement);
 
-    const colorA = new THREE.Color('#4fd1c5');
-    const colorB = new THREE.Color('#60a5fa');
+    // Create particles
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 200;
 
-    for (let i = 0; i < particleCount; i++) {
-      const r = radius * Math.cbrt(Math.random());
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
+    const posArray = new Float32Array(particlesCount * 3);
+    for (let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 15;
+    }
 
-      const x = r * Math.sin(phi) * Math.cos(theta);
-      const y = r * Math.sin(phi) * Math.sin(theta);
-      const z = r * Math.cos(phi);
+    particlesGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(posArray, 3)
+    );
 
-      positions[i * 3] = x;
-      positions[i * 3 + 1] = y;
-      positions[i * 3 + 2] = z;
-
-      const t = Math.random();
-      const c = colorA.clone().lerp(colorB, t);
-      colors[i * 3] = c.r;
-      colors[i * 3 + 1] = c.g;
-      colors[i * 3 + 2] = c.b;
-      }
-
-    const pGeom = new THREE.BufferGeometry();
-    pGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    pGeom.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const pMat = new THREE.PointsMaterial({
-      size: 1.2,
-      vertexColors: true,
+    const particlesMaterial = new THREE.PointsMaterial({
+      size: 0.03,
+      color: 0x38bdf8,
       transparent: true,
-      opacity: 0.22,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-      sizeAttenuation: true,
+      opacity: 0.6,
     });
 
-    const particles = new THREE.Points(pGeom, pMat);
-    scene.add(particles);
-
-    const poly = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(18, 1),
-      new THREE.MeshPhysicalMaterial({
-        color: 0x8ec5ff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.25,
-      })
+    const particlesMesh = new THREE.Points(
+      particlesGeometry,
+      particlesMaterial
     );
-    scene.add(poly);
+    scene.add(particlesMesh);
 
-    let mouseX = 0,
-      mouseY = 0;
+    // Add geometric shapes
+    const geometry = new THREE.IcosahedronGeometry(2, 1);
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x10b981,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.15,
+    });
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
 
-    const onMouseMove = (e) => {
-      const rect = host.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      mouseX = x;
-      mouseY = y;
+    camera.position.z = 5;
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const handleMouseMove = (event) => {
+      mouseX = (event.clientX / window.innerWidth - 0.5) * 0.5;
+      mouseY = (event.clientY / window.innerHeight - 0.5) * 0.5;
     };
 
-    host.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
 
-    const onResize = () => {
-      renderer.setSize(host.clientWidth, host.clientHeight);
-      camera.aspect = host.clientWidth / host.clientHeight;
-      camera.updateProjectionMatrix();
-    };
+    let animationFrameId;
+    const animate = () => {
+      particlesMesh.rotation.y += 0.001;
+      particlesMesh.rotation.x += 0.0005;
 
-    window.addEventListener('resize', onResize);
+      sphere.rotation.x += 0.002;
+      sphere.rotation.y += 0.003;
 
-    let start = performance.now();
-    let raf;
-
-    const animate = (t) => {
-      const elapsed = (t - start) * 0.001;
-
-      camera.position.x += (mouseX * 30 - camera.position.x) * 0.05;
-      camera.position.y += (-mouseY * 20 - camera.position.y) * 0.05;
-      camera.lookAt(0, 0, 0);
-
-      const pos = pGeom.attributes.position;
-      for (let i = 0; i < particleCount; i++) {
-        const ix = i * 3;
-        const iy = ix + 1;
-        const iz = ix + 2;
-
-        const dx = Math.sin(elapsed * 0.2 + ix) * 0.02;
-        const dy = Math.cos(elapsed * 0.25 + iy) * 0.02;
-        const dz = Math.sin(elapsed * 0.22 + iz) * 0.02;
-
-        pos.array[ix] += dx;
-        pos.array[iy] += dy;
-        pos.array[iz] += dz;
-      }
-      pos.needsUpdate = true;
-
-      particles.rotation.y += 0.0008;
-      particles.rotation.x += 0.0003;
-
-      poly.rotation.x += 0.0007;
-      poly.rotation.y -= 0.001;
-
-      const pulse = 0.25 + Math.sin(elapsed * 0.8) * 0.08;
-      poly.material.opacity = pulse;
+      camera.position.x += (mouseX - camera.position.x) * 0.05;
+      camera.position.y += (-mouseY - camera.position.y) * 0.05;
 
       renderer.render(scene, camera);
-      raf = requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
-    raf = requestAnimationFrame(animate);
+    animate();
+
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('resize', onResize);
-      host.removeEventListener('mousemove', onMouseMove);
-      mount.removeChild(renderer.domElement);
-      pGeom.dispose();
-      pMat.dispose();
-      poly.geometry.dispose();
-      poly.material.dispose();
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+
+      if (currentRef && currentRef.contains(renderer.domElement)) {
+        currentRef.removeChild(renderer.domElement);
+      }
+
+      particlesGeometry.dispose();
+      particlesMaterial.dispose();
+      geometry.dispose();
+      material.dispose();
       renderer.dispose();
     };
   }, []);
 
-  // 3D tilt on profile image with smooth live tracking
+  // 3D tilt effect on profile image
   useEffect(() => {
-    const element = imageRef.current;
-    if (!element) return;
+    if (!imageRef.current) return;
 
-    let currentX = 0;
-    let currentY = 0;
+    const element = imageRef.current;
     let targetX = 0;
     let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
     let raf;
 
     const handleMouseMove = (e) => {
@@ -313,7 +317,6 @@ function Profile() {
     };
 
     const animate = () => {
-      // Smooth interpolation for fluid motion
       currentX += (targetX - currentX) * 0.1;
       currentY += (targetY - currentY) * 0.1;
 
@@ -351,16 +354,36 @@ function Profile() {
       />
 
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 max-w-7xl mx-auto" ref={contentRef}>
-        {/* Profile Image - keeping the original structure with custom animation */}
+        {/* Profile Image with Slideshow support */}
         <div
           ref={imageRef}
           className="relative group transition-transform duration-300 ease-out"
           style={{ animation: 'fadeInSmooth 1.2s ease-out', transformStyle: 'preserve-3d' }}
         >
           <img
-            src={profile.profileImage}
-            alt={profile.name}
-            className="w-64 h-64 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full border-8 border-white/20 object-cover shadow-2xl transition-all duration-700"
+            key={activeSrc}
+            src={activeSrc}
+            alt={profile.name || 'Profile'}
+            className="w-64 h-64 sm:w-72 sm:h-72 lg:w-96 lg:h-96 rounded-full border-8 border-white/20 object-cover shadow-2xl transition-all duration-700 animate-fadeIn"
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              const imgElement = e.target;
+              let attemptCount = parseInt(imgElement.dataset.attemptCount || '0');
+              attemptCount++;
+              imgElement.dataset.attemptCount = attemptCount.toString();
+              
+              if (rawCurrentSrc && rawCurrentSrc.includes('drive.google.com') && attemptCount <= 2) {
+                const fileIdMatch = rawCurrentSrc.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) ||
+                  rawCurrentSrc.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
+                  rawCurrentSrc.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                if (fileIdMatch) {
+                  imgElement.src = `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
+                  return;
+                }
+              }
+              imgElement.src = '/pro.png';
+            }}
           />
         </div>
 
@@ -461,7 +484,7 @@ function Profile() {
             ))}
           </motion.div>
 
-          {/* Social / CTAs with zoom effect */}
+          {/* Social / CTAs */}
           <motion.div
             className="flex justify-center lg:justify-start items-center gap-4 pt-8 flex-wrap"
             initial={{ opacity: 0, y: 20 }}
@@ -471,92 +494,43 @@ function Profile() {
             {[
               {
                 label: 'GitHub',
-                href: profile.socialLinks.github,
+                href: profile.socialLinks?.github,
                 external: true,
               },
               {
                 label: 'LinkedIn',
-                href: profile.socialLinks.linkedin,
+                href: profile.socialLinks?.linkedin,
                 external: true,
               },
               {
-                label: 'Download CV',
-                href: profile.socialLinks.cv,
-                download: 'CV.pdf',
+                label: 'Email',
+                href: `mailto:${profile.socialLinks?.email}`,
+                external: false,
               },
-              { label: 'Email', href: `mailto:${profile.socialLinks.email}` },
-            ].map(({ label, href, external, download }, idx) => (
-              <motion.a
-                key={label}
-                href={href}
-                className="btn-outline-gradient relative overflow-hidden rounded-full px-8 py-3 font-semibold text-white text-base shadow-md border-2 border-transparent bg-clip-padding transition-all duration-500"
-                {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                {...(download ? { download } : {})}
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 10, scale: 0.95 }}
-                whileHover={{ scale: 1.08 }}
-                transition={{
-                  duration: 0.5,
-                  delay: isInView ? 1.4 + idx * 0.1 : 0,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                style={{ transformOrigin: 'center' }}
-            >
-                <span className="relative z-10">{label}</span>
-              </motion.a>
+            ].map((btn) => (
+              <a
+                key={btn.label}
+                href={btn.href}
+                target={btn.external ? '_blank' : '_self'}
+                rel={btn.external ? 'noopener noreferrer' : ''}
+                className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 hover:border-sky-400/50 transition-all duration-300 transform hover:-translate-y-1"
+              >
+                {btn.label}
+              </a>
             ))}
+            {profile.socialLinks?.cv && (
+              <a
+                href={profile.socialLinks.cv}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-sky-400 to-emerald-400 text-black font-bold hover:opacity-90 transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-cyan-500/20"
+              >
+                Download CV
+              </a>
+            )}
           </motion.div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes fadeInSmooth {
-          from {
-            opacity: 0;
-            transform: translateY(8px);
-          }
-          to {
-            opacity: 1;
-            transform: none;
-          }
-        }
-
-        .blinking-cursor {
-          display: inline-block;
-          width: 1ch;
-          margin-left: 2px;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.6),
-            transparent
-          );
-          animation: blink 1s step-start infinite;
-        }
-
-        @keyframes blink {
-          50% {
-            opacity: 0;
-          }
-        }
-
-        /* Gradient outline → filled hover */
-        .btn-outline-gradient {
-          background: linear-gradient(#000, #000) padding-box,
-            linear-gradient(90deg, #38bdf8, #10b981) border-box;
-          border-radius: 9999px;
-          border: 2px solid transparent;
-          position: relative;
-          isolation: isolate;
-          transition: all 0.4s ease;
-        }
-
-        .btn-outline-gradient:hover {
-          background: linear-gradient(90deg, #38bdf8, #10b981);
-          color: #000;
-          box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-        }
-      `}</style>
     </section>
   );
 }

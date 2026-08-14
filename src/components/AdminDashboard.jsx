@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getPortfolioData, exportPortfolioData, importPortfolioData, savePortfolioData } from '../utils/portfolioData';
+import { getStoredSessions, exportAnalyticsCSV } from '../utils/analyticsTracker';
 import Profile from './Profile';
 import About from './About';
 import Skills from './Skills';
@@ -11,7 +12,7 @@ import Education from './Education';
 
 function AdminDashboard() {
   const [portfolioData, setPortfolioData] = useState(null);
-  const [activeTab, setActiveTab] = useState('profile');
+  const [activeTab, setActiveTab] = useState('analytics');
   const [saveStatus, setSaveStatus] = useState('');
   const [showPreview, setShowPreview] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -21,6 +22,40 @@ function AdminDashboard() {
   const [showGitHubSettings, setShowGitHubSettings] = useState(false);
   const [githubToken, setGithubToken] = useState(localStorage.getItem('githubToken') || '');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [visitorSessions, setVisitorSessions] = useState(getStoredSessions());
+  const [analyticsFilter, setAnalyticsFilter] = useState('all');
+
+  useEffect(() => {
+    const handleSessionsUpdate = (e) => {
+      if (e.detail) setVisitorSessions(e.detail);
+    };
+    window.addEventListener('visitorSessionsUpdated', handleSessionsUpdate);
+    return () => window.removeEventListener('visitorSessionsUpdated', handleSessionsUpdate);
+  }, []);
+
+  const filteredSessions = visitorSessions.filter((s) => {
+    if (analyticsFilter === 'today') {
+      const todayStr = new Date().toISOString().split('T')[0];
+      return s.date === todayStr;
+    }
+    if (analyticsFilter === 'week') {
+      const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+      return s.timestamp >= sevenDaysAgo;
+    }
+    if (analyticsFilter === 'month') {
+      const thirtyDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+      return s.timestamp >= thirtyDaysAgo;
+    }
+    return true;
+  });
+
+  const todayStr = new Date().toISOString().split('T')[0];
+  const todayCount = visitorSessions.filter((s) => s.date === todayStr).length;
+  const mobileCount = filteredSessions.filter((s) => s.device === 'Mobile').length;
+  const desktopCount = filteredSessions.filter((s) => s.device === 'Desktop').length;
+  const totalCount = filteredSessions.length || 1;
+  const mobilePercent = Math.round((mobileCount / totalCount) * 100);
+  const desktopPercent = Math.round((desktopCount / totalCount) * 100);
 
   useEffect(() => {
     const storedAuth = localStorage.getItem('dashboardAuth');
@@ -259,6 +294,8 @@ function AdminDashboard() {
   }
 
   const menuItems = [
+    { id: 'analytics', label: 'Analytics & Traffic', icon: '📊' },
+    { id: 'navigation', label: 'Navigation & Sections', icon: '🧭' },
     { id: 'profile', label: 'Home', icon: '🏠' },
     { id: 'about', label: 'About', icon: '👤' },
     { id: 'skills', label: 'Skills', icon: '⚙️' },
@@ -490,6 +527,287 @@ function AdminDashboard() {
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto p-3 md:p-6 bg-gray-900">
+          {/* Analytics & Traffic Tab */}
+          {activeTab === 'analytics' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gray-800 p-6 rounded-xl border border-gray-700">
+                <div>
+                  <h2 className="text-2xl font-bold text-cyan-400 flex items-center gap-2">
+                    <span>📊</span> Visitor Analytics & Traffic Insights
+                  </h2>
+                  <p className="text-gray-400 text-sm mt-1">
+                    Real-time tracking of visitor IPs, locations, devices, browsers, and session timestamps.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <select
+                    value={analyticsFilter}
+                    onChange={(e) => setAnalyticsFilter(e.target.value)}
+                    className="px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:outline-none focus:border-cyan-400"
+                  >
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week (Last 7 Days)</option>
+                    <option value="month">This Month (Last 30 Days)</option>
+                  </select>
+                  <button
+                    onClick={() => exportAnalyticsCSV(filteredSessions)}
+                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg text-sm flex items-center gap-2 transition-colors"
+                  >
+                    <span>📥</span> Export CSV Report
+                  </button>
+                </div>
+              </div>
+
+              {/* Metric Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                  <p className="text-gray-400 text-sm font-medium">Total Visits</p>
+                  <h3 className="text-3xl font-extrabold text-white mt-1">{filteredSessions.length}</h3>
+                  <p className="text-xs text-cyan-400 mt-2">Sessions recorded</p>
+                </div>
+                <div className="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                  <p className="text-gray-400 text-sm font-medium">Today's Visits</p>
+                  <h3 className="text-3xl font-extrabold text-cyan-400 mt-1">{todayCount}</h3>
+                  <p className="text-xs text-gray-400 mt-2">{new Date().toLocaleDateString()}</p>
+                </div>
+                <div className="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                  <p className="text-gray-400 text-sm font-medium">Mobile Traffic</p>
+                  <h3 className="text-3xl font-extrabold text-emerald-400 mt-1">{mobilePercent}%</h3>
+                  <p className="text-xs text-gray-400 mt-2">{mobileCount} mobile visitors</p>
+                </div>
+                <div className="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                  <p className="text-gray-400 text-sm font-medium">Desktop Traffic</p>
+                  <h3 className="text-3xl font-extrabold text-blue-400 mt-1">{desktopPercent}%</h3>
+                  <p className="text-xs text-gray-400 mt-2">{desktopCount} desktop visitors</p>
+                </div>
+              </div>
+
+              {/* Visitor Logs Table */}
+              <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+                <div className="p-4 border-b border-gray-700 flex justify-between items-center">
+                  <h3 className="font-bold text-lg text-white">Recent Visitor Sessions ({filteredSessions.length})</h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-sm text-gray-300">
+                    <thead className="bg-gray-900 text-gray-400 uppercase text-xs">
+                      <tr>
+                        <th className="px-4 py-3">Date & Time</th>
+                        <th className="px-4 py-3">IP Address</th>
+                        <th className="px-4 py-3">Location</th>
+                        <th className="px-4 py-3">Device</th>
+                        <th className="px-4 py-3">Browser / OS</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-700">
+                      {filteredSessions.length === 0 ? (
+                        <tr>
+                          <td colSpan="5" className="px-4 py-6 text-center text-gray-400">
+                            No visitor sessions recorded for this filter range yet.
+                          </td>
+                        </tr>
+                      ) : (
+                        filteredSessions.slice(0, 50).map((s) => (
+                          <tr key={s.id} className="hover:bg-gray-750 transition-colors">
+                            <td className="px-4 py-3 font-medium text-white whitespace-nowrap">
+                              {s.date} <span className="text-gray-400 text-xs ml-1">{s.time}</span>
+                            </td>
+                            <td className="px-4 py-3 font-mono text-cyan-400 whitespace-nowrap">{s.ip}</td>
+                            <td className="px-4 py-3 whitespace-nowrap">📍 {s.location}</td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${s.device === 'Mobile' ? 'bg-purple-900/60 text-purple-300' : s.device === 'Tablet' ? 'bg-amber-900/60 text-amber-300' : 'bg-blue-900/60 text-blue-300'}`}>
+                                {s.device === 'Mobile' ? '📱 Mobile' : s.device === 'Tablet' ? '📟 Tablet' : '💻 Desktop'}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-gray-300">
+                              {s.browser} ({s.os})
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Navigation & Custom Sections Tab */}
+          {activeTab === 'navigation' && (
+            <div className="space-y-8">
+              {/* Section 1: Customize Navbar Labels */}
+              <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl space-y-4">
+                <h2 className="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                  <span>🏷️</span> Rename Navbar Section Labels
+                </h2>
+                <p className="text-sm text-gray-400">
+                  Change how section names appear in the top Navbar menu (on Desktop and Mobile).
+                </p>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {[
+                    { key: 'profile', label: 'Profile / Home Section', defaultVal: 'Profile' },
+                    { key: 'about', label: 'About Section', defaultVal: 'About' },
+                    { key: 'skills', label: 'Skills Section', defaultVal: 'Skills' },
+                    { key: 'certifications', label: 'Certifications Section', defaultVal: 'Certifications' },
+                    { key: 'education', label: 'Education Section', defaultVal: 'Education' },
+                    { key: 'experience', label: 'Experience Section', defaultVal: 'Experience' },
+                    { key: 'projects', label: 'Portfolio / Projects Section', defaultVal: 'Projects' },
+                    { key: 'contact', label: 'Contact Section', defaultVal: 'Contact' },
+                  ].map(({ key, label, defaultVal }) => (
+                    <div key={key}>
+                      <label className="block text-xs font-semibold text-gray-300 mb-1">{label}</label>
+                      <input
+                        type="text"
+                        value={portfolioData.navLabels?.[key] ?? defaultVal}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setPortfolioData(prev => ({
+                            ...prev,
+                            navLabels: {
+                              ...(prev.navLabels || {}),
+                              [key]: val
+                            }
+                          }));
+                        }}
+                        className="w-full p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:border-cyan-400 focus:outline-none"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Section 2: Custom Dynamic Sections */}
+              <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-700 pb-4">
+                  <div>
+                    <h2 className="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                      <span>➕</span> Add Custom Sections (Mobile Responsive)
+                    </h2>
+                    <p className="text-sm text-gray-400 mt-1">
+                      Create new custom sections on your website (e.g. Services, Research, Hobbies, Open Source). They will automatically appear in your Navbar and Page!
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPortfolioData(prev => {
+                        const newCustom = [...(prev.customSections || [])];
+                        newCustom.push({
+                          id: Date.now(),
+                          title: 'New Custom Section',
+                          subtitle: '',
+                          content: '',
+                          enabled: true
+                        });
+                        return { ...prev, customSections: newCustom };
+                      });
+                    }}
+                    className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold rounded-lg text-sm"
+                  >
+                    + Add New Section
+                  </button>
+                </div>
+
+                <div className="space-y-6">
+                  {(!portfolioData.customSections || portfolioData.customSections.length === 0) ? (
+                    <p className="text-sm text-gray-400 italic text-center py-4">
+                      No custom sections created yet. Click "+ Add New Section" to create one!
+                    </p>
+                  ) : (
+                    portfolioData.customSections.map((sec, index) => (
+                      <div key={sec.id} className="bg-gray-750 border border-gray-700 p-5 rounded-xl space-y-4">
+                        <div className="flex justify-between items-center">
+                          <h3 className="font-bold text-white text-lg">Custom Section #{index + 1}</h3>
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setPortfolioData(prev => {
+                                  const newCustom = [...prev.customSections];
+                                  newCustom[index].enabled = !newCustom[index].enabled;
+                                  return { ...prev, customSections: newCustom };
+                                });
+                              }}
+                              className={`px-3 py-1 rounded text-xs font-bold ${sec.enabled !== false ? 'bg-emerald-600/80 text-emerald-100' : 'bg-gray-600 text-gray-400'}`}
+                            >
+                              {sec.enabled !== false ? '👁️ Active' : '🙈 Hidden'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setPortfolioData(prev => {
+                                  const newCustom = prev.customSections.filter((_, i) => i !== index);
+                                  return { ...prev, customSections: newCustom };
+                                });
+                              }}
+                              className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-xs font-semibold text-gray-300 mb-1">Section Title</label>
+                            <input
+                              type="text"
+                              value={sec.title}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setPortfolioData(prev => {
+                                  const newCustom = [...prev.customSections];
+                                  newCustom[index].title = val;
+                                  return { ...prev, customSections: newCustom };
+                                });
+                              }}
+                              className="w-full p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:outline-none"
+                              placeholder="e.g. Services / Research Projects"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-xs font-semibold text-gray-300 mb-1">Subtitle (Optional)</label>
+                            <input
+                              type="text"
+                              value={sec.subtitle || ''}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setPortfolioData(prev => {
+                                  const newCustom = [...prev.customSections];
+                                  newCustom[index].subtitle = val;
+                                  return { ...prev, customSections: newCustom };
+                                });
+                              }}
+                              className="w-full p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white focus:outline-none"
+                              placeholder="e.g. What I offer to clients"
+                            />
+                          </div>
+                          <div className="md:col-span-2">
+                            <label className="block text-xs font-semibold text-gray-300 mb-1">Section Content / Description</label>
+                            <textarea
+                              value={sec.content}
+                              onChange={(e) => {
+                                const val = e.target.value;
+                                setPortfolioData(prev => {
+                                  const newCustom = [...prev.customSections];
+                                  newCustom[index].content = val;
+                                  return { ...prev, customSections: newCustom };
+                                });
+                              }}
+                              className="w-full p-2.5 bg-gray-700 border border-gray-600 rounded-lg text-sm text-white h-28 focus:outline-none"
+                              placeholder="Type details about this section..."
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Profile Tab */}
           {activeTab === 'profile' && (
             <div className="space-y-4">
@@ -521,23 +839,116 @@ function AdminDashboard() {
                     className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
-                <div className="col-span-2">
-                  <label className="block mb-2 text-sm md:text-base font-medium">Education Text</label>
-                  <textarea
-                    value={portfolioData.profile.education}
-                    onChange={(e) => handleInputChange('profile', 'education', e.target.value)}
-                    className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg h-24 focus:border-cyan-500 focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm md:text-base font-medium">Profile Image URL</label>
+                <div className="col-span-2 md:col-span-1">
+                  <label className="block mb-2 text-sm md:text-base font-medium">Default Profile Image URL</label>
                   <input
                     type="text"
                     value={portfolioData.profile.profileImage}
                     onChange={(e) => handleInputChange('profile', 'profileImage', e.target.value)}
                     className="w-full p-2 md:p-3 text-sm md:text-base bg-gray-800 border border-gray-700 rounded-lg focus:border-cyan-500 focus:outline-none"
-                    placeholder="/pro.png"
+                    placeholder="/pro.png or Google Drive link"
                   />
+                  <p className="text-xs text-gray-500 mt-1">Supports Google Drive links, local paths, and external image URLs</p>
+                </div>
+
+                {/* Multiple Profile Images Manager */}
+                <div className="col-span-2 bg-gray-800 border border-gray-700 p-4 rounded-xl space-y-4 my-2">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="text-base md:text-lg font-bold text-cyan-400">🖼️ Multiple Profile Images (Slideshow / Hide/Unhide)</h3>
+                      <p className="text-xs text-gray-400 mt-1">
+                        Add multiple images for an auto-switching profile slideshow. Click Active/Hidden to show/hide images.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPortfolioData(prev => {
+                          const currentImages = (prev.profile.profileImages || []).length > 0 
+                            ? prev.profile.profileImages 
+                            : [{ id: 1, url: prev.profile.profileImage || '/pro.png', enabled: true }];
+                          const newImages = [...currentImages, { id: Date.now(), url: '', enabled: true }];
+                          return {
+                            ...prev,
+                            profile: {
+                              ...prev.profile,
+                              profileImages: newImages
+                            }
+                          };
+                        });
+                      }}
+                      className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-700 rounded-lg text-xs font-semibold whitespace-nowrap"
+                    >
+                      + Add Image
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {((portfolioData.profile.profileImages && portfolioData.profile.profileImages.length > 0) 
+                      ? portfolioData.profile.profileImages 
+                      : [{ id: 1, url: portfolioData.profile.profileImage || '/pro.png', enabled: true }]).map((imgObj, idx) => (
+                      <div key={imgObj.id || idx} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 bg-gray-750 p-2.5 rounded-lg border border-gray-700">
+                        <span className="text-xs text-gray-400 font-mono hidden sm:inline">#{idx + 1}</span>
+                        <input
+                          type="text"
+                          value={typeof imgObj === 'string' ? imgObj : imgObj.url}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setPortfolioData(prev => {
+                              const images = [...(prev.profile.profileImages || [{ id: 1, url: prev.profile.profileImage, enabled: true }])];
+                              images[idx] = typeof images[idx] === 'object' ? { ...images[idx], url: val } : { id: Date.now(), url: val, enabled: true };
+                              return {
+                                ...prev,
+                                profile: {
+                                  ...prev.profile,
+                                  profileImage: idx === 0 ? val : prev.profile.profileImage,
+                                  profileImages: images
+                                }
+                              };
+                            });
+                          }}
+                          className="flex-1 p-2 bg-gray-700 border border-gray-600 rounded text-sm text-white focus:outline-none"
+                          placeholder="/pro.png or Google Drive link"
+                        />
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPortfolioData(prev => {
+                                const images = [...(prev.profile.profileImages || [])];
+                                const cur = images[idx];
+                                const isEnabled = typeof cur === 'object' ? cur.enabled !== false : true;
+                                images[idx] = typeof cur === 'object' ? { ...cur, enabled: !isEnabled } : { id: Date.now(), url: cur, enabled: false };
+                                return {
+                                  ...prev,
+                                  profile: { ...prev.profile, profileImages: images }
+                                };
+                              });
+                            }}
+                            className={`px-3 py-1.5 rounded text-xs font-bold ${ (typeof imgObj === 'object' ? imgObj.enabled !== false : true) ? 'bg-emerald-600/80 text-emerald-100' : 'bg-gray-600 text-gray-400'}`}
+                            title="Toggle Hide / Unhide"
+                          >
+                            {(typeof imgObj === 'object' ? imgObj.enabled !== false : true) ? '👁️ Active' : '🙈 Hidden'}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPortfolioData(prev => {
+                                const images = (prev.profile.profileImages || []).filter((_, i) => i !== idx);
+                                return {
+                                  ...prev,
+                                  profile: { ...prev.profile, profileImages: images }
+                                };
+                              });
+                            }}
+                            className="px-2.5 py-1.5 bg-red-600/80 hover:bg-red-600 text-white rounded text-xs"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div>
                   <label className="block mb-2 text-sm md:text-base font-medium">GitHub URL</label>
