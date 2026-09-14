@@ -732,6 +732,24 @@
   ],
   "projects": [
     {
+      "id": 1789396796120,
+      "category": "mechanical",
+      "title": "Hydraulic Piston Pump Design",
+      "description": "Modeled and assembled a functional hydraulic piston pump in SolidWorks. Developed precise motion studies and animated sequences to demonstrate the mechanical integration of internal parts.",
+      "image": "https://drive.google.com/file/d/1fG-ejY824JjornGDf1ijUWv7mt8brRCJ/view?usp=sharing",
+      "tech": [
+        "SolidWorks",
+        "3D CAD",
+        "Mechanical Design",
+        "Motion Analysis"
+      ],
+      "github": "",
+      "live": "#",
+      "video": "https://drive.google.com/file/d/18nuRbWhIc_g7awLfOcEzzn8FwnEyTxKx/view?usp=sharing",
+      "date": "",
+      "categoryLabel": "CAD & Mechanical Design"
+    },
+    {
       "id": 1786734938977,
       "category": "automation",
       "title": "VFD Motor Control System",
