@@ -1344,8 +1344,8 @@
     {
       "id": 12,
       "category": "web",
-      "title": "Hotel Booking Website",
-      "description": "A full-featured hotel booking and management platform designed for both customers and hotel administrators. The system includes comprehensive room availability management, dynamic pricing algorithms, secure payment gateway integration, customer review and rating system, and advanced search filters. Features include responsive web design, real-time booking updates, email notifications, admin dashboard with analytics, inventory management, customer relationship management (CRM), multi-language support, and mobile-optimized interface for seamless user experience across all devices.",
+      "title": "Serandib Stay Hotel Booking Website",
+      "description": "A full-featured hotel booking and management platform designed for both customers and hotel administrators. The system includes comprehensive room availability management, dynamic pricing algorithms, secure payment gateway integration, customer review and rating system, and advanced search filters. Features include responsive web design, real-time booking updates, email notifications, admin dashboard with analytics, inventory management, customer relationship management (CRM), multi-language support, and mobile-optimized interface for seamless user experience across all devices.\n\nhttps://serandibstay.netlify.app/",
       "image": "/hotel.png",
       "tech": [
         "HTML5",
@@ -1364,9 +1364,10 @@
         "Security Implementation"
       ],
       "github": "https://github.com/nayanapabasara",
-      "live": "#",
+      "live": "https://serandibstay.netlify.app/",
       "date": "August 2023",
-      "categoryLabel": "WEB APPLICATION"
+      "categoryLabel": "WEB APPLICATION",
+      "video": "https://serandibstay.netlify.app/"
     },
     {
       "id": 13,
@@ -1382,7 +1383,7 @@
         "JWT Authentication"
       ],
       "github": "https://edusync-frontend-six.vercel.app/",
-      "live": "#https://edusync-frontend-six.vercel.app/",
+      "live": "https://edusync-frontend-six.vercel.app/",
       "date": "July 2023",
       "categoryLabel": "WEB APPLICATION"
     },
